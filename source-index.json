@@ -1,0 +1,21 @@
+{
+  "edition": "0.1 working",
+  "accessed": "2026-10-19",
+  "scope": "Public bibliography metadata, not redistributed manuals or a hardware qualification",
+  "sources": [
+    {"id":"TG-CORE","title":"Tinmans Tuning Guide 1.0.4","publisher":"William Tinney","url":"https://github.com/Tinman-FP/tinmans-tuning-guide/tree/be346beec61755bc8a1615569b64e94240567ff6","license":"CC BY 4.0"},
+    {"id":"OEM-MANUAL","title":"FibreSeeker 3 User Manual R1","publisher":"FibreSeek, public regulatory filing","url":"https://fccid.co/api/files/s2/fccids/2BVZ6-FIBRESEEKER3/files/6a1adb68_13_FibreSeeker_3_Users_Manual_R1.pdf","sections_reviewed":"1.2.3 and 3.3; printed pages 4 and 22"},
+    {"id":"OEM-SOFTWARE","title":"Rocket Slicer","publisher":"FibreSeek","url":"https://www.fibreseek3d.com/software.html"},
+    {"id":"OEM-SUPPORT","title":"Support","publisher":"FibreSeek","url":"https://www.fibreseek3d.com/support.html"},
+    {"id":"OEM-QUICKSTART","title":"Rocket Slicer Quick Start Guide","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/software/rocket-slicer/quick-start","page_updated":"2026-10-10"},
+    {"id":"OEM-140","title":"Rocket Slicer 1.4.0 - Sep 2026 Update","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/software/rocket-slicer/release-notes/rs-v140","page_updated":"2026-10-10"},
+    {"id":"OEM-141","title":"Hotfix 1.4.1 - Oct 2026 Update","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/software/rocket-slicer/release-notes/rs-v141","page_updated":"2026-10-16"},
+    {"id":"OEM-SPEC","title":"FibreSeeker 3 product specification","publisher":"FibreSeek US store","url":"https://usstore.fibreseek3d.com/products/fibreseeker-3"},
+    {"id":"OEM-SHELL","title":"Improving Shell Quality","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/poor-shell-quality","page_updated":"2026-10-10"},
+    {"id":"OEM-FIRST-LAYER","title":"First Print Failure","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/first-layer-print-failure","page_updated":"2026-10-10"},
+    {"id":"OEM-FIBRE-CAL","title":"Fibre Layer Defects","publisher":"FibreSeek Wiki","url":"https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/fibre-layer-defects","page_updated":"2026-10-10"},
+    {"id":"3DF-BASE","title":"Baseline Pro PCTG Settings for Printers Without a Profile","publisher":"3D-Fuel","url":"https://support.3dfuel.com/hc/en-us/articles/33676470547095-Baseline-Pro-PCTG-Settings-for-Printers-Without-a-Profile","page_updated":"2026-10-14"},
+    {"id":"3DF-DRY","title":"Drying and Storing Pro PCTG","publisher":"3D-Fuel","url":"https://support.3dfuel.com/hc/en-us/articles/44227409816727-Drying-and-Storing-Pro-PCTG","page_updated":"2026-10-14"},
+    {"id":"3DF-PA","title":"Pressure Advance: Why It Matters for Pro PCTG","publisher":"3D-Fuel","url":"https://support.3dfuel.com/hc/en-us/articles/44227435834135-Pressure-Advance-Why-It-Matters-for-Pro-PCTG","page_updated":"2026-10-14"}
+  ]
+}

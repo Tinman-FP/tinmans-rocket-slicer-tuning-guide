@@ -1,0 +1,176 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>04-reading-results</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../index.html">Search settings</a><a href="../guide/01-baseline-and-identity.html">Start here</a><a href="../tests/README.html">Test catalog</a><a href="../SOURCES.html">Sources</a></nav></header><main><h1 id="4-read-the-result-without-inventing-a-winner">4. Read the result without inventing a winner</h1>
+<p>Judge the physical specimen against a question and a control. A completed file,
+a glossy photograph or a higher final test value is not enough to release a
+profile.</p>
+<h2 id="make-comparisons-readable">Make comparisons readable</h2>
+<p>Let parts fully cool. Mark each sample with its actual tested value and tool.
+Photograph the same faces under diffuse light and then low-angle, glancing
+light. Include an overall view, the relevant feature and a label. Glossy plastic
+can hide channels in one direction and exaggerate ridges in another.</p>
+<p>For a flow coupon, touch the top carefully after cooling. For dimensions, zero
+the instrument, measure several places and retain the raw readings. Do not
+measure through a seam, corner bulge or bottom flare and call that the whole
+part's size. A tiny difference close to the instrument's uncertainty is not a
+defensible improvement.</p>
+<h2 id="appearance-is-a-clue-not-a-diagnosis">Appearance is a clue, not a diagnosis</h2>
+<table>
+<thead>
+<tr>
+<th>Observation</th>
+<th>Useful next check</th>
+<th>What not to assume</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Popping, pits, wisps or foamy roads</td>
+<td>Filament conditioning and a clean feed path</td>
+<td>That retraction is the only problem</td>
+</tr>
+<tr>
+<td>Walls thin only as requested flow rises</td>
+<td>Actual rate, temperature, feed grip and resistance</td>
+<td>That the global multiplier is necessarily low</td>
+</tr>
+<tr>
+<td>Broad top channels</td>
+<td>Supported top thickness, speed, width and flow</td>
+<td>That increasing flow fixes unsupported infill</td>
+</tr>
+<tr>
+<td>Raised top ridges or nozzle ploughing</td>
+<td>Excess deposit, lower-layer compression and path endings</td>
+<td>That every glossy highlight means excess flow</td>
+</tr>
+<tr>
+<td>Corner bulges or lean transitions</td>
+<td>Effective OEM pressure behaviour, speed and acceleration</td>
+<td>That the seam alone proves a PA value</td>
+</tr>
+<tr>
+<td>Sagging or broken bridge strands</td>
+<td>Anchors, bridge speed, flow and bridge-only cooling</td>
+<td>That the normal fan value tells the whole story</td>
+</tr>
+<tr>
+<td>Gaps immediately after travel</td>
+<td>Retraction/restart, pressure recovery and feed continuity</td>
+<td>That more retraction will help</td>
+</tr>
+<tr>
+<td>Repeating texture along steady walls</td>
+<td>Speed dependence, motion and hidden geometry</td>
+<td>That every vertical mark is ringing</td>
+</tr>
+<tr>
+<td>Periodic ripples fading after a corner</td>
+<td>Motion resonance and a controlled mechanical baseline</td>
+<td>That a flow change corrects resonance</td>
+</tr>
+<tr>
+<td>One axis long and the other short</td>
+<td>Multi-size XY measurements, orientation and mechanics</td>
+<td>That one shared scale value can correct both</td>
+</tr>
+<tr>
+<td>Polymer outside the hotend assembly</td>
+<td>Stop and record the first visible escape point</td>
+<td>That the guide has proved a pressure cause or a repair</td>
+</tr>
+</tbody>
+</table>
+<p>Change one causal variable after these checks. If no tested value looks good,
+reject the range or the baseline instead of choosing the least bad number and
+calling it tuned.</p>
+<h2 id="use-explicit-decisions-for-each-test">Use explicit decisions for each test</h2>
+<h3 id="temperature">Temperature</h3>
+<p>Require stable extrusion, usable detail and sufficient cooled adhesion at the
+intended rate. The most attractive low-speed surface can still be too cold for
+the intended throughput. If the best sample is at the supported test endpoint,
+record an unresolved boundary rather than an exact optimum.</p>
+<h3 id="maximum-volumetric-speed">Maximum volumetric speed</h3>
+<p>Look for the first sustained decline, not one isolated blemish. Select a
+working ceiling with margin below a repeatable decline. If all samples pass,
+the evidence establishes only the tested passing range. If a sample leaks,
+detaches, grinds or faults, stop; that is not a normal acceptable stress point.</p>
+<h3 id="pressure-advance">Pressure advance</h3>
+<p>Low pressure compensation can leave swollen transitions; excessive compensation
+can starve them. Read non-seam corners and representative motion conditions.
+These are generic interpretation rules, not proof that Rocket exposes a PA
+control. In this edition, no supported user-facing Rocket PA method was found;
+mark the stage unperformed rather than assigning a visually guessed value.</p>
+<h3 id="flow-multiplier">Flow multiplier</h3>
+<p>A useful top surface is continuous and reasonably even without broad open
+channels, repeated ploughing or wall buildup. Compare centre and boundary. If
+only endpoints are overfilled but the centre is correct, investigate the path
+and pressure transition before lowering global flow.</p>
+<h3 id="cooling-and-bridges">Cooling and bridges</h3>
+<p>Compare geometry and cooled adhesion together. A sharper bridge that causes
+weak layers elsewhere is not an unconditional improvement. Keep ordinary and
+bridge-only fan effects separate, and repeat in the intended chamber state.</p>
+<h3 id="dimensions">Dimensions</h3>
+<p>Keep signed errors: measured minus nominal. If several larger features show a
+proportionally larger error, investigate material scale. If different sizes
+share a nearly constant offset, investigate contour compensation. If only the
+bottom is enlarged, investigate first-layer and elephant-foot causes. Verify
+the actual Rocket field's convention before applying any correction.</p>
+<h3 id="seams-and-surfaces">Seams and surfaces</h3>
+<p>Separate the finish of one road from the start of the next. Use a repeatable
+location while diagnosing. Moving a defect to the back or spreading it around
+the model does not prove its cause is fixed. If cosmetic settings repeatedly
+move the same broad disturbance, return to tool/nozzle/profile identity.</p>
+<h2 id="printed-labels-and-requested-values-can-mislead">Printed labels and requested values can mislead</h2>
+<p>The embossed number on a borrowed model may describe its original test, not
+the output Rocket created. A model's height does not prove temperature, speed
+or PA changed at that height. Short segments may not reach requested speed,
+and a material cap may reduce it. Keep the actual saved field value and final
+output beside the specimen.</p>
+<p>Do not use a foreign 3MF's labels as the calibration schedule. For the fixed
+coupon method, label each specimen with the real constant value used for that
+Rocket slice.</p>
+<h2 id="separate-software-outcome-from-physical-outcome">Separate software outcome from physical outcome</h2>
+<table>
+<thead>
+<tr>
+<th>Recorded event</th>
+<th>What it establishes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Slice succeeded</td>
+<td>Rocket produced an output under its current configuration</td>
+</tr>
+<tr>
+<td>Send request returned</td>
+<td>A request was reported, not necessarily physical deposition</td>
+</tr>
+<tr>
+<td>Printer reports printing</td>
+<td>The controller reports an active job</td>
+</tr>
+<tr>
+<td>Printer reports complete</td>
+<td>The controller reached its completion condition</td>
+</tr>
+<tr>
+<td>Cooled sample inspected and measured</td>
+<td>Evidence about the actual physical result</td>
+</tr>
+</tbody>
+</table>
+<p>A timeout does not tell you whether a send or start succeeded. Inspect the
+printer's actual current job before any retry; do not create a duplicate start.
+A completed job with no filament deposited is not a successful material test.</p>
+<h2 id="classify-failed-starts-correctly">Classify failed starts correctly</h2>
+<p>Failed homing, probing, loading, plate retention, heating or tool preparation
+belong in the machine/workflow incident record. Keep them, but do not average
+them into the accepted material value. Record where observations became invalid.</p>
+<p>Historical Tinmans chapters include a retained-machine seam investigation that
+improved after correcting a mistaken nozzle/process baseline. Its lesson is
+to verify identity, not to copy its numbers. Older VFA and acceleration examples
+likewise demonstrate diagnostic reasoning, not new-unit motion limits.</p>
+<p>Proceed to <a href="05-records-and-profile-release.html">Records and Profile Release</a>
+when the result meets an explicit requirement and can be repeated.</p>
+<p><strong>Basis:</strong> [TG-CORE] chapters 02–09, 19 and 20; [ROCKET-LOCAL]. No photograph or
+case study in the source guide constitutes replacement-unit acceptance.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

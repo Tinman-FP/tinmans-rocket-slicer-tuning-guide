@@ -1,0 +1,124 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>05-records-and-profile-release</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../index.html">Search settings</a><a href="../guide/01-baseline-and-identity.html">Start here</a><a href="../tests/README.html">Test catalog</a><a href="../SOURCES.html">Sources</a></nav></header><main><h1 id="5-keep-records-and-release-the-right-profile">5. Keep records and release the right profile</h1>
+<p>A good profile must be repeatable by another person. Keep enough information
+to explain what was tested, what actually happened and where the accepted
+settings are stored.</p>
+<h2 id="give-every-experiment-one-record">Give every experiment one record</h2>
+<p>Use a dated record for each print or failed attempt. Include:</p>
+<ul>
+<li>nonsecret physical machine identity and the person performing the action;</li>
+<li>reason for the test and the one variable changed;</li>
+<li>actual tool, nozzle diameter/material, plate and hardware condition;</li>
+<li>plastic, matrix and fibre identities as applicable, including colour, lot,
+  drying, storage and actual loading state;</li>
+<li>Rocket and firmware versions, selected mode and material/profile revisions;</li>
+<li>all fixed temperatures, flow limits, multiplier, cooling and motion settings;</li>
+<li>geometry source, scale/orientation, project and final exported output;</li>
+<li>preview observations, intended target/job identity, start response and original
+  warning or error messages;</li>
+<li>first-layer, deposition, route/cut and end-of-job observations;</li>
+<li>photographs, raw measurements, final controller state and physical result;</li>
+<li>decision, uncertainty, next isolated test and rollback/reference location.</li>
+</ul>
+<p>Keep the final exported file, not just a screenshot or source project. If a
+checksum is recorded, a SHA-256 checksum identifies exact file bytes; it does
+not prove those bytes are appropriate for a printer. Do not publish connection
+addresses, credentials, serials, private configuration or support correspondence.</p>
+<h2 id="use-four-honest-status-labels">Use four honest status labels</h2>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Candidate</td>
+<td>A proposed or partially tested value; limitations remain</td>
+</tr>
+<tr>
+<td>Accepted for the stated test</td>
+<td>Repeated evidence supports a defined result, not necessarily an entire production profile</td>
+</tr>
+<tr>
+<td>Rejected</td>
+<td>Unsuitable, failed or invalid under the recorded conditions</td>
+</tr>
+<tr>
+<td>Superseded or retired</td>
+<td>Preserved history that is no longer the current recommended choice</td>
+</tr>
+</tbody>
+</table>
+<p>If the wrong nozzle, tool or inherited settings were used, label the test
+<strong>rejected — invalid baseline</strong>. Preserve any useful observations, but do not
+promote the numerical value to the intended setup.</p>
+<p>Factory calibration still in progress is not passed. A simulated send is not
+a physical print. A field not exposed by Rocket is not independently tuned.
+An unknown cause remains unknown until new evidence resolves it.</p>
+<h2 id="name-the-physical-scope-clearly">Name the physical scope clearly</h2>
+<p>The shop's naming standard separates status, physical machine, nozzle, material
+and revision. In a human-readable record, the pattern is:</p>
+<pre><code class="language-text">Filament: STATUS | Machine ID | Nozzle mm | Brand Product Material [variant] | rNN
+Process: STATUS | Machine ID | Nozzle mm | Brand Product Material [variant] | Layer mm Purpose | rNN
+</code></pre>
+<p>Use CANDIDATE until the required tests and representative validation pass for
+that exact combination. Use TUNED only when the record supports that scope.
+Include colour, formulation or another variant when it changes tuning. Do not
+substitute a model name for a physical unit when two printers share that model.</p>
+<p>Verify which characters and lengths the actual Rocket field accepts. A naming
+convention is not a compatibility guard: maintain the complete scope in the
+record and check the saved/reopened values even if the interface shortens a
+display label. Keep the generic or OEM parent untouched as a reference.</p>
+<h2 id="validate-a-representative-set">Validate a representative set</h2>
+<p>Before recommending a profile pair, confirm:</p>
+<ol>
+<li>A broad top surface and continuous walls without missing deposition.</li>
+<li>Multiple external dimensions, hole sizes and the intended functional fit.</li>
+<li>Representative overhangs, bridges, corners, curves and travel distances.</li>
+<li>The production layer height, wall strategy, speed, plate and chamber condition.</li>
+<li>Relevant layer adhesion or mechanical behaviour, with conditioning and loading
+   recorded, when the part has structural requirements.</li>
+<li>Complete loading/tool-change/cutting/ending behaviour for a composite job.</li>
+</ol>
+<p>Define pass/fail limits before printing. “No visible open top channels under
+normal inspection” is useful; “looks perfect in one photograph” is not. A small
+coupon does not prove a large footprint, a long print or a different nozzle.</p>
+<p>For this inspected Rocket version, independent PA tuning has no verified native
+method. State the preserved OEM behaviour and the unperformed stage. Do not
+claim an exhaustive material tune or universal operating envelope from the
+tests that are available.</p>
+<h2 id="confirm-persistence-in-a-clean-project">Confirm persistence in a clean project</h2>
+<p>Save the intended candidate material/profile pair, close or leave the test
+project, and reopen a clean project using those saved choices. Verify the
+physical unit and tool again; then slice representative geometry and compare
+the effective output. A temporary model override must not silently become the
+only place an accepted value exists.</p>
+<p>Promote the tested candidate rather than making an unrelated copy with guessed
+values. Record the recommended pair, revision, accepted stages, unsupported
+stages and date. Keep one clearly current recommendation for each scope;
+archive older generations recoverably outside ordinary active choices where
+Rocket supports that workflow. Do not delete stock parents, other machines'
+presets, dependencies or the only backup.</p>
+<h2 id="record-changes-with-warranty-conscious-precision">Record changes with warranty-conscious precision</h2>
+<p>For the new unit, preserve original photos, messages and exports, and append
+dated corrections rather than rewriting history. For every maintenance,
+update or configuration change, record the as-found state, exact before/after
+values, OEM versus unofficial procedure, reason, actor, result and rollback.
+If calibration had already started before capture, say so.</p>
+<p>Do not infer factory defect, warranty coverage, repair success or permission
+to modify the replacement from the retained unit's history. Keep sensitive
+identifiers and correspondence in private storage. A factual incident log is
+more useful than an unsupported causal conclusion.</p>
+<h2 id="recheck-after-meaningful-changes">Recheck after meaningful changes</h2>
+<p>Run a targeted confirmation after changing nozzle/hotend, material colour/lot,
+conditioning, temperatures, substantial cooling, firmware, Rocket version or
+tool mapping. Compare a known control before retuning several variables.</p>
+<p>The commissioning goal is repeatable representative Rocket operation. Only
+then revisit TinManX1. Do not make private beta release gates a prerequisite
+for using Rocket, and do not treat a Rocket commissioning result as TinManX1
+qualification.</p>
+<p><strong>Basis:</strong> [TG-CORE] chapters 00, 09 and 20 and its experiment/release templates;
+[NEW-UNIT-RECORD]; [ROCKET-LOCAL]. Original method: William Tinney, with Codex by
+OpenAI; CC BY 4.0. This is a separately titled Rocket adaptation, not an edit to
+the original guide or an OEM-endorsed publication.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

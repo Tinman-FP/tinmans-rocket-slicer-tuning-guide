@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SOURCES</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="index.html">Search settings</a><a href="guide/01-baseline-and-identity.html">Start here</a><a href="tests/README.html">Test catalog</a><a href="SOURCES.html">Sources</a></nav></header><main><h1 id="sources-and-edition-basis">Sources and edition basis</h1>
+<p>Source labels identify what supports a statement. They do not make every linked
+document applicable to every Rocket version or printer. Public web sources below
+were accessed on October 19, 2026. Dates marked “updated” are page dates, not proof
+of when a feature reached a particular installed build.</p>
+<h2 id="core-method-and-installed-software">Core method and installed software</h2>
+<ul>
+<li><a id="ref-tg-core"></a><strong>[TG-CORE]</strong> William Tinney, <em>Tinmans Tuning Guide</em>, edition 1.0.4,
+  October 19, 2026, source revision
+  <code>be346beec61755bc8a1615569b64e94240567ff6</code>.
+  <a href="https://github.com/Tinman-FP/tinmans-tuning-guide/tree/be346beec61755bc8a1615569b64e94240567ff6">Pinned source</a>.
+  The printer-neutral experimental method is adapted with attribution under
+  CC BY 4.0. Its Orca/Tinman controls are not evidence that Rocket has the same
+  controls. Third-party material retains its separate attribution and license.</li>
+<li><a id="ref-rocket-local"></a><strong>[ROCKET-LOCAL]</strong> Rocket <strong>1.4.0.705</strong>, installed-build field inventory.
+  Read-only inspection of bundled field definitions, labels and defaults can
+  establish what that build contains. A static definition alone does not prove
+  that a control is visible in every mode, that a saved value reaches G-code, or
+  that a printer executes it. Relevant observations belong in the field reference
+  with their visibility and validation limits.</li>
+<li><a id="ref-oem-manual"></a><strong>[OEM-MANUAL]</strong> Manufacturer-authored <a href="https://fccid.co/api/files/s2/fccids/2BVZ6-FIBRESEEKER3/files/6a1adb68_13_FibreSeeker_3_Users_Manual_R1.pdf">FibreSeeker 3 User Manual R1</a>,
+  publicly filed copy, 34 pages. Section1.2.3, printed page4/PDF page7 identifies
+  separate matrix, fiber and FFF paths; section3.3, printed page22/PDF page25 gives
+  the material-loading order. Those pages were text-checked and visually reviewed
+  for this edition. Apply the manual only where it matches current tooling/firmware.
+  The manual and its diagrams are linked, not redistributed.</li>
+<li><a id="ref-new-unit-record"></a><strong>[NEW-UNIT-RECORD]</strong> Owner's private current-unit evidence. This label is used
+  only for explicitly identified local observations, not general Rocket behavior
+  or public instructions. It does not publish unit identifiers, firmware dumps,
+  connection details or account information, and it does not transfer results
+  from an earlier machine.</li>
+<li><a id="ref-rocket-history"></a><strong>[ROCKET-HISTORY]</strong> William Tinney's historical, version-specific Rocket export
+  comparisons and machine observations. These support explicitly bounded examples,
+  not generic tool routing or new-machine tuning. Raw exports, embedded session data
+  and private machine records are not distributed. Their prior experimental limits
+  are not manufacturer ratings.</li>
+</ul>
+<h2 id="fibreseek-primary-sources">FibreSeek primary sources</h2>
+<ul>
+<li><a id="ref-oem-software"></a><strong>[OEM-SOFTWARE]</strong> <a href="https://www.fibreseek3d.com/software.html">Rocket Slicer software page</a>.
+  Undated. Official product name and download entry points; unversioned download
+  links do not identify build 705.</li>
+<li><a id="ref-oem-support"></a><strong>[OEM-SUPPORT]</strong> <a href="https://www.fibreseek3d.com/support.html">FibreSeek Support</a>.
+  Undated. Links the official wiki and video channel. A linked video is not
+  treated as reviewed instruction when no transcript or viewing evidence exists.</li>
+<li><a id="ref-oem-quickstart"></a><strong>[OEM-QUICKSTART]</strong> <a href="https://wiki.fibreseek3d.com/en/software/rocket-slicer/quick-start">Rocket Slicer Quick Start Guide</a>.
+  Created July 30; updated October 10, 2026. Sections on modes, masks, layups,
+  template copying, connection and preview. Not a complete build-specific field
+  dictionary.</li>
+<li><a id="ref-oem-140"></a><strong>[OEM-140]</strong> <a href="https://wiki.fibreseek3d.com/en/software/rocket-slicer/release-notes/rs-v140">Rocket Slicer 1.4.0 release notes</a>.
+  Titled September 2026 update; page updated October 10, 2026. Some preview work
+  is explicitly described as pending merge or validation. No 705 suffix is given.</li>
+<li><a id="ref-oem-141"></a><strong>[OEM-141]</strong> <a href="https://wiki.fibreseek3d.com/en/software/rocket-slicer/release-notes/rs-v141">Rocket Slicer 1.4.1 release notes</a>.
+  Created and updated October 16, 2026. Later-version changes only; not proof of
+  installed 1.4.0.705 behavior.</li>
+<li><a id="ref-oem-spec"></a><strong>[OEM-SPEC]</strong> <a href="https://usstore.fibreseek3d.com/products/fibreseeker-3">FibreSeeker 3 product specification</a>.
+  Undated. Manufacturer hardware specifications, not measured capabilities of a
+  particular unit. The store's older “Aura” software name is not used as Rocket
+  version evidence.</li>
+<li><a id="ref-oem-shell"></a><strong>[OEM-SHELL]</strong> <a href="https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/poor-shell-quality">Improving Shell Quality</a>.
+  Created August 24; updated October 10, 2026. The page's 0.4 mm/PETG examples
+  must not become universal 0.7 mm or PCTG defaults.</li>
+<li><a id="ref-oem-first-layer"></a><strong>[OEM-FIRST-LAYER]</strong> <a href="https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/first-layer-print-failure">First Print Failure</a>.
+  Created August 14; updated October 10, 2026. First-layer troubleshooting,
+  including separate checks for adhesion, temperature and nozzle gap.</li>
+<li><a id="ref-oem-fibre-cal"></a><strong>[OEM-FIBRE-CAL]</strong> <a href="https://wiki.fibreseek3d.com/en/printers/FibreSeeker3/troubleshooting/fibre-layer-defects">Fibre Layer Defects</a>.
+  Created September 18; updated October 10, 2026. Includes touchscreen fibre-feed
+  calibration; this is not a Rocket plastic-flow test generator.</li>
+</ul>
+<h2 id="material-manufacturer-sources">Material-manufacturer sources</h2>
+<p>These sources concern <strong>3D-Fuel Pro PCTG</strong>. They do not establish a
+FibreSeek-specific preset, CFC compatibility or the identity of an unverified spool.</p>
+<ul>
+<li><a id="ref-3df-base"></a><strong>[3DF-BASE]</strong> <a href="https://support.3dfuel.com/hc/en-us/articles/33676470547095-Baseline-Pro-PCTG-Settings-for-Printers-Without-a-Profile">Baseline Pro PCTG Settings for Printers Without a Profile</a>.
+  Updated October 14, 2026. Vendor starting guidance, not a tuned Rocket profile.</li>
+<li><a id="ref-3df-dry"></a><strong>[3DF-DRY]</strong> <a href="https://support.3dfuel.com/hc/en-us/articles/44227409816727-Drying-and-Storing-Pro-PCTG">Drying and Storing Pro PCTG</a>.
+  Updated October 14, 2026. Material conditioning and storage guidance.</li>
+<li><a id="ref-3df-pa"></a><strong>[3DF-PA]</strong> <a href="https://support.3dfuel.com/hc/en-us/articles/44227435834135-Pressure-Advance-Why-It-Matters-for-Pro-PCTG">Pressure Advance: Why It Matters for Pro PCTG</a>.
+  Updated October 14, 2026. Explains the material's pressure response; it does
+  not document a Rocket pressure-advance control or numerical range.</li>
+</ul>
+<p>The <a href="source-index.json">structured publication source index</a> records public links, dates and sections;
+private research artifacts are not part of the public download. It is an index,
+not a replacement manual.
+See <a href="guide/07-versions-and-evidence.html">Versions and evidence</a> before transferring
+a setting, test or result between editions.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

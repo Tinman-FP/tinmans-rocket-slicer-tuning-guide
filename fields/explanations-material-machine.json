@@ -1,0 +1,1269 @@
+{
+  "schema": "rocket-field-explanations.v1",
+  "fields": {
+    "action-mask-rule:maskType": {
+      "meaning": "Chooses what a modifier or mask region is intended to affect. A mask is an auxiliary region, not automatically a printable part.",
+      "when_to_change": "When deliberately restricting support or applying a documented regional modifier, not during a basic material comparison.",
+      "effect": "Changing the class can change which toolpaths are permitted in the region. It does not simply change the colour of the region.",
+      "interactions": ["Mask placement and intersections", "Support generation and regional settings"],
+      "caution": "Internal-mask versus full-mask coverage is not established by these labels; inspect the resulting preview. The option names below are source labels, not a live visibility guarantee.",
+      "options": [
+        {"label": "Support blocker", "meaning": "A region intended to prevent support generation where it intersects. It does not make an unsupported overhang printable without support."},
+        {"label": "Support enforcer", "meaning": "A region intended to request support. Other support eligibility and geometry rules may still matter; verify the preview rather than assuming support appears everywhere."},
+        {"label": "Internal mask", "meaning": "Selects the internal-mask class. The precise roles and boundary treatment affected are unresolved in this survey; do not assume it cuts a cavity or changes a tool."},
+        {"label": "Full mask", "meaning": "Selects the full-mask class. Its exact difference from internal mask is not verified; do not assume it removes the model or applies every setting throughout it."}
+      ],
+      "status": "Schema-backed selector; partly interpreted; mask-class details unverified."
+    },
+    "action-mask-rule:name": {
+      "meaning": "Identifies this mask rule so a person can distinguish its purpose from other modifiers.",
+      "when_to_change": "When naming or revising a rule, using a description such as the region and intended support action.",
+      "effect": "A clearer name improves traceability; the name alone is not evidence that the mask has the intended geometry or settings.",
+      "interactions": ["Mask type", "Saved project identity"],
+      "caution": "The editor control type was not resolved. Do not infer an automatic operation from a descriptive name.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:bedTemperature": {
+      "meaning": "The requested build-plate temperature for normal composite printing, in degrees Celsius.",
+      "when_to_change": "During a controlled adhesion or thermal-management comparison for the approved matrix/fibre pair and actual plate.",
+      "effect": "Higher can improve adhesion but increase bottom deformation and heat exposure; lower may reduce those effects but allow lifting.",
+      "interactions": ["First-layers bed temperature", "Plate preparation and chamber condition"],
+      "caution": "A temperature field is not a plate or material rating. Do not use bed heat to compensate for a loose plate or leaking hotend.",
+      "options": [], "status": "Functional interpretation; physical result unvalidated."
+    },
+    "composite-settings:bedTemperatureOnFLs": {
+      "meaning": "The build-plate temperature requested during the initial-layer stage of the composite material.",
+      "when_to_change": "Only after first-layer geometry and plate preparation are correct, when comparing initial adhesion.",
+      "effect": "More initial heat may help attachment but can enlarge or soften bottom features. Less may reduce flare but weaken attachment.",
+      "interactions": ["Normal bed temperature", "Initial-layer stage and nozzle-to-plate relationship"],
+      "caution": "The exact transition trigger must be checked in output; do not assume this follows the fan-height or nozzle-temperature-height field identically.",
+      "options": [], "status": "Label-based thermal interpretation; transition details unverified."
+    },
+    "composite-settings:chamberTemperature": {
+      "meaning": "The requested chamber temperature for the composite material, where the machine supports active chamber heating.",
+      "when_to_change": "When qualifying the approved material pair's enclosure conditions, within current machine and material guidance.",
+      "effect": "A warmer environment can reduce thermal contraction but may worsen small details, feed-path heat exposure or cooling balance.",
+      "interactions": ["Heated-chamber capability and index", "Exhaust and part cooling"],
+      "caution": "Entering a target does not prove a chamber heater exists, its sensor is correct or the target was reached. Never change hardware capability flags to force heating.",
+      "options": [], "status": "Functional interpretation; hardware operation not tested."
+    },
+    "composite-settings:color": {
+      "meaning": "The colour assigned to the composite material's on-screen representation.",
+      "when_to_change": "To make the selected material identifiable and keep the visual record consistent with the intended spool.",
+      "effect": "Changes the representation; it does not dye the part, load a fibre or prove which physical spool is installed.",
+      "interactions": ["Material name", "Preview and physical spool record"],
+      "caution": "Colour additives can affect real tuning, but changing this swatch does not retune temperature or flow.",
+      "options": [], "status": "Presentation interpretation; no physical qualification."
+    },
+    "composite-settings:costPerSpool": {
+      "meaning": "Purchase cost for one continuous-fibre spool, in the application's selected currency.",
+      "when_to_change": "When recording a different price or spool product for cost reporting.",
+      "effect": "Can change estimated material cost. A higher entered price is not stronger or faster fibre.",
+      "interactions": ["Fibre spool length", "Estimated fibre consumption"],
+      "caution": "The currency placeholder in the source label is dynamic. Cost metadata is not proof of loaded material or route eligibility.",
+      "options": [], "status": "Accounting interpretation; exact costing formula unverified."
+    },
+    "composite-settings:description": {
+      "meaning": "Free-form notes about this composite-material definition.",
+      "when_to_change": "To record pair compatibility, conditioning, test status, limitations and evidence references.",
+      "effect": "Improves the human record; notes do not enforce the settings they describe.",
+      "interactions": ["Material revision", "External tuning and loading record"],
+      "caution": "Do not place credentials, private identifiers or unsupported TUNED claims in exported notes.",
+      "options": [], "status": "Schema-backed notes field; not an enforcement mechanism."
+    },
+    "composite-settings:enablePreheat": {
+      "meaning": "Enables the composite material's separate nozzle-preheat behaviour.",
+      "when_to_change": "Only when the supported OEM preparation sequence calls for a separate preheat stage.",
+      "effect": "Enabling may request the configured preheat temperature before printing; disabling does not itself prove the nozzle stays cold.",
+      "interactions": ["Extruder preheat temperature", "Printer preparation and standby routines"],
+      "caution": "Do not disable preparation requirements to bypass a loading problem. Actual timing and waits must be checked in the supported workflow.",
+      "options": [], "status": "Label-based switch interpretation; lifecycle timing unverified."
+    },
+    "composite-settings:enablePrintCooling": {
+      "meaning": "Allows the composite material's print-cooling schedule to control its assigned part-cooling fan.",
+      "when_to_change": "During a documented cooling comparison, not to silence an unidentified fan.",
+      "effect": "Enabling allows the configured initial and regular cooling requests; disabling does not prove every machine fan stops.",
+      "interactions": ["First-layers and regular fan speeds", "Composite tool fan mapping"],
+      "caution": "This is not authority to stop a protective hotend heatsink fan. Confirm the physical fan role before changing it.",
+      "options": [], "status": "Functional interpretation; fan routing requires hardware verification."
+    },
+    "composite-settings:extraLengthP": {
+      "meaning": "Additional matrix-plastic feed associated with unretraction, beyond restoring the ordinary retracted amount.",
+      "when_to_change": "Only after supported composite retraction is understood and repeated restarts show a genuine matrix shortage.",
+      "effect": "More can fill a lean restart but create a blob or excess pressure; less can reduce buildup but leave a gap.",
+      "interactions": ["Matrix retract length", "Unretract speed and temperature"],
+      "caution": "This is matrix plastic, not continuous-fibre length or a repair for leakage. Exact restart application must be checked in output.",
+      "options": [], "status": "Label-based material interpretation; restart algorithm unverified."
+    },
+    "composite-settings:extraLengthPOnToolChange": {
+      "meaning": "Additional matrix-plastic feed associated specifically with recovery after a tool change.",
+      "when_to_change": "When a verified tool-change test, rather than ordinary travel, shows a repeatable matrix restart deficit.",
+      "effect": "Increasing can improve an underfed return but add a blob; decreasing can reduce over-priming while risking starvation.",
+      "interactions": ["Tool-change retract length", "Standby temperature and before/after tool-change code"],
+      "caution": "Do not copy an ordinary plastic value here or use this to alter the continuous-fibre loading cycle.",
+      "options": [], "status": "Functional interpretation; complete tool lifecycle unvalidated."
+    },
+    "composite-settings:extrusionMultiplierP": {
+      "meaning": "Scales the matrix-plastic amount commanded for the composite material; it is separate from continuous-fibre feed.",
+      "when_to_change": "For a supported, controlled matrix-flow comparison with the approved pair and loading state held fixed.",
+      "effect": "Higher requests more matrix and may improve coverage or cause buildup; lower requests less and can leave a poorly wetted or underfilled route.",
+      "interactions": ["Plastic filament diameter", "Fibre route geometry, temperature and speed"],
+      "caution": "A multiplier is not a safe pressure limit or proof that empty-fibre operation is supported. Do not infer a fibre percentage from it.",
+      "options": [], "status": "Functional interpretation; actual composite deposition unvalidated."
+    },
+    "composite-settings:extrusionSpeedF": {
+      "meaning": "Fibre-feed speed in the composite material's restart settings, measured as strand length per second.",
+      "when_to_change": "Only under a supported composite restart procedure after the physical path and loading state are proven.",
+      "effect": "A faster feed changes the restart's delivery rate; it is not necessarily the speed of every reinforced model route.",
+      "interactions": ["Fibre restart length", "Restart lift, pause and matrix delivery"],
+      "caution": "Do not treat this as ordinary plastic print speed. Excessive strand feeding can buckle, tangle or misplace fibre; exact scheduling is unverified.",
+      "options": [], "status": "Restart-context interpretation; exact execution unverified."
+    },
+    "composite-settings:extrusionSpeedP": {
+      "meaning": "The speed used to restore retracted matrix plastic, not the toolhead's model-printing speed.",
+      "when_to_change": "After distance is stable, if supported matrix restart tests show a speed-related gap or surge.",
+      "effect": "Faster restoration can recover pressure sooner but demand more from the feed system; slower may reduce the surge but delay recovery.",
+      "interactions": ["Matrix retract length and extra unretract", "Nozzle temperature and tool-change preparation"],
+      "caution": "Do not copy ordinary FFF unretract settings to this path without an approved composite comparison.",
+      "options": [], "status": "Label-based retraction interpretation; physical response unvalidated."
+    },
+    "composite-settings:fiberDiameter": {
+      "meaning": "The stated diameter of the continuous-fibre strand, not the composite nozzle diameter.",
+      "when_to_change": "When accurately defining a different supported fibre product using its specification or reliable measurement.",
+      "effect": "May affect material calculations or compatibility assumptions. It does not physically resize the guide or nozzle.",
+      "interactions": ["Fibre product and linear density", "Composite hardware and route definition"],
+      "caution": "Do not falsify the diameter to change feed or force an unsupported strand through the system; exact downstream use is unverified.",
+      "options": [], "status": "Material-definition interpretation; downstream calculation unverified."
+    },
+    "composite-settings:fiberManufacturer": {
+      "meaning": "Identifies who supplies the continuous fibre in this pair.",
+      "when_to_change": "When creating the record for the actual fibre product or correcting inaccurate identification.",
+      "effect": "Distinguishes supply sources; changing the text alone does not change the actual strand or qualify compatibility.",
+      "interactions": ["Fibre name and type", "Lot and loading record"],
+      "caution": "Control type is unresolved. A matching manufacturer name is not proof of equivalent sizing, treatment or performance.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:fiberName": {
+      "meaning": "The product name identifying the continuous-fibre component.",
+      "when_to_change": "To match the real spool and retain a distinct record when the product changes.",
+      "effect": "Improves identification but does not load fibre, change the cut cycle or transfer another product's tune.",
+      "interactions": ["Manufacturer and fibre type", "Compatible matrix and physical spool"],
+      "caution": "The form type is unresolved. Do not assume renaming creates a newly compatible material.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:fiberSpoolLength": {
+      "meaning": "The total continuous-fibre length per spool, with the schema expressing this quantity in kilometres.",
+      "when_to_change": "For a different supported spool size or accurate inventory and cost estimates.",
+      "effect": "Can change reported available quantity or cost per length. It is not the commanded amount for one route.",
+      "interactions": ["Fibre spool cost", "Linear density and consumption estimate"],
+      "caution": "Do not enter metres as kilometres. A remaining-length estimate is not a physical loading or runout check.",
+      "options": [], "status": "Inventory interpretation; exact accounting behaviour unverified."
+    },
+    "composite-settings:fiberType": {
+      "meaning": "Describes the kind of continuous reinforcement used in the pair.",
+      "when_to_change": "Only to identify the actual approved fibre family/product, not to obtain another route by relabelling it.",
+      "effect": "May participate in material categorisation; the exact dispatch or compatibility effect is not established by the label.",
+      "interactions": ["Fibre product, diameter and matrix pairing", "Composite hardware compatibility"],
+      "caution": "Control type and available choices are unresolved. Do not substitute chopped-fibre plastic for a continuous-fibre type.",
+      "options": [], "status": "Metadata/function boundary unresolved; no compatibility qualification."
+    },
+    "composite-settings:finishIroningDistance": {
+      "meaning": "A distance in the composite restart/finish settings associated with ironing or pressing a route end.",
+      "when_to_change": "Only during an OEM-supported composite end/restart investigation with the route and loading state fixed.",
+      "effect": "A longer distance can extend end treatment; a shorter one can leave less treatment. Exact path, timing and feed behaviour are not established here.",
+      "interactions": ["Cut distance and route tail", "Restart lift, pause and material temperature"],
+      "caution": "This is not ordinary top-surface ironing. Do not use it to hide a failed cut or mechanically loose hotend.",
+      "options": [], "status": "Label/context interpretation; exact finishing algorithm unresolved."
+    },
+    "composite-settings:firstLayersFanHeight": {
+      "meaning": "The height in millimetres over which the composite initial-layer fan setting is intended to apply.",
+      "when_to_change": "When isolating early-layer cooling after adhesion and the supported composite baseline are reliable.",
+      "effect": "A greater height keeps the initial cooling condition over more of the part; it does not mean that many numbered layers.",
+      "interactions": ["Initial fan speed", "Layer height and regular fan speed"],
+      "caution": "Check the transition in output; rounding to layers and boundary inclusion are not verified. Do not confuse this with initial nozzle-temperature height.",
+      "options": [], "status": "Height-based interpretation; boundary details unverified."
+    },
+    "composite-settings:firstLayersFanSpeed": {
+      "meaning": "The requested part-cooling percentage during the composite initial cooling stage.",
+      "when_to_change": "For an early-layer adhesion/curl comparison while preserving the correct fan mapping.",
+      "effect": "More cooling can sharpen edges but weaken attachment or bonding; less retains heat but may permit curling or soft features.",
+      "interactions": ["Initial fan height", "Plate, chamber and regular cooling"],
+      "caution": "A percentage is not measured airflow. This must not be confused with a hotend-protection fan.",
+      "options": [], "status": "Functional interpretation; airflow and physical result unvalidated."
+    },
+    "composite-settings:firstLayersHeight": {
+      "meaning": "The height in millimetres associated with using the composite initial-layer nozzle temperature.",
+      "when_to_change": "When comparing how long the initial thermal condition should persist after a reliable first layer.",
+      "effect": "Increasing extends that condition in height; decreasing switches toward normal printing temperature sooner.",
+      "interactions": ["Initial and normal nozzle temperatures", "Layer height and heat history"],
+      "caution": "This is a height, not a layer count. Verify the actual temperature transition and do not infer a separate bed/fan transition from it.",
+      "options": [], "status": "Label-based thermal-stage interpretation; boundary details unverified."
+    },
+    "composite-settings:linearDensity": {
+      "meaning": "Fibre mass per length, expressed in tex: grams per 1,000 metres of strand.",
+      "when_to_change": "When defining a supported fibre product from its actual specification.",
+      "effect": "Changes the relationship between fibre length and estimated mass; it is not ordinary plastic density or a feed-speed percentage.",
+      "interactions": ["Fibre length and mass estimates", "Fibre product and cost reporting"],
+      "caution": "Do not enter grams per metre or plastic density in this field. Its exact use outside accounting remains unverified.",
+      "options": [], "status": "Unit-defined material interpretation; downstream use unverified."
+    },
+    "composite-settings:name": {
+      "meaning": "The human-readable identity of the combined composite-material definition.",
+      "when_to_change": "When creating a separately scoped candidate or recording a revision for the real matrix/fibre pair.",
+      "effect": "Helps select the intended pair; the label alone does not change physical loading or enforce tool compatibility.",
+      "interactions": ["Matrix and fibre product identities", "Saved profile associations and revision record"],
+      "caution": "Control type and accepted name characters are unresolved here. Do not mark an unvalidated pair TUNED.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:plasticCostPerSpool": {
+      "meaning": "The purchase cost of the matrix-plastic spool, separate from the continuous-fibre spool.",
+      "when_to_change": "When the matrix price or supplied spool changes.",
+      "effect": "May change job-cost estimates without changing the amount of material printed.",
+      "interactions": ["Matrix spool weight", "Matrix consumption and fibre cost"],
+      "caution": "The currency is a dynamic application choice. Do not treat total composite cost as a strength or coverage measure.",
+      "options": [], "status": "Accounting interpretation; exact cost formula unverified."
+    },
+    "composite-settings:plasticDensity": {
+      "meaning": "The density recorded for the matrix plastic, distinct from fibre linear density.",
+      "when_to_change": "For an accurately identified supported matrix product using its specification and the displayed units.",
+      "effect": "Can affect mass/consumption calculations. A denser value does not by itself mean more commanded matrix flow.",
+      "interactions": ["Matrix material and consumption estimate", "Plastic diameter and cost reporting"],
+      "caution": "This form's unit was not resolved; verify it before entering a number. Do not adjust density as an extrusion-multiplier shortcut.",
+      "options": [], "status": "Material/accounting interpretation; unit and exact downstream effect unresolved."
+    },
+    "composite-settings:plasticDiameter": {
+      "meaning": "The diameter of the incoming matrix-plastic filament, not the output nozzle or reinforcement strand.",
+      "when_to_change": "When defining the actual supported filament or correcting a proven diameter-entry error.",
+      "effect": "Diameter can affect conversion between requested plastic volume and feed length. A larger entered diameter generally implies less length for the same volume; confirm actual implementation.",
+      "interactions": ["Matrix flow multiplier", "Physical feed path and material identity"],
+      "caution": "Do not alter this to compensate for a clog or tune flow by falsifying material dimensions.",
+      "options": [], "status": "Functional material interpretation; exact feed conversion unverified."
+    },
+    "composite-settings:plasticManufacturer": {
+      "meaning": "Identifies the manufacturer of the matrix plastic used with the continuous fibre.",
+      "when_to_change": "When documenting the actual product source or creating a distinct material candidate.",
+      "effect": "Improves traceability; it does not establish equivalent behaviour between brands.",
+      "interactions": ["Matrix name/type", "Approved fibre pairing and lot record"],
+      "caution": "Control type is unresolved. A matching base polymer is not proof of an approved matrix/fibre combination.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:plasticName": {
+      "meaning": "The product name of the matrix-plastic component, separate from the pair name and fibre name.",
+      "when_to_change": "To match the loaded matrix spool and distinguish formulation or colour variants.",
+      "effect": "Changes identification; a name change alone does not retune temperature or feed.",
+      "interactions": ["Matrix manufacturer/type", "Composite pair and loading record"],
+      "caution": "The form type is unresolved. Check the real spool instead of trusting a familiar label.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "composite-settings:plasticSpoolWeight": {
+      "meaning": "The matrix-plastic spool quantity recorded in grams for material accounting.",
+      "when_to_change": "When documenting a different supplied spool amount using Rocket's intended net/gross convention.",
+      "effect": "Can change cost or capacity estimates; it does not set the amount extruded on one route.",
+      "interactions": ["Matrix spool cost and density", "Estimated consumption"],
+      "caution": "Whether the application expects net filament mass or another spool convention is not established. Verify rather than including packaging weight by guess.",
+      "options": [], "status": "Accounting interpretation; net/gross convention unresolved."
+    },
+    "composite-settings:plasticType": {
+      "meaning": "Classifies the matrix plastic by material family.",
+      "when_to_change": "Only to accurately identify the supported loaded product, not to unlock another preset by relabelling it.",
+      "effect": "May influence categorisation or matching, but it does not prove the product's temperature, adhesion or fibre compatibility.",
+      "interactions": ["Matrix product and fibre pair", "Temperature and conditioning requirements"],
+      "caution": "Control type/choices and any automatic preset dispatch are unresolved. PCTG, PETG and nylon are not interchangeable because some properties are similar.",
+      "options": [], "status": "Metadata/dispatch interpretation; exact selection behaviour unresolved."
+    },
+    "composite-settings:primingLineHeight": {
+      "meaning": "The height associated with the composite priming line used during preparation.",
+      "when_to_change": "Only in a supported preparation calibration, after the physical tool/plate relationship is known.",
+      "effect": "A changed height alters how the preparation line is deposited or contacts the surface. The exact relationship to nozzle Z is not established here.",
+      "interactions": ["Tool Z calibration", "Priming geometry and material loading"],
+      "caution": "This is not a global first-layer correction. An incorrect preparation height can scrape or produce an unattached prime.",
+      "options": [], "status": "Preparation-height interpretation; exact motion semantics unverified."
+    },
+    "composite-settings:regularFanSpeed": {
+      "meaning": "The ordinary part-cooling percentage requested after the composite initial cooling stage.",
+      "when_to_change": "For a controlled comparison of route shape and matrix/fibre bonding under representative chamber conditions.",
+      "effect": "More cooling can improve shape but weaken bonding; less can improve heat retention while increasing softness or curl.",
+      "interactions": ["Initial cooling schedule", "Assigned fan, temperature and route speed"],
+      "caution": "Other feature or machine commands may override this request. It is not a measured airflow or hotend-heatsink setting.",
+      "options": [], "status": "Functional interpretation; effective fan lifecycle unvalidated."
+    },
+    "composite-settings:retractionLengthOnToolChange": {
+      "meaning": "The matrix-plastic withdrawal distance associated with changing away from its tool.",
+      "when_to_change": "Only when an approved tool-change comparison isolates ooze or restart problems in this matrix path.",
+      "effect": "More withdrawal may reduce ooze but delay recovery or disturb feeding; less may leave pressure and dripping.",
+      "interactions": ["Tool-change extra unretract", "Standby temperature and tool-change code"],
+      "caution": "This is not ordinary travel retraction, fibre withdrawal or a full unload. Do not substitute another tool's values.",
+      "options": [], "status": "Functional interpretation; composite lifecycle unvalidated."
+    },
+    "composite-settings:retractionLengthOnTravel": {
+      "meaning": "The matrix-plastic withdrawal distance associated with eligible non-printing travel.",
+      "when_to_change": "Only through a supported composite test after moisture, temperature and physical feeding are stable.",
+      "effect": "More may relieve pressure but worsen restart gaps or feed disturbance; less may reduce those disturbances while increasing ooze.",
+      "interactions": ["Retract and unretract speeds", "Extra matrix feed and route transitions"],
+      "caution": "Do not use ordinary FFF retraction assumptions for continuous-fibre preparation or cutting. Exact eligibility requires output review.",
+      "options": [], "status": "Functional interpretation; applicability and execution unverified."
+    },
+    "composite-settings:retractionSpeed": {
+      "meaning": "The speed of matrix-plastic withdrawal during supported retraction events.",
+      "when_to_change": "Only after a validated distance, when a supported experiment isolates withdrawal timing.",
+      "effect": "Faster can relieve pressure sooner but increase feed demands; slower may be gentler but allow more ooze time.",
+      "interactions": ["Matrix retract distance", "Unretract speed and hardware feed limits"],
+      "caution": "A UI value is not a motor or pressure rating. This does not set continuous-fibre speed.",
+      "options": [], "status": "Functional interpretation; hardware limits not established."
+    },
+    "composite-settings:temperatureOnFLs": {
+      "meaning": "The composite nozzle temperature requested during the initial printed height stage.",
+      "when_to_change": "For a controlled initial deposition/adhesion comparison within both product and machine limits.",
+      "effect": "Hotter can improve matrix wetting but increase ooze or degradation; cooler may sharpen features but weaken bonding or restrict flow.",
+      "interactions": ["First-layers temperature height", "Normal print temperature and loaded pair"],
+      "caution": "Do not copy an ordinary nozzle's accepted temperature as a composite acceptance result.",
+      "options": [], "status": "Functional interpretation; physical pair unvalidated."
+    },
+    "composite-settings:temperaturePreheat": {
+      "meaning": "The composite nozzle target associated with the enabled preheat stage.",
+      "when_to_change": "Only to follow the approved pair's supported preparation procedure.",
+      "effect": "A higher target adds preparation heat and may increase ooze; a lower target may reduce readiness or make feeding resistant.",
+      "interactions": ["Enable preheat", "Loading sequence, standby and printing temperatures"],
+      "caution": "Do not feed a composite path before the OEM sequence permits it. A preheat target is not the steady deposition temperature.",
+      "options": [], "status": "Thermal-stage interpretation; actual sequencing unverified."
+    },
+    "composite-settings:temperaturePrint": {
+      "meaning": "The requested composite-nozzle temperature during normal deposition of the selected matrix/fibre pair.",
+      "when_to_change": "During a controlled supported pair test, with flow, geometry and cooling fixed.",
+      "effect": "Hotter generally lowers matrix viscosity but can increase ooze/degradation; cooler can reduce ooze while worsening wetting or backpressure.",
+      "interactions": ["Matrix product, route speed and flow", "Initial/standby targets and chamber conditions"],
+      "caution": "The field does not certify a safe pressure or a dry/empty-fibre operation. Observe the supported loading and temperature limits.",
+      "options": [], "status": "Functional interpretation; physical tune not established."
+    },
+    "composite-settings:temperatureWait": {
+      "meaning": "The standby nozzle target while the composite tool waits rather than normally depositing.",
+      "when_to_change": "During a verified tool-change/idle comparison using the approved pair and OEM sequence.",
+      "effect": "Lower standby heat may reduce ooze but lengthen recovery or make material resistant; higher may improve readiness but prolong heat exposure.",
+      "interactions": ["Tool-change timing", "Preheat/print targets and loaded fibre"],
+      "caution": "Standby is not a universal unloading temperature or permission to leave a stationary fibre in a hot tool indefinitely.",
+      "options": [], "status": "Functional interpretation; idle lifecycle unvalidated."
+    },
+    "composite-settings:version": {
+      "meaning": "A version value attached to this composite-material definition.",
+      "when_to_change": "Only according to the supported preset-management/versioning convention.",
+      "effect": "May affect record comparison or migration; increasing it is not a material-quality improvement.",
+      "interactions": ["Preset saving/import", "Parent and application version compatibility"],
+      "caution": "The exact version semantics are unresolved. Do not use this alone as proof of a tuned revision or rename the application's version.",
+      "options": [], "status": "Version metadata interpretation; migration rules unresolved."
+    },
+    "composite-settings:zHopF": {
+      "meaning": "The Z lift associated with the composite fibre restart, expressed in millimetres.",
+      "when_to_change": "Only in an OEM-supported restart/contact investigation with known tool offsets and route geometry.",
+      "effect": "A larger lift changes clearance and the subsequent restart approach; a smaller lift reduces that clearance. Exact motion ordering is not established.",
+      "interactions": ["Restart pause and fibre feed", "Tool Z offsets and preparation contact"],
+      "caution": "This is not ordinary plastic travel Z-hop. An incorrect change can alter fibre placement or cause contact/collision.",
+      "options": [], "status": "Restart-motion interpretation; exact sequence unverified."
+    },
+    "composite-settings:zHopFPauseAdhesion": {
+      "meaning": "A pause, in seconds, associated with composite restart adhesion.",
+      "when_to_change": "Only while qualifying a supported restart sequence and a specific matrix/fibre pair.",
+      "effect": "More pause changes contact/heat dwell and print time; less reduces dwell but may weaken restart attachment. The exact paused motion phase is unverified.",
+      "interactions": ["Restart lift and strand feed", "Temperature, matrix delivery and contact geometry"],
+      "caution": "Do not extend dwell to hide a damaged or leaking nozzle. This is not a general minimum-layer-time cooling control.",
+      "options": [], "status": "Label/context interpretation; exact dwell location unverified."
+    },
+    "extruder-c-settings:cutCode": {
+      "meaning": "Executable G-code used for the composite cutter operation, not an explanatory note.",
+      "when_to_change": "Only for a documented OEM hardware/firmware change with the entire cut/restart sequence reviewed.",
+      "effect": "Different commands can move actuators, change tool state or feed material; a typo can invalidate a route or cause hardware contact.",
+      "interactions": ["Cutter hardware and cut distance", "Fibre restart and firmware macros"],
+      "caution": "Preserve the OEM code. Never paste a generic servo/cutter command or old-unit code here to tune a filament symptom.",
+      "options": [], "status": "Hardware executable hook; not validated for modification."
+    },
+    "extruder-c-settings:cutDistance": {
+      "meaning": "A composite-tool distance parameter associated with the cut and remaining route tail.",
+      "when_to_change": "Only after the actual cutter/feed geometry is measured through the supported hardware calibration procedure.",
+      "effect": "Changes can alter where cutting occurs relative to the route finish and how much strand remains. Exact sign and reference points are unverified here.",
+      "interactions": ["Cut G-code", "Fibre restart length and route-end treatment"],
+      "caution": "Do not assume this is blade travel or borrow a historical cut-distance number as a new-machine value.",
+      "options": [], "status": "Hardware-geometry interpretation; exact reference unresolved."
+    },
+    "extruder-c-settings:fanIndex": {
+      "meaning": "Identifies which firmware fan channel is associated with the composite tool's cooling.",
+      "when_to_change": "Only to match verified OEM wiring or a documented supported hardware change.",
+      "effect": "Changing the index can route the same percentage request to a different physical fan, not simply increase its speed.",
+      "interactions": ["Has cooling fan", "Firmware fan map and composite material cooling"],
+      "caution": "A wrong index may drive the wrong device or disable required cooling. Confirm actual channel mapping; do not guess from another printer.",
+      "options": [], "status": "Hardware mapping; must be independently verified."
+    },
+    "extruder-c-settings:fiberRestartLength": {
+      "meaning": "A hardware restart length for feeding continuous fibre back into the composite operation.",
+      "when_to_change": "Only through the supported fibre-path/cutter calibration for the actual installed assembly.",
+      "effect": "Too much can overfeed or buckle strand; too little can leave a restart short of the intended location.",
+      "interactions": ["Cut distance", "Restart feed speed, lift and pause"],
+      "caution": "Not an ordinary FFF retract/unretract length or a nozzle-diameter adjustment. Exact restart references must be established before editing.",
+      "options": [], "status": "Hardware restart interpretation; exact sequence unverified."
+    },
+    "extruder-c-settings:hasFan": {
+      "meaning": "Declares that the composite tool has an assigned controllable cooling fan.",
+      "when_to_change": "Only to match verified OEM tool hardware, not when comparing fan percentages.",
+      "effect": "The declaration can enable or suppress cooling output for that tool; it does not physically add a fan.",
+      "interactions": ["Cooling fan index", "Composite material cooling schedule"],
+      "caution": "Do not disable a hardware capability to hide a failed fan. Protective heatsink cooling must remain as specified by the manufacturer.",
+      "options": [], "status": "Hardware capability declaration; runtime effect unvalidated."
+    },
+    "extruder-c-settings:heatupSpeed": {
+      "meaning": "The composite tool's declared heating rate in degrees Celsius per second.",
+      "when_to_change": "Only when an OEM-supported hardware/timing calibration establishes the actual rate.",
+      "effect": "May affect heating-time prediction or scheduling. Entering a larger rate does not make the heater more powerful or prove faster heating is safe.",
+      "interactions": ["Preheat/standby scheduling", "Heater, sensor and firmware control"],
+      "caution": "Exact scheduling use is unverified. Do not alter this to conceal thermal faults or replace firmware temperature-control calibration.",
+      "options": [], "status": "Hardware timing parameter; exact algorithm unresolved."
+    },
+    "extruder-c-settings:name": {
+      "meaning": "The descriptive name for a composite-tool definition.",
+      "when_to_change": "Only when managing a clearly identified hardware definition or its documented revision.",
+      "effect": "Improves human selection; renaming does not change the physical tool, firmware number or loading path.",
+      "interactions": ["Printer tool associations", "Offsets, fan and cutter definition"],
+      "caution": "Control type is unresolved. A T0 or 0.7 label alone cannot qualify routing or installed nozzle identity.",
+      "options": [], "status": "Hardware metadata interpretation; control type unresolved."
+    },
+    "extruder-c-settings:offsetX": {
+      "meaning": "The composite tool's X positional offset relative to the machine/tool reference.",
+      "when_to_change": "Only during supported tool-alignment calibration for this physical machine.",
+      "effect": "Changes where this tool's output aligns relative to other tools; it is not whole-part shrinkage compensation.",
+      "interactions": ["Other tool offsets", "Firmware coordinate transforms and physical alignment"],
+      "caution": "Positive/negative application convention is not established here. A wrong offset can misregister material or cause a collision; preserve the OEM baseline.",
+      "options": [], "status": "Hardware coordinate parameter; direction convention unverified."
+    },
+    "extruder-c-settings:offsetY": {
+      "meaning": "The composite tool's Y positional offset from its defined machine/tool reference.",
+      "when_to_change": "Only when a supported physical tool-alignment procedure demonstrates a Y mismatch.",
+      "effect": "Moves the tool's registration relative to other paths, not just a printed hole's diameter.",
+      "interactions": ["X/Z offsets", "Firmware transform and tool-change positioning"],
+      "caution": "Do not guess the sign or copy the retained machine's value. Verify the reference frame before any resulting motion.",
+      "options": [], "status": "Hardware coordinate parameter; direction convention unverified."
+    },
+    "extruder-c-settings:offsetZ": {
+      "meaning": "The composite tool's vertical relationship to the machine/tool reference.",
+      "when_to_change": "Only during supported tool-height/contact calibration after mechanical inspection.",
+      "effect": "Changes vertical registration/contact. An incorrect value can press the tool into the plate or leave deposition unattached.",
+      "interactions": ["Probe/contact calibration", "First-layer geometry and composite restart contact"],
+      "caution": "This is not a filament-flow adjustment. Sign and reference must be verified; do not repair a nozzle leak or bed defect by changing Z offset.",
+      "options": [], "status": "Hardware coordinate parameter; not qualified for casual editing."
+    },
+    "extruder-p-settings:fanIndex": {
+      "meaning": "The firmware fan channel associated with the ordinary plastic tool's cooling.",
+      "when_to_change": "Only to match independently verified OEM wiring or a supported tool change.",
+      "effect": "Selects a device channel; it is not a percentage or a fan power limit.",
+      "interactions": ["Has cooling fan", "Plastic material fan schedule and firmware mapping"],
+      "caution": "A wrong channel can command another fan or leave the intended fan off. Do not derive the index from the composite tool's name.",
+      "options": [], "status": "Hardware mapping; independent verification required."
+    },
+    "extruder-p-settings:hasFan": {
+      "meaning": "Declares that the ordinary plastic tool has a controllable cooling fan.",
+      "when_to_change": "Only when accurately defining supported installed hardware.",
+      "effect": "May govern whether material cooling commands are generated; toggling it does not repair or install a fan.",
+      "interactions": ["Fan index", "Enable print cooling and material schedule"],
+      "caution": "Do not use this declaration to bypass a cooling fault or disable protective hotend cooling.",
+      "options": [], "status": "Hardware capability declaration; actual output unvalidated."
+    },
+    "extruder-p-settings:heatupSpeed": {
+      "meaning": "The ordinary plastic tool's declared heating rate in degrees Celsius per second.",
+      "when_to_change": "Only following supported hardware timing/calibration evidence, not for each spool.",
+      "effect": "May change heating predictions or scheduling; a larger declared number does not change heater wattage or guarantee thermal readiness.",
+      "interactions": ["Preheat and standby targets", "Heater/sensor condition and firmware waits"],
+      "caution": "Do not falsify this to get past a thermal delay or fault. Exact use by the scheduler is not verified.",
+      "options": [], "status": "Hardware timing interpretation; exact algorithm unresolved."
+    },
+    "extruder-p-settings:name": {
+      "meaning": "The human-readable name of the ordinary plastic-tool definition.",
+      "when_to_change": "When maintaining a clearly scoped supported hardware definition or revision.",
+      "effect": "Helps identification; a renamed definition does not prove which physical hotend will execute the job.",
+      "interactions": ["Printer tool associations", "Nozzle diameter and offsets"],
+      "caution": "Control type is unresolved. Tool labels and firmware identifiers must still be matched to hardware.",
+      "options": [], "status": "Hardware metadata interpretation; control type unresolved."
+    },
+    "extruder-p-settings:nozzleDiameter": {
+      "meaning": "The declared outlet diameter of the installed ordinary plastic nozzle, in millimetres.",
+      "when_to_change": "After physically verifying a supported nozzle replacement or correcting a demonstrated wrong definition.",
+      "effect": "Can affect allowed/planned line geometry. Changing the number cannot make the installed opening larger or qualify an abrasive material.",
+      "interactions": ["Layer height and line widths", "Flow, physical nozzle wear and compatible profiles"],
+      "caution": "Never tune this as an extrusion multiplier. A wrong diameter invalidates downstream tests; keep separate nozzle-specific records.",
+      "options": [], "status": "Physical hardware declaration; installed size must be verified."
+    },
+    "extruder-p-settings:offsetX": {
+      "meaning": "The ordinary plastic tool's X alignment offset from the defined tool/machine reference.",
+      "when_to_change": "Only through supported physical tool-alignment calibration.",
+      "effect": "Changes registration of this tool relative to other tools, not material shrinkage or model scale.",
+      "interactions": ["Composite tool alignment", "Firmware/tool-change coordinate handling"],
+      "caution": "The sign convention is not established by the label. Incorrect offsets can misplace material or collide with machine fixtures.",
+      "options": [], "status": "Hardware coordinate parameter; direction convention unverified."
+    },
+    "extruder-p-settings:offsetY": {
+      "meaning": "The ordinary plastic tool's Y alignment offset relative to its reference.",
+      "when_to_change": "When a supported tool-alignment measurement establishes an actual Y offset error.",
+      "effect": "Changes where that tool registers in Y relative to other deposition and preparation operations.",
+      "interactions": ["X/Z offsets", "Firmware coordinate transforms and tool preparation"],
+      "caution": "Do not copy the other machine's value or guess the correction sign from a photograph.",
+      "options": [], "status": "Hardware coordinate parameter; exact transform unverified."
+    },
+    "extruder-p-settings:offsetZ": {
+      "meaning": "The ordinary plastic nozzle's vertical alignment relative to the selected machine/tool reference.",
+      "when_to_change": "Only during supported tool-height/probing calibration after checking physical hardware and plate seating.",
+      "effect": "An incorrect change can cause scraping or poor attachment even if the material multiplier is correct.",
+      "interactions": ["Probe and bed calibration", "First-layer height and physical plate"],
+      "caution": "Not a universal first-layer-flow fix. Verify the sign/reference and use the OEM calibration method, not trial nozzle contact.",
+      "options": [], "status": "Hardware coordinate parameter; not qualified for casual editing."
+    },
+    "plastic-settings:bedTemperature": {
+      "meaning": "The normal printing target for the build plate, in degrees Celsius.",
+      "when_to_change": "During a controlled adhesion/thermal comparison after plate preparation and first-layer geometry are reliable.",
+      "effect": "Higher can improve attachment but soften or enlarge the bottom; lower can reduce those effects but increase lifting.",
+      "interactions": ["Initial bed target", "Plate coating, adhesive and chamber condition"],
+      "caution": "Stay within both plate and material guidance. More bed heat is not a repair for contamination or a loose plate.",
+      "options": [], "status": "Functional interpretation; physical outcome unvalidated."
+    },
+    "plastic-settings:bedTemperatureOnFLs": {
+      "meaning": "The build-plate target during the initial-layer stage, separate from the normal bed target.",
+      "when_to_change": "For initial adhesion comparisons with the same plate, cleaning and nozzle-to-plate relationship.",
+      "effect": "More initial heat can improve wetting but increase bottom flare; less may sharpen the bottom while reducing attachment.",
+      "interactions": ["Normal bed target", "Initial nozzle temperature and first-layer geometry"],
+      "caution": "The exact stage transition must be confirmed; do not assume this uses the same trigger as every other first-layers field.",
+      "options": [], "status": "Thermal-stage interpretation; transition details unverified."
+    },
+    "plastic-settings:chamberTemperature": {
+      "meaning": "The requested chamber temperature for this plastic where active chamber heating is supported.",
+      "when_to_change": "When qualifying the material's enclosure conditions under current product and printer guidance.",
+      "effect": "Warmer conditions may reduce contraction and splitting but can worsen heat creep or small details; cooler can do the reverse.",
+      "interactions": ["Heated-chamber capability", "Exhaust, part cooling and ambient conditions"],
+      "caution": "A number in the profile does not prove the heater/sensor works or that the chamber reached it. Do not change hardware flags to force it.",
+      "options": [], "status": "Functional interpretation; actual chamber operation unvalidated."
+    },
+    "plastic-settings:coastAtEndLength": {
+      "meaning": "A length at the end of a plastic path associated with coasting: using remaining pressure instead of continuing ordinary feed.",
+      "when_to_change": "Only after baseline extrusion is stable and repeated line ends show a specific pressure-related buildup.",
+      "effect": "More coasting can reduce an end blob but leave a thin or open finish; less can restore the finish while leaving excess pressure.",
+      "interactions": ["Flow multiplier and effective pressure behaviour", "Wipe, retraction and seam placement"],
+      "caution": "It is not a substitute for supported PA calibration. The exact path-length convention and eligible features remain unverified.",
+      "options": [], "status": "Label-based coasting interpretation; exact planning unverified."
+    },
+    "plastic-settings:color": {
+      "meaning": "The colour used to represent this material in the application.",
+      "when_to_change": "To identify the intended spool visually and distinguish material candidates.",
+      "effect": "Changes a swatch/representation, not physical filament colour, loading or tuning.",
+      "interactions": ["Material name", "Preview and spool identification"],
+      "caution": "Real colour variants can need different tuning. A changed swatch is not validation of a different formulation.",
+      "options": [], "status": "Presentation interpretation; not physical evidence."
+    },
+    "plastic-settings:costPerSpool": {
+      "meaning": "Purchase price for the plastic spool in the selected currency.",
+      "when_to_change": "When recording a different price or supplied spool product.",
+      "effect": "Can change estimated job cost without changing the printed toolpath or material's quality.",
+      "interactions": ["Spool weight", "Density and consumption estimate"],
+      "caution": "The currency placeholder is dynamic. Cost is not a feed-rate, temperature or material-compatibility setting.",
+      "options": [], "status": "Accounting interpretation; exact cost calculation unverified."
+    },
+    "plastic-settings:density": {
+      "meaning": "The material's mass per volume, expressed by this schema in grams per cubic centimetre.",
+      "when_to_change": "To accurately define the product from manufacturer data or a reliable material measurement.",
+      "effect": "Changes the relationship between estimated volume and mass; increasing density is not the same as increasing commanded flow.",
+      "interactions": ["Consumption and cost estimates", "Product formulation and filler content"],
+      "caution": "Do not alter density to disguise an extrusion fault. Exact uses beyond material accounting are not established here.",
+      "options": [], "status": "Unit-backed material interpretation; downstream use unverified."
+    },
+    "plastic-settings:description": {
+      "meaning": "Notes associated with this plastic-material definition.",
+      "when_to_change": "To record conditioning, physical scope, test status, limitations and evidence references.",
+      "effect": "Makes a candidate understandable to another operator, but does not enforce the values or instructions written in it.",
+      "interactions": ["Material revision and name", "External experiment record"],
+      "caution": "Keep credentials and private identifiers out of exported notes. A written TUNED claim needs actual supporting tests.",
+      "options": [], "status": "Schema-backed notes field; not an enforcement mechanism."
+    },
+    "plastic-settings:enablePreheat": {
+      "meaning": "Enables the material's separately configured nozzle preheat behaviour.",
+      "when_to_change": "Only when the supported workflow needs that preparation stage or a documented comparison addresses it.",
+      "effect": "May request the preheat target before normal printing. Disabled does not mean firmware preparation or other heating commands disappear.",
+      "interactions": ["Preheat temperature", "Printer start code and standby scheduling"],
+      "caution": "Do not use the switch to bypass supported preparation or heat-safety checks. Exact waits and timing are unverified.",
+      "options": [], "status": "Switch interpretation; lifecycle details unverified."
+    },
+    "plastic-settings:enablePrintCooling": {
+      "meaning": "Allows the material's part-cooling schedule to operate its assigned fan.",
+      "when_to_change": "For a controlled cooling comparison after establishing the correct fan and material baseline.",
+      "effect": "Allows initial/regular/maximum cooling requests where applicable. Disabling does not prove every physical fan will stop.",
+      "interactions": ["Initial, regular and maximum fan speeds", "Physical fan mapping and feature overrides"],
+      "caution": "Do not stop hotend-protection cooling. Verify effective fan commands instead of equating this switch with all fan behaviour.",
+      "options": [], "status": "Functional interpretation; complete fan lifecycle unvalidated."
+    },
+    "plastic-settings:extraLengthP": {
+      "meaning": "Extra plastic feed added around unretraction beyond restoring the amount withdrawn.",
+      "when_to_change": "Only when an isolated restart test shows a genuine shortage after moisture, temperature and retraction are stable.",
+      "effect": "More can fill a lean start but add a blob; less can reduce excess at starts while risking a gap.",
+      "interactions": ["Retract length", "Unretract speed, coasting and pressure recovery"],
+      "caution": "Do not raise this to compensate for a blocked feed path. Confirm the exact restart application in output.",
+      "options": [], "status": "Label-based restart interpretation; exact application unverified."
+    },
+    "plastic-settings:extraLengthPOnToolChange": {
+      "meaning": "Additional plastic feed specifically associated with returning after a tool change.",
+      "when_to_change": "When a tool-change test shows a repeatable return deficit that does not occur on ordinary travel.",
+      "effect": "More can restore a lean return but create a blob; less can reduce over-prime while leaving the next path underfed.",
+      "interactions": ["Tool-change retract length", "Standby temperature and change-tool code"],
+      "caution": "Ordinary travel and tool-change recovery are separate events. Do not copy this value into composite fibre restart settings.",
+      "options": [], "status": "Functional interpretation; full tool lifecycle unvalidated."
+    },
+    "plastic-settings:extrusionMultiplierP": {
+      "meaning": "Scales the amount of ordinary plastic Rocket requests. This is a dimensionless material multiplier, not speed or pressure advance.",
+      "when_to_change": "During a supported top-surface flow comparison below the usable melt limit, after temperature is stable.",
+      "effect": "Higher deposits more material and can close channels or cause ridges; lower deposits less and can remove ridges or create gaps.",
+      "interactions": ["Filament diameter and line geometry", "Speed, melt capacity and feature-specific flow"],
+      "caution": "Do not tune it from first-layer appearance alone or use it as whole-part dimensional compensation. Verify the saved ratio, not a borrowed tile label.",
+      "options": [], "status": "Functional interpretation; physical calibration unperformed."
+    },
+    "plastic-settings:extrusionSpeedP": {
+      "meaning": "Unretract speed: how fast the feeder restores withdrawn plastic, not normal model-printing speed.",
+      "when_to_change": "After retract distance is established, when isolating a pressure-recovery timing problem.",
+      "effect": "Faster can restore pressure sooner but increase feed demand; slower may reduce surges while delaying the next clean line.",
+      "interactions": ["Retract length and extra unretract", "Temperature and feeder limits"],
+      "caution": "Do not set this from travel speed or the hotend's volumetric limit alone; standalone feed behaviour differs from coordinated deposition.",
+      "options": [], "status": "Functional interpretation; actual feed response unvalidated."
+    },
+    "plastic-settings:filamentDiameter": {
+      "meaning": "The incoming plastic filament's diameter, not the nozzle opening.",
+      "when_to_change": "For an accurately defined supported filament or a confirmed entry error, using representative measurements where appropriate.",
+      "effect": "Diameter affects the relationship between requested volume and feed length; a larger declared diameter generally needs less length for the same volume.",
+      "interactions": ["Flow multiplier", "Physical filament and material-volume calculations"],
+      "caution": "Do not falsify diameter as a flow-tuning shortcut. A changed nominal field does not make another filament size fit the extruder.",
+      "options": [], "status": "Functional material interpretation; exact conversion unverified."
+    },
+    "plastic-settings:firstLayersFanHeight": {
+      "meaning": "The initial cooling-stage height in millimetres, not a numbered layer count.",
+      "when_to_change": "When comparing how long early-layer cooling should persist after a reliable adhesion baseline.",
+      "effect": "A greater height extends the initial fan condition; a smaller height moves to later cooling earlier.",
+      "interactions": ["Initial fan speed", "Layer height, regular cooling and adhesion"],
+      "caution": "Check actual boundary behaviour in output. This setting does not establish the nozzle- or bed-temperature transition by itself.",
+      "options": [], "status": "Height-stage interpretation; boundary rounding unverified."
+    },
+    "plastic-settings:firstLayersFanSpeed": {
+      "meaning": "Part-cooling percentage requested during the material's initial cooling-height stage.",
+      "when_to_change": "For a one-variable early-layer attachment/curl comparison using the same plate preparation.",
+      "effect": "More can cool edges and sharpen detail but weaken adhesion; less keeps the initial region hotter and may soften features.",
+      "interactions": ["Initial cooling height", "Bed, chamber and normal fan settings"],
+      "caution": "This percentage is not measured airflow and is not the protective heatsink fan setting.",
+      "options": [], "status": "Functional interpretation; physical cooling unvalidated."
+    },
+    "plastic-settings:firstLayersHeight": {
+      "meaning": "The printed height over which the material's initial nozzle temperature applies.",
+      "when_to_change": "When isolating the duration of the initial thermal condition after first-layer geometry is correct.",
+      "effect": "Increasing extends the initial target in height; decreasing moves toward the regular printing target sooner.",
+      "interactions": ["Initial and regular nozzle temperatures", "Layer height and heat history"],
+      "caution": "Units are millimetres, not layers. Do not assume importing a tower or changing this field creates a multi-temperature sweep.",
+      "options": [], "status": "Thermal-stage interpretation; transition implementation unverified."
+    },
+    "plastic-settings:layerTimeForMaxCooling": {
+      "meaning": "A layer-duration threshold in seconds associated with using the maximum fan setting on short layers.",
+      "when_to_change": "When a controlled small-feature test shows insufficient cooling or unnecessary fan variation.",
+      "effect": "A larger threshold can make more layers qualify as short; a smaller one can reserve maximum cooling for shorter layers. Exact interpolation is unverified.",
+      "interactions": ["Regular and maximum fan speeds", "Actual layer duration and cooling enable"],
+      "caution": "Do not assume this slows the print to that duration. It is labelled as a fan threshold, not proof of a minimum-layer-time speed control.",
+      "options": [], "status": "Label-based cooling-threshold interpretation; exact curve unverified."
+    },
+    "plastic-settings:manufacturer": {
+      "meaning": "The supplier/manufacturer identity of the plastic material.",
+      "when_to_change": "To accurately identify the actual product and distinguish another manufacturer's candidate.",
+      "effect": "Supports traceability; a brand label alone does not set or validate temperature, flow or compatibility.",
+      "interactions": ["Material name/type", "Colour, formulation and lot record"],
+      "caution": "The editor control type is unresolved. Do not treat two products with the same polymer name as equivalent tunes.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "plastic-settings:maximumFanSpeed": {
+      "meaning": "The maximum part-cooling percentage used by the material's normal cooling logic, particularly on short layers.",
+      "when_to_change": "When testing small-feature cooling while checking layer bonding and warp resistance.",
+      "effect": "Higher can improve tiny features but overcool bonding or cause warping; lower may improve bonding while leaving soft or curled detail.",
+      "interactions": ["Regular fan and layer-time threshold", "Initial cooling and feature overrides"],
+      "caution": "Do not assume this caps every bridge, machine or manually emitted fan request. Review the actual cooling sequence.",
+      "options": [], "status": "Cooling interpretation; global fan-cap semantics unverified."
+    },
+    "plastic-settings:name": {
+      "meaning": "The human-readable identity of this ordinary plastic-material definition.",
+      "when_to_change": "When creating a scoped candidate or revised material record for the real machine/nozzle/product.",
+      "effect": "Makes the intended choice distinguishable; it does not enforce compatibility or move a spool into the printer.",
+      "interactions": ["Saved profile associations", "Material revision and physical spool record"],
+      "caution": "Accepted name characters/control type are unresolved. A typed TUNED label is not evidence of completed validation.",
+      "options": [], "status": "Metadata interpretation; control type unresolved."
+    },
+    "plastic-settings:plasticType": {
+      "meaning": "The material-family classification of the ordinary plastic.",
+      "when_to_change": "Only to identify the real supported product or correct its classification.",
+      "effect": "May participate in selection/category matching; it does not independently establish the physical material's safe settings.",
+      "interactions": ["Manufacturer/product identity", "Compatible hardware and material guidance"],
+      "caution": "Control type/options and exact matching behaviour are unresolved. Relabelling a material does not make it compatible.",
+      "options": [], "status": "Metadata/selection interpretation; exact dispatch unresolved."
+    },
+    "plastic-settings:regularFanSpeed": {
+      "meaning": "The ordinary part-cooling percentage used outside the initial cooling stage and special cooling conditions.",
+      "when_to_change": "During a fixed-temperature cooling comparison on representative walls and features.",
+      "effect": "More can improve deposited shape but reduce bonding or promote warp; less keeps heat and can improve bonding while softening detail.",
+      "interactions": ["Maximum fan and short-layer threshold", "Initial stage and special-feature cooling"],
+      "caution": "Normal fan is not proof of bridge fan or every executed fan command. Confirm the correct physical fan and output.",
+      "options": [], "status": "Functional interpretation; effective schedule unvalidated."
+    },
+    "plastic-settings:retractMinimumTravelNoCrossing": {
+      "meaning": "The travel-length threshold associated with retraction when the travel stays inside the part rather than crossing its boundary.",
+      "when_to_change": "When a controlled toolpath review identifies unnecessary short internal retractions or ooze during longer internal travels.",
+      "effect": "Higher generally leaves more short internal moves unretracted; lower can add retractions and restart events.",
+      "interactions": ["Travel routing", "Retract distance and crossing-part threshold"],
+      "caution": "This is a trigger distance, not the amount of filament pulled back. Exact boundary classification must be checked in output.",
+      "options": [], "status": "Label-based travel-trigger interpretation; exact classifier unverified."
+    },
+    "plastic-settings:retractMinimumTravelOnCrossing": {
+      "meaning": "The travel-length threshold for retraction when the path crosses the part boundary/open space.",
+      "when_to_change": "When realistic crossing travels show strings or repeated restarts from excessive triggering.",
+      "effect": "Lower can retract on more short crossings; higher can reduce events but leave more unretracted ooze time.",
+      "interactions": ["Retraction length and speed", "Travel path and inside-part threshold"],
+      "caution": "Do not confuse the threshold with withdrawal length. A travel that looks nearby can follow a different actual route.",
+      "options": [], "status": "Travel-trigger interpretation; exact eligibility unverified."
+    },
+    "plastic-settings:retractionLengthOnToolChange": {
+      "meaning": "Plastic withdrawal distance used around changing away from this tool.",
+      "when_to_change": "Only for a supported tool-change comparison, after ordinary travel behaviour is separately established.",
+      "effect": "More can reduce idle ooze but increase recovery demand or feed problems; less may ease recovery but allow dripping.",
+      "interactions": ["Tool-change extra unretract", "Standby temperature and tool-change scripts"],
+      "caution": "Not a full filament-unload distance or an ordinary travel default. Do not copy it to a continuous-fibre path.",
+      "options": [], "status": "Functional interpretation; complete change-tool behaviour unvalidated."
+    },
+    "plastic-settings:retractionLengthOnTravel": {
+      "meaning": "The plastic length withdrawn for an eligible ordinary non-printing move.",
+      "when_to_change": "After drying/temperature are stable, to compare supported distances while holding retract speed fixed.",
+      "effect": "More can reduce strings but cause lean restarts or feed/clog problems; less reduces those demands but may leave thicker strings.",
+      "interactions": ["Travel trigger thresholds", "Retract/unretract speeds, extra feed and temperature"],
+      "caution": "Choose the shortest repeatably useful distance within hardware guidance. Retraction cannot repair moisture, a leaking joint or a partial blockage.",
+      "options": [], "status": "Functional interpretation; physical tune unperformed."
+    },
+    "plastic-settings:retractionSpeed": {
+      "meaning": "How fast plastic is withdrawn during ordinary retraction, in millimetres of filament per second.",
+      "when_to_change": "After distance is stable, when an isolated test addresses withdrawal timing or feeder response.",
+      "effect": "Faster can relieve pressure sooner but demand more grip/acceleration; slower can be gentler while leaving more ooze time.",
+      "interactions": ["Retract distance", "Unretract speed and hardware feeder capability"],
+      "caution": "A permitted UI number is not proof that the motor, filament or hotend can safely follow it.",
+      "options": [], "status": "Functional interpretation; hardware response unvalidated."
+    },
+    "plastic-settings:spoolWeight": {
+      "meaning": "The spool's material quantity recorded in grams for estimates.",
+      "when_to_change": "When accurately defining a different supplied spool size, using the application's intended mass convention.",
+      "effect": "Can affect cost/capacity reporting, not normal line width or requested print speed.",
+      "interactions": ["Spool cost", "Density and consumption estimate"],
+      "caution": "Net filament versus total spool convention is unresolved here. Do not assume entered capacity proves enough physical filament remains.",
+      "options": [], "status": "Accounting interpretation; mass convention unresolved."
+    },
+    "plastic-settings:temperatureOnFLs": {
+      "meaning": "The nozzle target during the material's initial printed-height stage.",
+      "when_to_change": "For a controlled first-layer wetting/adhesion comparison after nozzle height and plate preparation are correct.",
+      "effect": "Higher can improve wetting but add ooze or bottom distortion; lower may sharpen detail but weaken attachment or flow.",
+      "interactions": ["Initial temperature height", "Normal nozzle and initial bed targets"],
+      "caution": "Keep within the real material/machine limits. A hotter first layer does not fix a nozzle scraping the plate.",
+      "options": [], "status": "Functional interpretation; physical initial layer unvalidated."
+    },
+    "plastic-settings:temperaturePreheat": {
+      "meaning": "The nozzle temperature requested for the enabled preheat stage.",
+      "when_to_change": "Only to match the supported preparation requirements of the actual material and machine.",
+      "effect": "A higher target can improve readiness but increase ooze and heat exposure; a lower one can reduce ooze while delaying readiness.",
+      "interactions": ["Enable preheat", "Print/standby targets and preparation code"],
+      "caution": "It is not automatically the printing temperature or a safe manual load temperature. Confirm supported waits before feeding.",
+      "options": [], "status": "Thermal-stage interpretation; exact sequence unverified."
+    },
+    "plastic-settings:temperaturePrint": {
+      "meaning": "The normal nozzle temperature requested for this plastic during deposition.",
+      "when_to_change": "During fixed-setting temperature coupons with geometry, flow and cooling held constant.",
+      "effect": "Higher generally improves melting/adhesion at flow but may increase strings, softness or degradation; lower may sharpen detail while restricting melting/bonding.",
+      "interactions": ["Printed speed and flow multiplier", "Moisture, cooling, nozzle and chamber"],
+      "caution": "Start within current product and machine guidance. A low-speed attractive sample does not prove high-flow strength.",
+      "options": [], "status": "Functional interpretation; material tune unperformed."
+    },
+    "plastic-settings:temperatureWait": {
+      "meaning": "The nozzle standby target while the tool waits instead of normally printing.",
+      "when_to_change": "For a supported idle/tool-change comparison after recording the actual sequence.",
+      "effect": "Lower can reduce ooze but delay reheating or make recovery resistant; higher keeps readiness but adds thermal dwell and ooze.",
+      "interactions": ["Tool-change timing", "Preheat/print targets and preparation scripts"],
+      "caution": "Do not treat standby as an unloading or maintenance temperature without the manufacturer's procedure.",
+      "options": [], "status": "Functional interpretation; idle lifecycle unvalidated."
+    },
+    "plastic-settings:version": {
+      "meaning": "A version value belonging to this material definition.",
+      "when_to_change": "Only according to the supported preset-management convention when a definition is revised.",
+      "effect": "May affect comparison/import/migration, not physical material quality or firmware version.",
+      "interactions": ["Material saving and parent references", "Application compatibility"],
+      "caution": "Exact migration semantics are unresolved. Keep a human-readable revision/evidence record rather than treating a larger number as validation.",
+      "options": [], "status": "Version metadata interpretation; exact rules unresolved."
+    },
+    "plastic-settings:wipeNozzleLength": {
+      "meaning": "The distance associated with wiping the nozzle along a path near retraction or a road ending.",
+      "when_to_change": "After baseline flow is stable, if an isolated seam/end test identifies excess residual material.",
+      "effect": "A longer wipe can spread/remove residue but thin the finish or add marks; a shorter one reduces that treatment but may leave a blob.",
+      "interactions": ["Retraction, coast length and seam location", "Actual wipe path and pressure behaviour"],
+      "caution": "This label does not establish use of the machine's physical cleaning station. Exact path/timing must be checked in output.",
+      "options": [], "status": "Label-based wiping interpretation; implementation unverified."
+    },
+    "plastic-settings:zHopP": {
+      "meaning": "The Z lift used for applicable ordinary plastic travel/retraction moves.",
+      "when_to_change": "Only when a demonstrated clearance problem remains after checking part lift, overextrusion and travel routing.",
+      "effect": "More can clear raised features but adds Z motion, time and ooze opportunity; less reduces those costs while reducing clearance.",
+      "interactions": ["Retraction eligibility and travel paths", "Z motion limits and part condition"],
+      "caution": "Do not use Z-hop to hide nozzle scraping, failed probing or a lifting part. It is separate from composite restart lift.",
+      "options": [], "status": "Functional interpretation; eligibility and physical clearance unvalidated."
+    },
+    "printer-settings:additionalRetract": {
+      "meaning": "A printer-level additional withdrawal distance, separate from the material's ordinary retract length.",
+      "when_to_change": "Only after identifying its exact supported use in this printer's preparation/tool-change lifecycle.",
+      "effect": "More withdrawal can increase the amount later requiring recovery; less can leave more material/pressure in that stage. The exact triggering stage is unresolved.",
+      "interactions": ["Material retraction and tool-change values", "Printer preparation scripts"],
+      "caution": "Do not add it blindly to cure stringing. Printer-level and material-level withdrawals may combine; inspect complete output first.",
+      "options": [], "status": "Label-based hardware interpretation; exact trigger unresolved."
+    },
+    "printer-settings:blocksBufferSize": {
+      "meaning": "A machine/planner block-buffer setting, apparently related to how many motion blocks are handled ahead of execution.",
+      "when_to_change": "Only under a documented OEM firmware/planner procedure, not ordinary filament tuning.",
+      "effect": "A different value may change planning assumptions or output pacing. The unit, allocation and actual enforcement are not established by this label.",
+      "interactions": ["Postprocessor and firmware motion planner", "Segmented paths and acceleration scheduling"],
+      "caution": "More is not automatically smoother or safer, and this is not a network upload buffer. Preserve the OEM value until semantics are verified.",
+      "options": [], "status": "Machine/planner interpretation; exact behaviour unresolved."
+    },
+    "printer-settings:bottomIntermediateSolidInfillAcceleration": {
+      "meaning": "The acceleration request for solid bottom layers other than the outermost bottom skin, according to the role label.",
+      "when_to_change": "Only in a controlled motion comparison after basic material and mechanical behaviour are stable.",
+      "effect": "Higher can shorten internal bottom-fill motion but increase pressure changes/vibration; lower can smooth motion while adding time.",
+      "interactions": ["Bottom-layer roles and speed", "Acceleration enable, regular acceleration and firmware limits"],
+      "caution": "Bottom Middle is a feature role, not necessarily a numbered physical layer or the bed-contact first layer. Verify preview/output targeting.",
+      "options": [], "status": "Role-label interpretation; exact targeting unverified."
+    },
+    "printer-settings:bottomMostSolidInfillAcceleration": {
+      "meaning": "The acceleration request for the outermost bottom solid-surface role.",
+      "when_to_change": "When separately validating bottom-surface motion and attachment with first-layer geometry already correct.",
+      "effect": "Lower can make short bottom paths gentler but slower; higher can reduce time while increasing dynamic feed and attachment demands.",
+      "interactions": ["Bottom-most speed/geometry", "First-layer rules, acceleration enable and firmware limits"],
+      "caution": "Do not equate this role with all first-layer motion or use acceleration to hide a nozzle-height error.",
+      "options": [], "status": "Role-label interpretation; actual override precedence unverified."
+    },
+    "printer-settings:bridgeSolidInfillAcceleration": {
+      "meaning": "The acceleration request for bridge solid-infill paths.",
+      "when_to_change": "During a controlled bridge-motion comparison after temperature, anchors and bridge flow are credible.",
+      "effect": "Higher changes tension and pressure faster at bridge starts/ends; lower can soften those transitions but change time spent over the unsupported span.",
+      "interactions": ["Bridge speed, cooling and flow", "Span/anchor geometry and firmware limits"],
+      "caution": "Acceleration is not bridge speed or a strength rating. Verify the bridge role actually receives this request.",
+      "options": [], "status": "Functional role interpretation; physical bridge result unvalidated."
+    },
+    "printer-settings:brimAcceleration": {
+      "meaning": "The acceleration request while printing the brim attached around a part's base.",
+      "when_to_change": "For a controlled adhesion/motion comparison with clean plate and correct brim geometry.",
+      "effect": "Lower can make short adhesion paths gentler; higher may reduce time but challenge attachment and pressure consistency.",
+      "interactions": ["Brim speed, gap and width", "First-layer geometry and acceleration enable"],
+      "caution": "A gentler brim cannot fix a dirty plate or a gap that prevents it joining the part.",
+      "options": [], "status": "Role interpretation; physical adhesion unvalidated."
+    },
+    "printer-settings:cellularInfillAcceleration": {
+      "meaning": "The acceleration request for ordinary plastic sparse-infill paths, not continuous-fibre infill.",
+      "when_to_change": "When balancing internal-fill time against motion stability after the melt envelope is established.",
+      "effect": "Higher can help short infill segments reach speed but increase vibration/feed transients; lower may improve stability while extending print time.",
+      "interactions": ["Sparse-infill pattern and speed", "Material throughput and machine limits"],
+      "caution": "An internal feature is not permission to exceed feeder or machine capability. This does not tune fibre-route acceleration.",
+      "options": [], "status": "Functional role interpretation; performance unvalidated."
+    },
+    "printer-settings:chamberHeatupSpeed": {
+      "meaning": "The declared chamber heating rate in degrees Celsius per second.",
+      "when_to_change": "Only after an OEM-supported measurement/calibration establishes the machine's thermal timing.",
+      "effect": "May alter heat-up predictions or scheduling. A larger entered rate does not increase heater power or establish a stable soaked chamber.",
+      "interactions": ["Heated-chamber declaration/index", "Chamber targets and preparation timing"],
+      "caution": "Not a thermal-protection setting or remedy for a failed sensor. Exact scheduler use is unverified.",
+      "options": [], "status": "Hardware timing interpretation; exact implementation unresolved."
+    },
+    "printer-settings:defaultAccelerationE": {
+      "meaning": "The printer definition's baseline acceleration value for the E material-feed axis.",
+      "when_to_change": "Only to match verified supported feeder/firmware capability through machine calibration.",
+      "effect": "A higher request can change feed-speed transitions but increase grip/motor demands; lower can slow pressure recovery or alter timing.",
+      "interactions": ["Retraction acceleration", "Material retraction, pressure behaviour and firmware axis mapping"],
+      "caution": "Do not assume E is interchangeable with composite V/U/P axes or that this is a hard firmware maximum. Exact command mapping needs review.",
+      "options": [], "status": "Machine-axis interpretation; mapping and enforcement unverified."
+    },
+    "printer-settings:defaultAccelerationRetract": {
+      "meaning": "The machine's baseline acceleration request for retraction-related feed motion.",
+      "when_to_change": "Only under a supported feeder/motion calibration after the exact retraction path is known.",
+      "effect": "Higher can make withdrawals/restorations more abrupt; lower can make them gentler but change their duration and pressure response.",
+      "interactions": ["Retract distance and speeds", "Feed-axis acceleration and firmware interpretation"],
+      "caution": "A slicer entry is not a safe mechanical rating. Do not use it to force a stalled or obstructed filament path.",
+      "options": [], "status": "Machine-motion interpretation; actual use unvalidated."
+    },
+    "printer-settings:defaultAccelerationX": {
+      "meaning": "The baseline X-axis acceleration declared in the printer definition.",
+      "when_to_change": "Only after supported machine-motion evidence or an OEM configuration change, not for one spool's flow defect.",
+      "effect": "Higher can permit more abrupt X speed changes but increase vibration or step loss; lower can reduce those loads while extending motion time.",
+      "interactions": ["Kinematics and feature accelerations", "Firmware motion limits and X jerk"],
+      "caution": "The field's emitted/limit role must be verified; it is not proof the printer can sustain the requested acceleration.",
+      "options": [], "status": "Machine-axis interpretation; exact firmware role unverified."
+    },
+    "printer-settings:defaultAccelerationY": {
+      "meaning": "The printer definition's baseline Y-axis acceleration.",
+      "when_to_change": "Only during supported mechanical/motion qualification or to match a verified OEM baseline.",
+      "effect": "Higher can reduce time on short Y-related moves but add dynamic loads; lower can improve stability while slowing those moves.",
+      "interactions": ["Kinematics and feature accelerations", "Y jerk and firmware limits"],
+      "caution": "Cartesian axis labels do not identify one CoreXY motor. Do not change this to mask an axis-specific dimensional fault.",
+      "options": [], "status": "Machine-axis interpretation; exact enforcement unverified."
+    },
+    "printer-settings:defaultAccelerationZ": {
+      "meaning": "The baseline acceleration value declared for vertical Z motion.",
+      "when_to_change": "Only under supported machine calibration after checking the actual Z mechanism and firmware limits.",
+      "effect": "Higher can make lifts/layer transitions more abrupt; lower softens them but can add travel time.",
+      "interactions": ["Z travel speed and jerk", "Tool-change lifts, bed motion and probing"],
+      "caution": "Do not copy XY acceleration into Z or use this as a nozzle-height correction. Unsupported Z motion can cause collisions or registration loss.",
+      "options": [], "status": "Machine-axis interpretation; hardware capability unqualified."
+    },
+    "printer-settings:defaultJerkE": {
+      "meaning": "The feed-axis jerk-style baseline expressed by the schema as a speed, not acceleration per second.",
+      "when_to_change": "Only with a verified definition of how this OEM firmware interprets the emitted setting.",
+      "effect": "Depending on firmware, higher can allow sharper feed transitions and lower can soften them; neither equals pressure advance.",
+      "interactions": ["E acceleration and retraction", "Postprocessor and firmware motion algorithm"],
+      "caution": "Classic jerk, junction deviation and square-corner velocity are not interchangeable. Do not assume a composite-axis mapping or portable numeric value.",
+      "options": [], "status": "Firmware-dependent parameter; exact semantics unverified."
+    },
+    "printer-settings:defaultJerkX": {
+      "meaning": "A baseline X jerk-style motion value, expressed in speed units in this schema.",
+      "when_to_change": "Only after verifying the OEM firmware's cornering model and supported machine procedure.",
+      "effect": "A larger value can allow more abrupt corner transitions; a smaller value can slow corners and change pressure/time.",
+      "interactions": ["X acceleration", "Feature jerk requests and firmware cornering rules"],
+      "caution": "Do not translate this blindly into Klipper square-corner velocity or another firmware's jerk. It is not a material-flow multiplier.",
+      "options": [], "status": "Firmware-dependent cornering interpretation; actual mapping unverified."
+    },
+    "printer-settings:defaultJerkY": {
+      "meaning": "The Y baseline jerk-style value in the printer definition.",
+      "when_to_change": "Only through supported motion qualification with the effective firmware interpretation known.",
+      "effect": "Higher may carry more speed through corners but increase disturbance; lower may soften direction changes while adding time and heat dwell.",
+      "interactions": ["Y acceleration and kinematics", "Regular/outer-wall jerk and firmware limits"],
+      "caution": "Speed units do not establish identical meaning across firmware families. Avoid arbitrary axis-by-axis changes to chase surface texture.",
+      "options": [], "status": "Firmware-dependent parameter; exact semantics unverified."
+    },
+    "printer-settings:defaultJerkZ": {
+      "meaning": "The Z-axis baseline jerk-style value, shown in speed units.",
+      "when_to_change": "Only under the OEM vertical-motion calibration/definition, not as an ordinary material setting.",
+      "effect": "May change abruptness of Z transitions depending on firmware; more is not automatically faster or more accurate.",
+      "interactions": ["Z acceleration and travel speed", "Layer changes and lifts"],
+      "caution": "Do not borrow XY values or assume this is physical Z clearance. Verify command interpretation before modifying it.",
+      "options": [], "status": "Firmware-dependent hardware parameter; exact behaviour unresolved."
+    },
+    "printer-settings:description": {
+      "meaning": "Notes describing the printer template and its intended hardware/configuration.",
+      "when_to_change": "To record known hardware, supported versions, evidence and limitations while preserving the factory reference.",
+      "effect": "Improves traceability but does not apply a hardware change or verify a private connection target.",
+      "interactions": ["Printer revision", "Physical-unit record and supported profiles"],
+      "caution": "Keep private addresses, credentials and serials out of shared exports. A claimed nozzle or safety feature still needs physical evidence.",
+      "options": [], "status": "Schema-backed notes field; not an enforcement mechanism."
+    },
+    "printer-settings:doUnretractBeforeToolChange": {
+      "meaning": "Requests unretraction before a tool-change operation rather than leaving the previous retracted state untouched.",
+      "when_to_change": "Only when the exact OEM change-tool sequence and material-state bookkeeping are understood.",
+      "effect": "Can add a restoration feed before changing tools, affecting ooze and the next stage's expected state.",
+      "interactions": ["Material tool-change retraction", "Additional retract and before/after change code"],
+      "caution": "Do not toggle it as a generic stringing fix. Duplicate or missing recovery can create unexpected feed; composite loading is not ordinary unretraction.",
+      "options": [], "status": "Label-based lifecycle interpretation; exact sequencing unverified."
+    },
+    "printer-settings:endGCode": {
+      "meaning": "Executable commands appended for the end-of-job procedure.",
+      "when_to_change": "Only for a documented supported printer workflow change with the entire completion/failure lifecycle reviewed.",
+      "effect": "Can change parking, heaters, fans, material handling and final machine state; it is not merely a message printed in a file.",
+      "interactions": ["Firmware macros and coordinates", "Tool/fibre unloading and shutdown sequence"],
+      "caution": "Preserve OEM code. An otherwise successful part can end with a dangerous or wrong-tool action; never paste another machine's ending block.",
+      "options": [], "status": "Executable hardware hook; modification unqualified."
+    },
+    "printer-settings:fiberInfillAcceleration": {
+      "meaning": "The acceleration request for continuous-fibre infill routes, distinct from ordinary sparse plastic infill.",
+      "when_to_change": "Only during supported composite motion qualification with a compatible pair and reliable loading/cutting.",
+      "effect": "Higher can change tension and placement at route transitions; lower can reduce abruptness while altering dwell and time.",
+      "interactions": ["Fibre-route speed and geometry", "Matrix feed, bend rules and firmware limits"],
+      "caution": "Do not transfer ordinary plastic infill acceleration or use this to force an ineligible route.",
+      "options": [], "status": "Composite role interpretation; physical route behaviour unvalidated."
+    },
+    "printer-settings:fiberPreparationAcceleration": {
+      "meaning": "The Prime Line acceleration associated with composite fibre preparation.",
+      "when_to_change": "Only under an OEM-supported preparation calibration after tool/plate alignment and loading are proven.",
+      "effect": "Changes the motion transient of preparation, potentially affecting priming attachment and feed timing rather than ordinary model speed.",
+      "interactions": ["Priming-line height and geometry", "Restart/loading sequence and machine limits"],
+      "caution": "A preparation failure is not a reason to increase motion force. Exact covered commands/roles must be verified.",
+      "options": [], "status": "Preparation-role interpretation; exact targeting unverified."
+    },
+    "printer-settings:gCodeAfterExtruderChange": {
+      "meaning": "Executable commands inserted after an extruder/tool change.",
+      "when_to_change": "Only when an OEM-supported workflow or verified hardware change requires a reviewed post-change sequence.",
+      "effect": "May position, heat, prime or change material state after selection; it can override earlier targets or offsets.",
+      "interactions": ["Tool mapping and preparation", "Retraction state, temperatures and firmware macros"],
+      "caution": "Do not use it as an undocumented PA injection or copy commands from another tool. Review every change through final output and physical sequence.",
+      "options": [], "status": "Executable lifecycle hook; modification unqualified."
+    },
+    "printer-settings:gCodeBeforeExtruderChange": {
+      "meaning": "Executable commands inserted before a tool-change operation.",
+      "when_to_change": "Only for a supported and reviewed alteration of the printer's actual change-tool lifecycle.",
+      "effect": "Can alter withdrawal, cooling, positioning or preparation before selection; wrong assumptions can leave the next tool state inconsistent.",
+      "interactions": ["Unretract-before-change setting", "Tool-change retraction, offsets and firmware macros"],
+      "caution": "This is not a comment box. Never paste old-unit or generic cutter/feed commands to solve a cosmetic defect.",
+      "options": [], "status": "Executable lifecycle hook; modification unqualified."
+    },
+    "printer-settings:hasHeatedChamber": {
+      "meaning": "Declares that the printer definition has a supported active chamber heater.",
+      "when_to_change": "Only to match verified installed OEM hardware/configuration.",
+      "effect": "May expose or generate chamber-heating behaviour; checking the box does not install a heater or validate its sensor.",
+      "interactions": ["Heated chamber index and heat-up rate", "Material chamber targets and firmware"],
+      "caution": "Never enable this to make a desired target available on unsupported hardware or bypass a thermal fault.",
+      "options": [], "status": "Hardware capability declaration; physical validation required."
+    },
+    "printer-settings:hasHeatedTable": {
+      "meaning": "Declares that the machine has a controllable heated build plate.",
+      "when_to_change": "Only to accurately represent the verified installed printer hardware.",
+      "effect": "Can affect bed-temperature controls/output. The declaration does not prove heating, sensor accuracy or plate compatibility.",
+      "interactions": ["Material bed targets", "Bed heat-up rate and firmware preparation"],
+      "caution": "Do not toggle a hardware declaration to bypass a failed heater or missing target. Retain the OEM definition unless the hardware change is supported.",
+      "options": [], "status": "Hardware capability declaration; actual operation unvalidated."
+    },
+    "printer-settings:heatedChamberIndex": {
+      "meaning": "Identifies the heater/channel assigned to chamber control in the printer definition.",
+      "when_to_change": "Only when the exact OEM firmware/heater mapping is independently established.",
+      "effect": "A different index can direct a request to another channel; it does not just adjust chamber temperature.",
+      "interactions": ["Has heated chamber", "Firmware heater/sensor mapping and material target"],
+      "caution": "Do not guess the index or infer it from tool numbering. A wrong channel can heat the wrong device or invalidate protection assumptions.",
+      "options": [], "status": "Hardware channel mapping; independent verification required."
+    },
+    "printer-settings:inset0Acceleration": {
+      "meaning": "The acceleration request for the ordinary plastic outer wall, the visible boundary of the part.",
+      "when_to_change": "During a controlled surface/motion comparison after extrusion is stable.",
+      "effect": "Lower can reduce corner echoes and pressure transients but increase time; higher can reach speed sooner while worsening vibration or sharp-feature quality.",
+      "interactions": ["Outer-wall speed and jerk", "Effective pressure behaviour and firmware limits"],
+      "caution": "A clean short sample does not qualify the highest value for every part. Do not tune beyond supported mechanical limits.",
+      "options": [], "status": "Functional role interpretation; physical limit unqualified."
+    },
+    "printer-settings:inset0Jerk": {
+      "meaning": "The outer-wall-specific jerk/cornering request, shown in speed units.",
+      "when_to_change": "Only after the actual firmware interpretation is known, in an isolated wall-transition comparison.",
+      "effect": "Higher may carry more speed through wall corners but amplify disturbance; lower can soften transitions while changing dwell and pressure.",
+      "interactions": ["Outer-wall acceleration and speed", "Regular jerk, jerk enable and firmware cornering"],
+      "caution": "Not pressure advance. A familiar jerk value from another firmware is not portable, and exact override precedence must be checked.",
+      "options": [], "status": "Firmware-dependent role parameter; mapping unverified."
+    },
+    "printer-settings:insetXFAcceleration": {
+      "meaning": "The acceleration request for continuous-fibre perimeter routes.",
+      "when_to_change": "Only when supported composite testing isolates perimeter placement/tension after loading and geometry are credible.",
+      "effect": "Sharper acceleration can change strand tension and matrix delivery; gentler motion adds time and changes heat/contact dwell.",
+      "interactions": ["Fibre perimeter speed and bend geometry", "Matrix feed and machine limits"],
+      "caution": "Do not borrow plastic perimeter values or force tight routes by increasing acceleration.",
+      "options": [], "status": "Composite role interpretation; physical performance unvalidated."
+    },
+    "printer-settings:insetXPAcceleration": {
+      "meaning": "The acceleration request for ordinary plastic perimeter roles other than the separately identified outer wall.",
+      "when_to_change": "When balancing perimeter time and motion quality after flow and outer-wall behaviour are stable.",
+      "effect": "Higher can reduce time on short perimeters but add vibration and feed transients; lower makes them gentler but slower.",
+      "interactions": ["Perimeter speed and wall order", "Outer-wall acceleration and firmware limits"],
+      "caution": "Exact wall-role coverage is not established by the label. Check the preview/output instead of assuming all walls receive one value.",
+      "options": [], "status": "Role-label interpretation; targeting/precedence unverified."
+    },
+    "printer-settings:kinematicsType": {
+      "meaning": "Declares the machine's motion arrangement so planning can use the appropriate kinematic assumptions.",
+      "when_to_change": "Only to match verified physical hardware in a supported printer definition, never as a material or speed tweak.",
+      "effect": "Selecting another type changes a machine assumption; it does not physically convert the mechanism or calibrate belts.",
+      "interactions": ["Axis motion settings", "Firmware coordinates, motors and planner"],
+      "caution": "Preserve the OEM choice. The two available labels are not proof that every printer of either type is supported.",
+      "options": [
+        {"label": "CoreXY", "meaning": "A coupled XY arrangement in which both motors contribute to Cartesian X/Y motion. Do not identify one axis label with one motor without the actual belt mapping."},
+        {"label": "Cartesian", "meaning": "The Cartesian machine class, conventionally using independently driven coordinate axes. This is a machine classification, not a fallback for an unknown CoreXY profile."}
+      ],
+      "status": "Schema-backed machine selector; execution effects not independently qualified."
+    },
+    "printer-settings:overhangSolidInfillAcceleration": {
+      "meaning": "The acceleration request for the overhang solid-infill role.",
+      "when_to_change": "During a controlled unsupported-edge comparison after geometry, cooling and speed are stable.",
+      "effect": "Gentler motion may help attachment and pressure consistency but increases dwell; faster transitions can reduce time while stressing unsupported deposition.",
+      "interactions": ["Overhang speed and cooling", "Support below, line geometry and firmware limits"],
+      "caution": "It does not create support or change the overhang angle. Verify exact role classification before interpreting a result.",
+      "options": [], "status": "Role interpretation; physical overhang outcome unvalidated."
+    },
+    "printer-settings:postprocessorType": {
+      "meaning": "Selects the machine-specific output postprocessor that turns planned paths into the target G-code/workflow dialect.",
+      "when_to_change": "Only when creating or maintaining a supported printer definition with a verified firmware contract.",
+      "effect": "Can change tool, material-axis, preparation and ending command generation. It is not a cosmetic file-format preference.",
+      "interactions": ["Extrusion mode and tool mapping", "Start/end/tool-change code and firmware"],
+      "caution": "Only SK3 is exposed in this inspected list. Do not substitute a different postprocessor or infer ordinary-slicer compatibility from an output extension.",
+      "options": [{"label": "SK3", "meaning": "The named postprocessor option in this schema. Its label is not a complete command specification; retain the OEM selection and verify the actual machine/version output."}],
+      "status": "Schema-backed output selector; full postprocessor contract not reproduced."
+    },
+    "printer-settings:regularAcceleration": {
+      "meaning": "The general acceleration request used where a more specific feature setting does not control the move.",
+      "when_to_change": "During supported motion qualification with a stable material baseline and representative geometry.",
+      "effect": "Higher can reduce time on short segments but add vibration/feed transients; lower can make motion gentler at a time cost.",
+      "interactions": ["Acceleration enable and per-feature values", "Firmware limits and requested speed"],
+      "caution": "Do not assume it overrides every role or raises firmware limits. A highest surviving sample is not automatically the best production setting.",
+      "options": [], "status": "General motion interpretation; exact precedence unverified."
+    },
+    "printer-settings:regularJerk": {
+      "meaning": "The general jerk/cornering-style request used outside more specific role overrides.",
+      "when_to_change": "Only after verifying the OEM firmware's interpretation and supported motion envelope.",
+      "effect": "Higher can make transitions more abrupt and faster; lower can slow corners, changing surface appearance, pressure and dwell.",
+      "interactions": ["Jerk enable and outer-wall jerk", "Acceleration and firmware cornering model"],
+      "caution": "Do not equate it with pressure advance or copy square-corner/junction values from another firmware. Confirm the last effective writer.",
+      "options": [], "status": "Firmware-dependent cornering interpretation; exact behaviour unverified."
+    },
+    "printer-settings:skirtAcceleration": {
+      "meaning": "The acceleration request for skirt paths printed around, but normally separate from, the model.",
+      "when_to_change": "When a supported preparation comparison addresses skirt consistency without changing the model's material settings.",
+      "effect": "Lower can make the first surrounding paths gentler; higher can shorten their time but increase attachment/feed demands.",
+      "interactions": ["Skirt speed and geometry", "First-layer preparation and acceleration enable"],
+      "caution": "A skirt is not automatically an attached brim or a valid model-flow coupon. Check what the preview generated.",
+      "options": [], "status": "Feature-role interpretation; physical result unvalidated."
+    },
+    "printer-settings:solidInfillAcceleration": {
+      "meaning": "The acceleration request for ordinary plastic solid-fill paths not handled by more specific surface roles.",
+      "when_to_change": "During controlled time/quality qualification after material throughput and top/bottom support are stable.",
+      "effect": "Higher may speed short fill strokes but increase vibration and boundary pressure; lower may improve transitions while increasing time/heat dwell.",
+      "interactions": ["Solid-fill speed and pattern", "Top/bottom overrides and firmware limits"],
+      "caution": "Do not use acceleration to hide excessive flow or insufficient support below a top surface. Exact role precedence needs output review.",
+      "options": [], "status": "Functional role interpretation; exact targeting unverified."
+    },
+    "printer-settings:startGCode": {
+      "meaning": "Executable commands used during job startup and preparation.",
+      "when_to_change": "Only for a documented supported printer/firmware workflow change with current hardware and complete output reviewed.",
+      "effect": "Can home, move, heat, select tools, prime and alter coordinate/material state before the model begins.",
+      "interactions": ["Firmware macros, mesh and offsets", "Postprocessor, material targets and loading sequence"],
+      "caution": "Keep the OEM baseline. Never paste generic PA, extrusion, homing or old-unit commands to tune a material; effects may persist beyond the test.",
+      "options": [], "status": "Executable hardware hook; modification unqualified."
+    },
+    "printer-settings:supportIslandAcceleration": {
+      "meaning": "The acceleration request for ordinary support structures.",
+      "when_to_change": "When qualifying support stability/removal with the same support geometry and material baseline.",
+      "effect": "Lower may reduce disturbance of thin supports; higher may reduce time while increasing oscillation and attachment demands.",
+      "interactions": ["Support speed and pattern", "Support interface, cooling and firmware limits"],
+      "caution": "This does not select support locations or change interface gap. Do not infer part strength from support surviving.",
+      "options": [], "status": "Support-role interpretation; physical support result unvalidated."
+    },
+    "printer-settings:supportIslandInterfaceAcceleration": {
+      "meaning": "The acceleration request for the interface region between supports and the supported part.",
+      "when_to_change": "During controlled interface quality/removal tests after support generation is correct.",
+      "effect": "Gentler transitions may improve interface consistency but extend dwell; faster motion can reduce time while disturbing fine contact paths.",
+      "interactions": ["Interface speed, gap and density", "Cooling and supported-surface geometry"],
+      "caution": "It is not the support-interface separation distance or an automatic easy-removal setting.",
+      "options": [], "status": "Interface-role interpretation; physical outcome unvalidated."
+    },
+    "printer-settings:tableHeatupSpeed": {
+      "meaning": "The declared build-plate heating rate in degrees Celsius per second.",
+      "when_to_change": "Only when a supported hardware/timing calibration measures the real plate's response.",
+      "effect": "May alter heat scheduling or time prediction. A larger number does not increase heater power or guarantee a uniformly soaked plate.",
+      "interactions": ["Heated-plate declaration", "Material bed targets and start preparation"],
+      "caution": "Do not change it to bypass a heater delay/fault. It is not a bed-temperature target or firmware PID calibration.",
+      "options": [], "status": "Hardware timing interpretation; scheduler details unverified."
+    },
+    "printer-settings:topIntermediateSolidInfillAcceleration": {
+      "meaning": "The acceleration request for solid top-region layers below the final exposed top skin.",
+      "when_to_change": "When qualifying top-support fill motion after shell thickness and extrusion are correct.",
+      "effect": "Higher can reduce time but increase fill-boundary transients; lower may smooth motion while changing layer time and cooling.",
+      "interactions": ["Top-shell roles and solid-fill speed", "Final top-skin acceleration and firmware limits"],
+      "caution": "Top Middle is not the final surface itself or a layer count. Verify which paths receive the role.",
+      "options": [], "status": "Role-label interpretation; exact coverage unverified."
+    },
+    "printer-settings:topMostSolidInfillAcceleration": {
+      "meaning": "The acceleration request for the outermost visible top solid surface.",
+      "when_to_change": "During a top-surface motion comparison with accepted flow, sufficient support and fixed pattern.",
+      "effect": "Lower may smooth starts/ends at a time cost; higher may increase throughput but reveal pressure, vibration or boundary defects.",
+      "interactions": ["Top-surface speed, pattern and flow", "Regular acceleration and layer cooling"],
+      "caution": "Acceleration cannot close a top skin that lacks support or correct an incorrect global multiplier by itself.",
+      "options": [], "status": "Functional surface-role interpretation; physical result unvalidated."
+    },
+    "printer-settings:travelSpeedXY": {
+      "meaning": "Requested speed for non-printing X/Y travel, in millimetres per second.",
+      "when_to_change": "After checking supported machine capability and actual travel routing, when balancing ooze time and reliable positioning.",
+      "effect": "Higher can reduce time spent oozing but increase motion demands; lower is gentler but can leave more time for strings or heat marks.",
+      "interactions": ["Travel acceleration and firmware limits", "Retraction thresholds, wall crossing and clearance"],
+      "caution": "It does not set printed extrusion speed. Do not raise travel speed to hide a collision, lifting part or failed homing.",
+      "options": [], "status": "Functional travel interpretation; mechanical limit unqualified."
+    },
+    "printer-settings:travelSpeedZ": {
+      "meaning": "Requested vertical travel speed for supported Z moves.",
+      "when_to_change": "Only during supported machine-motion qualification after checking the actual Z mechanism and firmware limits.",
+      "effect": "Higher can shorten lifts/layer moves but demand more from the Z system; lower can improve reliability while increasing time and ooze opportunity.",
+      "interactions": ["Z acceleration and jerk", "Z-hop, tool-change lift and combined XYZ moves"],
+      "caution": "XY capability does not imply Z capability. Exact treatment of combined XYZ moves must be checked; do not use this to fix probing or nozzle height.",
+      "options": [], "status": "Machine-motion interpretation; combined-move behaviour unverified."
+    },
+    "printer-settings:useAccelerations": {
+      "meaning": "Enables Rocket's configured acceleration-control requests.",
+      "when_to_change": "Only when the intended division between slicer requests and OEM firmware motion control is understood.",
+      "effect": "Enabled can apply general/per-feature acceleration values. Disabled does not make physical acceleration zero; firmware behaviour remains.",
+      "interactions": ["Regular/per-feature acceleration", "Default axis settings and firmware limits"],
+      "caution": "Check actual emitted/effective commands. Toggling control ownership can invalidate a comparison even if every visible speed number stays the same.",
+      "options": [], "status": "Control-ownership interpretation; exact command coverage unverified."
+    },
+    "printer-settings:useJerks": {
+      "meaning": "Enables the configured jerk/cornering-style requests from Rocket.",
+      "when_to_change": "Only after verifying how the target OEM firmware interprets those requests and which layer should own them.",
+      "effect": "Enabled can apply regular/role jerk values. Disabled does not prove corners stop or the firmware's cornering setting is zero.",
+      "interactions": ["Regular/outer-wall jerk", "Firmware cornering model and acceleration"],
+      "caution": "Do not assume jerk, square-corner velocity and junction deviation share one meaning or portable value.",
+      "options": [], "status": "Firmware-control interpretation; actual command mapping unverified."
+    },
+    "printer-settings:useRelativeExtrusionDistances": {
+      "meaning": "Selects whether supported material-feed distances are emitted as increments rather than cumulative positions.",
+      "when_to_change": "Only for a verified OEM postprocessor/firmware contract, not routine flow tuning.",
+      "effect": "Relative and absolute modes interpret the same numerical feed differently. A mismatch can cause a large unintended feed or withdrawal.",
+      "interactions": ["Postprocessor and material-axis mapping", "Start/reset commands, retraction and tool-change hooks"],
+      "caution": "Preserve the OEM mode and audit every feed/reset path. Do not assume standard E-mode commands safely cover composite V/U/P behaviour.",
+      "options": [], "status": "Critical command-mode declaration; hardware execution unqualified."
+    },
+    "printer-settings:version": {
+      "meaning": "A version value associated with the printer definition, not necessarily the firmware or Rocket application version.",
+      "when_to_change": "Only through the supported template-management or documented revision procedure.",
+      "effect": "May influence migration/comparison; increasing it does not upgrade firmware or prove a hardware change is safe.",
+      "interactions": ["Preset imports and references", "Application compatibility and factory baseline"],
+      "caution": "Keep real software/firmware versions separately. Exact template-version rules are unresolved.",
+      "options": [], "status": "Version metadata interpretation; exact migration rules unresolved."
+    },
+    "printer-settings:wipeTowerAcceleration": {
+      "meaning": "The acceleration request for a generated wipe/prime tower used by the selected multi-tool workflow.",
+      "when_to_change": "Only after confirming the tower actually exists and a controlled preparation comparison addresses its stability.",
+      "effect": "Lower may improve slender-tower consistency at a time cost; higher may reduce time but disturb priming or attachment.",
+      "interactions": ["Tower geometry and speed", "Tool changes, material delivery and firmware limits"],
+      "caution": "This is not physical nozzle-cleaning-station acceleration and does not add a tower when none is generated.",
+      "options": [], "status": "Feature-role interpretation; visibility and physical result unvalidated."
+    },
+    "printer-settings:zLiftOnToolChange": {
+      "meaning": "The vertical lift associated with changing tools, separate from ordinary travel Z-hop.",
+      "when_to_change": "Only through a supported tool-change clearance/alignment procedure on the actual machine.",
+      "effect": "More can increase clearance but add Z motion/time; less reduces the lift and can reduce clearance around fixtures or the part.",
+      "interactions": ["Tool offsets and preparation/parking paths", "Before/after tool-change code and Z limits"],
+      "caution": "Do not guess the amount or copy a previous unit's value. Incorrect clearance can cause a tool/fixture collision.",
+      "options": [], "status": "Hardware lifecycle motion; exact sequencing unverified."
+    },
+    "template:auxiliaryFanPowerPercentage": {
+      "meaning": "An auxiliary-cooling percentage entry in a renderer template, separate from the ordinary tool's main part fan.",
+      "when_to_change": "Only after confirming that this control is actually exposed for the selected hardware and identifying the physical auxiliary fan.",
+      "effect": "More side/auxiliary airflow may improve some overhangs but create directional cooling or warp; less reduces those effects.",
+      "interactions": ["Layer-index schedule", "Main part cooling, chamber and fan channel mapping"],
+      "caution": "The control type and exact schedule application are unresolved. A source template does not prove this printer has that fan or that the entry is visible.",
+      "options": [], "status": "Renderer-template field; runtime exposure and execution unresolved."
+    },
+    "template:exhaustFanPowerPercentage": {
+      "meaning": "A percentage entry for an exhaust fan in a renderer template, not the hotend or ordinary part-cooling fan.",
+      "when_to_change": "Only when the actual exhaust hardware, ventilation requirements and supported chamber workflow are established.",
+      "effect": "More exhaust may remove heat/airborne material but lower chamber stability; less may retain heat while reducing ventilation.",
+      "interactions": ["Layer-index schedule", "Chamber target and room ventilation"],
+      "caution": "Do not reduce ventilation contrary to material safety guidance. Control type, exposure, routing and precise scheduling are unresolved.",
+      "options": [], "status": "Renderer-template field; hardware and execution unverified."
+    },
+    "template:layerIndex": {
+      "meaning": "A layer identifier associated with the renderer's layer/fan schedule entries.",
+      "when_to_change": "Only after confirming the visible schedule control and how it identifies the intended printed layer.",
+      "effect": "Changing the index can move a scheduled event to another layer. It is not automatically a height in millimetres.",
+      "interactions": ["Auxiliary and exhaust fan entries", "Actual sliced layer count and variable layer heights"],
+      "caution": "Whether counting begins at zero or one, how duplicates are handled, and whether a value persists after that layer are not established. Verify output before relying on it.",
+      "options": [], "status": "Renderer-template field; index convention and control type unresolved."
+    },
+    "unclassified:type": {
+      "meaning": "An unresolved selector whose options refer to Plastic, Composite and Any slot types; its human label and reliable parent menu are missing.",
+      "when_to_change": "Do not prescribe a change until the actual dialog, slot purpose and physical tool context are identified.",
+      "effect": "It appears to classify or filter a slot definition, but the survey does not establish whether it assigns hardware, filters choices or changes routing.",
+      "interactions": ["Slot/material definition", "Physical tool mapping and compatible selections"],
+      "caution": "Do not interpret Any as universal hardware compatibility or assume selecting Composite loads fibre. The missing namespace/label is an explicit documentation gap.",
+      "options": [
+        {"label": "Plastic", "meaning": "The Plastic slot-type choice. Exact assignment/filtering behaviour is unresolved; match any actual use to the verified ordinary plastic path."},
+        {"label": "Composite", "meaning": "The Composite slot-type choice. It does not prove physical matrix/fibre loading or a safe composite command sequence."},
+        {"label": "Any", "meaning": "The broad slot-type choice in this selector. Its scope is unresolved; it is not permission to interchange ordinary and composite hardware or materials."}
+      ],
+      "status": "Unresolved namespace/label and exact behaviour; choices preserved as evidence."
+    }
+  }
+}

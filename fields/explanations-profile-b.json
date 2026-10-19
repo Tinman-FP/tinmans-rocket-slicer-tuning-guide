@@ -1,0 +1,2683 @@
+{
+  "schema": "rocket-field-explanations.v1",
+  "scope": "Last 157 sorted profile-settings UIDs from installed Rocket 1.4.0.705 inventory",
+  "qualification": "Plain-language interpretation of installed UI schemas/help and ordinary slicer concepts. No default, safe limit, physical result, or firmware behavior is inferred.",
+  "fields": {
+    "profile-settings:insetFOuterCount": {
+      "meaning": "Number of continuous-fiber shell loops reinforcing the outside contour rather than holes.",
+      "when_to_change": "Change when the outside surface needs a different reinforcement layout.",
+      "effect": "More loops reserve more room for fiber and add fiber use and print time; fewer leave more room for plastic and infill.",
+      "interactions": [
+        "Fiber shell generation",
+        "Inner fiber loops",
+        "Plastic shell counts",
+        "Minimum fiber perimeter length"
+      ],
+      "caution": "Requires the correct composite tool/material and a verified fiber path. This is not permission to run an empty or leaking fiber head.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXFCalcOrder": {
+      "meaning": "Chooses whether fiber-shell paths are calculated from holes or from the outer contour first.",
+      "when_to_change": "Use when competing fiber loops around holes and the outside need a different placement priority.",
+      "effect": "Holes first prioritizes hole-side shells; Contour first starts from the exterior. This concerns calculation priority, not a guaranteed visible print order.",
+      "interactions": [
+        "Fiber inner/outer counts",
+        "Available wall thickness",
+        "Fiber shell generation"
+      ],
+      "caution": "Inspect the actual generated paths; narrow walls may not fit every requested loop.",
+      "options": [
+        {
+          "label": "Holes first",
+          "meaning": "Prioritizes calculating the fiber shell from hole boundaries outward.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "InsetXFCalcOrder.INSIDE_OUT"
+          },
+          "source_label_key": "profile-settings.inset-xf-calc-order-enum.inside-out"
+        },
+        {
+          "label": "Contour first",
+          "meaning": "Prioritizes calculating the fiber shell from the outer contour inward.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "InsetXFCalcOrder.OUTSIDE_IN"
+          },
+          "source_label_key": "profile-settings.inset-xf-calc-order-enum.outside-in"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXFEWMM": {
+      "meaning": "Requested laid-composite line width for fiber-shell paths.",
+      "when_to_change": "Change only with evidence that the current composite line geometry needs adjustment.",
+      "effect": "A larger requested width changes path spacing and coverage; a smaller width packs paths more tightly.",
+      "interactions": [
+        "Composite layer height",
+        "Fiber feedrate",
+        "Fiber shell count",
+        "Contact-radius correction"
+      ],
+      "caution": "Requires the correct composite tool/material and a verified fiber path. This is not permission to run an empty or leaking fiber head. A width entry is a requested geometry, not proof that the nozzle/material can produce it reliably.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXFExtrusionFPercent": {
+      "meaning": "Fiber feed length expressed as a percentage of the planned path length.",
+      "when_to_change": "Adjust only during a controlled fiber-layup calibration after feed mechanics are sound.",
+      "effect": "Installed help says reducing feed increases fiber tension; increasing feed reduces tension. It is not the plastic flow multiplier.",
+      "interactions": [
+        "Fiber drive mechanics",
+        "Composite speed",
+        "Fiber material",
+        "Path length and cutting"
+      ],
+      "caution": "Requires the correct composite tool/material and a verified fiber path. This is not permission to run an empty or leaking fiber head. Excessive tension or slack can cause placement problems; no safe limit is established here.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXFSpeedCoeff": {
+      "meaning": "Multiplier applied to fiber printing speeds.",
+      "when_to_change": "Use to scale fiber-path speeds without editing each speed separately.",
+      "effect": "Increasing it requests faster fiber motion; decreasing it requests slower motion. Other limits may still cap the result.",
+      "interactions": [
+        "Individual fiber speeds",
+        "Composite extrusion",
+        "Fiber feedrate",
+        "Acceleration"
+      ],
+      "caution": "Requires the correct composite tool/material and a verified fiber path. This is not permission to run an empty or leaking fiber head. A multiplier is not a verified throughput or pressure limit.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPCount": {
+      "meaning": "Number of plastic loops forming the internal plastic shell.",
+      "when_to_change": "Change wall structure after base flow and dimensional behavior are stable.",
+      "effect": "More loops add shell thickness, material, and print time; fewer reduce them.",
+      "interactions": [
+        "Perimeter width",
+        "Plastic shell height",
+        "Fiber shell layout",
+        "Infill"
+      ],
+      "caution": "Counts may be limited by available geometry; verify the actual paths rather than assuming every loop fits.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPEWMM": {
+      "meaning": "Requested extrusion width of plastic shell perimeters.",
+      "when_to_change": "Use for a controlled wall-geometry adjustment, not as the first response to underextrusion.",
+      "effect": "Increasing width requests wider shell lines and usually greater volume per unit travel; decreasing requests narrower lines.",
+      "interactions": [
+        "Nozzle diameter",
+        "Perimeter count",
+        "Layer height",
+        "Flow multiplier",
+        "Speed"
+      ],
+      "caution": "A width entry is a requested geometry, not proof that the nozzle/material can produce it reliably.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPExtrusionMultP": {
+      "meaning": "Additional plastic-flow factor for plastic perimeters.",
+      "when_to_change": "Change when only perimeter paths need a measured correction after the material flow is tuned.",
+      "effect": "It multiplies the material flow factor. Increasing adds commanded plastic for these paths; decreasing removes it.",
+      "interactions": [
+        "Material Flow multiplier",
+        "Perimeter width/height",
+        "Speed"
+      ],
+      "caution": "Do not use a feature multiplier to hide a clog, leak, incorrect filament diameter, or bad base flow calibration.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPInnerWithFiberCount": {
+      "meaning": "Number of plastic perimeters between the fiber shell and interior cellular infill.",
+      "when_to_change": "Use to change plastic separation and bonding around the inner side of fiber reinforcement.",
+      "effect": "More loops thicken the plastic region inside fiber; fewer leave more room for infill.",
+      "interactions": [
+        "Fiber shell count",
+        "Infill",
+        "Perimeter width",
+        "Outer plastic count"
+      ],
+      "caution": "The short label 'P. Inner' is specific to the fiber-shell layout; it is not a different physical nozzle.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPOuterWithFiberCount": {
+      "meaning": "Number of plastic perimeters between the outside wall and the fiber shell.",
+      "when_to_change": "Use to change the plastic cover surrounding fiber near the exterior.",
+      "effect": "More loops increase plastic cover and consume more wall space; fewer bring fiber closer to the outside.",
+      "interactions": [
+        "Outer-wall geometry",
+        "Fiber shell count",
+        "Perimeter width",
+        "Inner plastic count"
+      ],
+      "caution": "The short label 'P. Outer' describes position in the shell layout, not the tool ID.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPRatioToMacro": {
+      "meaning": "Layer height used for the thicker internal plastic-perimeter shell within a macrolayer.",
+      "when_to_change": "Change only while checking that the chosen shell height fits the macrolayer arrangement and the nozzle.",
+      "effect": "Increasing displayed height reduces the number of those shell layers; decreasing adds finer shell layers. The saved field is a ratio even though the editor presents height.",
+      "interactions": [
+        "Macrolayer height",
+        "Outer-wall height",
+        "Composite layers",
+        "Perimeter width"
+      ],
+      "caution": "Do not enter or transfer a raw ratio as though it were millimeters; use the displayed unit and inspect Z positions.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:insetXPSpeed": {
+      "meaning": "Requested printing speed for plastic shell perimeters.",
+      "when_to_change": "Change after flow and temperature are stable, using a wall-speed test.",
+      "effect": "Faster requests reduce time but raise required flow; slower requests reduce flow demand and may change finish.",
+      "interactions": [
+        "Perimeter width/height",
+        "Material throughput",
+        "Acceleration",
+        "Cooling"
+      ],
+      "caution": "The request may be limited by other rules. It does not prove safe nozzle pressure.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:isSpiralVase": {
+      "meaning": "Selects continuous spiral construction for a hollow, single-wall object.",
+      "when_to_change": "Use only for a suitable vase-like part rather than a normal solid or reinforced part.",
+      "effect": "Enabled requests a continuously rising spiral wall; disabled keeps normal layer-based construction.",
+      "interactions": [
+        "Wall count",
+        "Top/bottom geometry",
+        "Model shape",
+        "Fiber and multi-material features"
+      ],
+      "caution": "Check Preview for the intended hollow result; enabling this is not a general strength or watertightness setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:macroLayerHeight": {
+      "meaning": "Height of the repeated layer package containing the component microlayers.",
+      "when_to_change": "Change when deliberately redesigning the relationship between outer walls, internal plastic, and composite layers.",
+      "effect": "A larger package changes how constituent layer heights line up; a smaller package changes that schedule in the opposite direction.",
+      "interactions": [
+        "Plastic-perimeter layer height",
+        "Outer-wall layer height",
+        "Composite layer height",
+        "Top/bottom skins"
+      ],
+      "caution": "This is not simply an ordinary slicer's single uniform layer-height field. Verify the entire layer schedule.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:minLayerTimeForSlowing": {
+      "meaning": "Layer-duration threshold below which Rocket requests a print-speed slowdown.",
+      "when_to_change": "Use when small layers do not have enough time to cool before the next layer.",
+      "effect": "Increasing the threshold applies slowdown to more short layers; decreasing it allows shorter layers without that slowdown.",
+      "interactions": [
+        "Minimum print speed",
+        "Cooling fans",
+        "Material",
+        "Feature speed"
+      ],
+      "caution": "Slowdown cannot guarantee adequate cooling or repair heat-damaged geometry.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:minPrintSpeedForSlowDownAtShortPrintTimeLayer": {
+      "meaning": "Lowest speed allowed by the short-layer cooling slowdown.",
+      "when_to_change": "Change when cooling slowdown becomes too slow or cannot slow enough for small features.",
+      "effect": "A higher minimum limits how much Rocket may slow down; a lower minimum permits slower motion.",
+      "interactions": [
+        "Minimum layer print time",
+        "Fans",
+        "Material",
+        "Overhang behavior"
+      ],
+      "caution": "Very slow motion is not automatically safer or cleaner; validate a small-feature test.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:minimumFeatureSize": {
+      "meaning": "Smallest feature the variable-width wall generator tries to preserve.",
+      "when_to_change": "Change only when tiny features disappear or create unwanted short paths.",
+      "effect": "Increasing filters out more fine detail; decreasing asks the generator to keep smaller features.",
+      "interactions": [
+        "Variable-width wall generator",
+        "Minimum wall width",
+        "Model resolution"
+      ],
+      "caution": "The slicer retaining a feature does not mean the nozzle can physically print it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:minimumPerimeterLength": {
+      "meaning": "Minimum accepted length of one continuous-fiber perimeter.",
+      "when_to_change": "Change only during an explicitly controlled short-fiber-contour investigation.",
+      "effect": "Increasing suppresses more short fiber loops; decreasing permits shorter loops.",
+      "interactions": [
+        "Fiber shell geometry",
+        "Minimum bend/cut behavior",
+        "Fiber placement"
+      ],
+      "caution": "Requires the correct composite tool/material and a verified fiber path. This is not permission to run an empty or leaking fiber head. Installed help warns that reducing it may cause short-contour layup problems.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:minimumWallWidth": {
+      "meaning": "Lower width bound requested from the variable-width wall generator.",
+      "when_to_change": "Use when thin-wall paths are too narrow or small features are omitted.",
+      "effect": "Increasing prevents narrower wall paths; decreasing lets the generator attempt narrower ones.",
+      "interactions": [
+        "Nozzle diameter",
+        "Minimum feature size",
+        "Wall transitions",
+        "Flow"
+      ],
+      "caution": "A width entry is a requested geometry, not proof that the nozzle/material can produce it reliably.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:mustGenerateFiberPerimeters": {
+      "meaning": "A switch labeled 'Fiber shell adaptive loops' under reinforced-perimeter generation.",
+      "when_to_change": "Leave the reviewed value unless testing this specific fiber-shell algorithm.",
+      "effect": "The schema proves the switch and its dependency on fiber-perimeter generation, but does not establish precisely how enabling it adapts or forces loops.",
+      "interactions": [
+        "Generate fiber perimeters",
+        "Fiber shell counts",
+        "Available wall thickness"
+      ],
+      "caution": "The raw ID suggests 'must generate' while the visible label says adaptive loops. Do not infer the Boolean polarity or a no-fiber mode.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:name": {
+      "meaning": "Human-readable name of the process/profile.",
+      "when_to_change": "Change to identify machine, nozzle, material, purpose, and revision clearly.",
+      "effect": "Renaming improves selection and traceability; the name by itself does not alter the underlying print settings.",
+      "interactions": [
+        "Saved template",
+        "Selected process",
+        "Version"
+      ],
+      "caution": "A name containing TUNED, SAFE, or a nozzle size is not proof of validated values or the selected hardware.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:nozzleContactRadius": {
+      "meaning": "Composite-nozzle contact-surface radius used by trajectory correction.",
+      "when_to_change": "Change only from measured tooling geometry or a controlled correction study.",
+      "effect": "Changing it alters the geometric correction applied to composite paths; it is not a filament-flow control.",
+      "interactions": [
+        "Composite trajectory correction",
+        "Nozzle geometry",
+        "Fiber paths"
+      ],
+      "caution": "Do not substitute nozzle-hole diameter for contact-surface radius. Incorrect geometry can misplace paths.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:nozzleContactRadiusExtended": {
+      "meaning": "Composite contact radius used for the trajectory after a fiber cut.",
+      "when_to_change": "Change only when the post-cut correction geometry is understood and measured.",
+      "effect": "Changing it modifies post-cut path correction, rather than the normal plastic flow.",
+      "interactions": [
+        "Normal contact radius",
+        "Fiber cutting",
+        "Composite trajectory correction"
+      ],
+      "caution": "This is not a clearance or leak-prevention command. Keep the actual nozzle geometry and cutting sequence in view.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeInterfaceSupportInfillType": {
+      "meaning": "Pattern used in tree-support contact-interface layers.",
+      "when_to_change": "Change to compare interface coverage, path continuity, and removal.",
+      "effect": "The schema offers Zigzag, Grid, Line, and Concentric patterns; pattern choice changes the contact paths, not their validated flow.",
+      "interactions": [
+        "Interface spacing",
+        "Interface angles",
+        "Top/bottom layer count"
+      ],
+      "caution": "Angles do not apply to every pattern. Choose from the active mode's actual list, not broader help text.",
+      "options": [
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.zigzag"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Intersecting line families forming a grid; crossings change local path overlap.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.GRID"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.grid"
+        },
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.LINE"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.line"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.concentric"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportAutoBrim": {
+      "meaning": "Organic variant: Automatically determines a tree-support brim from the root geometry and support height.",
+      "when_to_change": "Use automatic brim sizing unless a measured adhesion case calls for explicit manual width.",
+      "effect": "Enabled calculates brim size; disabled makes the separate manual brim width relevant.",
+      "interactions": [
+        "Tree roots",
+        "Support height",
+        "Manual tree brim width"
+      ],
+      "caution": "Automatic sizing does not prove adhesion or plate fit; inspect the full footprint.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBodyFillAngle": {
+      "meaning": "Organic variant: Starting angle of the internal tree-body fill.",
+      "when_to_change": "Change to orient non-hollow body fill.",
+      "effect": "It rotates internal fill; hollow bodies do not use it.",
+      "interactions": [
+        "Tree body pattern",
+        "Body angle step",
+        "Body fill density"
+      ],
+      "caution": "This does not rotate the whole support tree.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBodyFillAngleStep": {
+      "meaning": "Organic variant: Layer-to-layer change in the tree-body fill angle.",
+      "when_to_change": "Use when changing the alternating orientation of the tree's internal fill.",
+      "effect": "A different step changes orientation between layers rather than fill amount.",
+      "interactions": [
+        "Tree body pattern",
+        "Starting body angle"
+      ],
+      "caution": "Installed help says hollow and honeycomb bodies do not use this setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBodyFillDensity": {
+      "meaning": "Organic variant: Density of internal fill in a non-hollow tree-support body.",
+      "when_to_change": "Use when tree bodies need a different material/stability tradeoff.",
+      "effect": "Higher density requests more internal structure and material; lower density leaves a more open body.",
+      "interactions": [
+        "Tree body pattern",
+        "Branch diameter",
+        "Wall count"
+      ],
+      "caution": "Hollow bodies do not use internal fill. More material does not guarantee a stable tall support.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBodyInfillType": {
+      "meaning": "Organic variant: Internal construction pattern of the tree-support body.",
+      "when_to_change": "Change to compare hollow walls with filled support bodies.",
+      "effect": "Hollow uses only the shell; the other listed choices add patterned internal fill.",
+      "interactions": [
+        "Body fill density",
+        "Body angles",
+        "Wall count",
+        "Branch geometry"
+      ],
+      "caution": "Inspect small branches; the requested pattern may not fit in every cross-section.",
+      "options": [
+        {
+          "label": "Hollow",
+          "meaning": "No internal tree-body infill; the body's walls form the support shell.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "TreeSupportBodyInfillType.HOLLOW"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-hollow"
+        },
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "TreeSupportBodyInfillType.LINE"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-line"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Intersecting line families forming a grid; crossings change local path overlap.",
+          "source_value": {
+            "value": 2,
+            "source_enum": "TreeSupportBodyInfillType.GRID"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-grid"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "value": 3,
+            "source_enum": "TreeSupportBodyInfillType.ZIGZAG"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-zigzag"
+        },
+        {
+          "label": "Honeycomb",
+          "meaning": "A repeating honeycomb-style internal structure; inspect how much of it fits inside the tree.",
+          "source_value": {
+            "value": 4,
+            "source_enum": "TreeSupportBodyInfillType.HONEYCOMB"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-honeycomb"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBottomInterfaceLayerCount": {
+      "meaning": "Number of bottom support-interface macrolayers, not a simple on/off switch.",
+      "when_to_change": "Change when the bottom contact region needs a different thickness or removal behavior.",
+      "effect": "More selected layers create a thicker contact region; zero requests none. Follow top inherits the top-interface layer count.",
+      "interactions": [
+        "Macrolayer height",
+        "Interface spacing",
+        "Top/bottom Z clearances"
+      ],
+      "caution": "Some installed help uses old 'flag' wording, but this schema is a layer-count selector. Verify the actual layer count in Preview.",
+      "options": [
+        {
+          "label": "Follow top",
+          "meaning": "Uses the top-interface layer count for the bottom interface.",
+          "source_value": -1,
+          "source_label_key": "profile-settings.support-interface-layer-count-follow-top"
+        },
+        {
+          "label": "0",
+          "meaning": "Requests no interface macrolayers for this side.",
+          "source_value": 0,
+          "source_label_key": "0"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests 1 interface macrolayer for this side; verify the actual sliced contact thickness.",
+          "source_value": 1,
+          "source_label_key": "1"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests 2 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 2,
+          "source_label_key": "2"
+        },
+        {
+          "label": "3",
+          "meaning": "Requests 3 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 3,
+          "source_label_key": "3"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBottomInterfaceSpacing": {
+      "meaning": "Organic variant: Gap between adjacent lines in the bottom support interface.",
+      "when_to_change": "Change to balance contact coverage against separation at the support's underside.",
+      "effect": "Larger spacing leaves more open contact paths; smaller spacing makes them denser.",
+      "interactions": [
+        "Bottom-interface layer count",
+        "Bottom Z distance",
+        "Interface line width/flow"
+      ],
+      "caution": "This is in-plane line spacing, not vertical clearance or a fill percentage.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBottomZDistance": {
+      "meaning": "Organic variant: Vertical gap between the support's underside and the model surface below it.",
+      "when_to_change": "Use when supports begin on model surfaces and adhere too firmly or too weakly.",
+      "effect": "Increasing generally eases separation but weakens the support start; decreasing increases proximity/contact.",
+      "interactions": [
+        "Bottom interface",
+        "Support/model XY gap",
+        "Model layer schedule"
+      ],
+      "caution": "This is not the gap under the supported overhang; that is the top Z distance.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBranchAngle": {
+      "meaning": "Organic variant: Limit on how much the support branches may tilt while growing sideways.",
+      "when_to_change": "Use when branches cannot reach an overhang or take an unsuitable route.",
+      "effect": "Larger values permit more lateral reach over a given height; smaller values keep branches more upright.",
+      "interactions": [
+        "Branch spacing",
+        "Branch diameter",
+        "Model collision avoidance"
+      ],
+      "caution": "Permitted tilt is not proof a branch can print unsupported; inspect the whole route.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBranchDiameter": {
+      "meaning": "Organic variant: Reference diameter of tree-support branches.",
+      "when_to_change": "Change when supports are too fragile or consume excessive material.",
+      "effect": "Larger branches generally improve stability at a material/time cost; smaller branches reduce material but can be fragile.",
+      "interactions": [
+        "Branch spacing",
+        "Diameter growth angle",
+        "Wall/fill structure"
+      ],
+      "caution": "A diameter request cannot cure poor first-layer adhesion or a collision.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBranchDiameterAngle": {
+      "meaning": "Organic variant: Controls how rapidly branches thicken toward their roots.",
+      "when_to_change": "Use when trunks need a different growth/stability profile.",
+      "effect": "Changing it alters rootward thickening and material use; judge the resulting shape rather than treating it as a printing speed.",
+      "interactions": [
+        "Branch diameter",
+        "Tree height",
+        "Branch tilt"
+      ],
+      "caution": "The UI/help identifies the purpose, not a universal safe angle for every tree.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBranchDistance": {
+      "meaning": "Organic variant: Target spacing between neighboring support branches.",
+      "when_to_change": "Change when support contacts are too sparse or trees are unnecessarily dense.",
+      "effect": "Smaller spacing requests more densely placed branches; larger spacing requests fewer.",
+      "interactions": [
+        "Top contact regions",
+        "Tip diameter",
+        "Branch diameter"
+      ],
+      "caution": "Spacing is a target constrained by model clearance and the planner.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportBrimWidth": {
+      "meaning": "Organic variant: Manual width of the tree-support brim when automatic brim sizing is off.",
+      "when_to_change": "Use for a specific support-root adhesion/plate-space adjustment.",
+      "effect": "Wider gives a larger bed attachment; narrower uses less plate area. Installed help describes zero as no brim.",
+      "interactions": [
+        "Automatic tree brim",
+        "Root geometry",
+        "Plate layout"
+      ],
+      "caution": "This is the tree-support brim, not the model brim; keep both within the plate.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportExpansion": {
+      "meaning": "Organic variant: Horizontal expansion of the tree-support overhang contact region.",
+      "when_to_change": "Use to change the footprint of regions that tree supports must reach.",
+      "effect": "Increasing the nonnegative expansion grows contact regions subject to model-collision limits; it does not increase branch diameter.",
+      "interactions": [
+        "Top contact density",
+        "Model collision avoidance",
+        "Support/model clearance"
+      ],
+      "caution": "Current help describes nonnegative values for this tree expansion; do not transfer signed conventional-support offset behavior.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportInterfaceFillAngle": {
+      "meaning": "Organic variant: Direction of the first support-interface fill layer.",
+      "when_to_change": "Change to orient the interface contact paths.",
+      "effect": "It rotates applicable interface lines without directly changing their spacing.",
+      "interactions": [
+        "Interface pattern",
+        "Interface angle step",
+        "Top/bottom interfaces"
+      ],
+      "caution": "Concentric interface paths do not use the angle according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportInterfaceFillAngleStep": {
+      "meaning": "Organic variant: Change of support-interface fill angle between adjacent interface layers.",
+      "when_to_change": "Use to control layer-to-layer rotation within contact layers.",
+      "effect": "Different steps change line orientation rather than interface thickness.",
+      "interactions": [
+        "Initial interface angle",
+        "Interface pattern",
+        "Interface layer count"
+      ],
+      "caution": "Concentric fill does not use this angle step.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportMode": {
+      "meaning": "Organic variant: Selects the source of regions that generate tree supports.",
+      "when_to_change": "Choose based on whether you want automatic detection, manual regions, or both.",
+      "effect": "Auto uses detected overhangs; Manual uses manually specified regions; Hybrid combines the two.",
+      "interactions": [
+        "Manual support painting/regions",
+        "Automatic threshold",
+        "Support filtering"
+      ],
+      "caution": "Manual mode does not automatically rescue unmarked overhangs; inspect every unsupported area.",
+      "options": [
+        {
+          "label": "Auto",
+          "meaning": "Uses automatically detected overhang regions.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "TreeSupportGenerationMode.AUTO"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-auto"
+        },
+        {
+          "label": "Manual",
+          "meaning": "Uses manually specified support regions only.",
+          "source_value": {
+            "value": 2,
+            "source_enum": "TreeSupportGenerationMode.MANUAL"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-manual"
+        },
+        {
+          "label": "Hybrid",
+          "meaning": "Combines automatic overhang regions and manually specified regions.",
+          "source_value": {
+            "value": 3,
+            "source_enum": "TreeSupportGenerationMode.HYBRID"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-hybrid"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportPreferredBranchAngle": {
+      "meaning": "Branch tilt preferred by the Organic support planner.",
+      "when_to_change": "Use to influence Organic tree shape after the maximum branch angle is set.",
+      "effect": "Changes the planner's preferred route; it can still adjust within the allowed maximum.",
+      "interactions": [
+        "Maximum Organic branch angle",
+        "Model avoidance",
+        "Branch spacing"
+      ],
+      "caution": "Preferred does not mean mandatory; inspect the generated branches.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportTipDiameter": {
+      "meaning": "Diameter near an Organic branch's upper contact with its supported region.",
+      "when_to_change": "Use when contacts break too easily or are difficult to remove.",
+      "effect": "Smaller tips can separate more easily; larger tips give more support/contact.",
+      "interactions": [
+        "Organic top density",
+        "Top interface",
+        "Branch diameter"
+      ],
+      "caution": "A tiny tip is not necessarily printable or sufficient to hold the overhang.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportTopDensity": {
+      "meaning": "Density of Organic branches near the supported surface.",
+      "when_to_change": "Use when overhang coverage is insufficient or removal is too difficult.",
+      "effect": "Higher density can increase support coverage and material; lower density makes the contact region sparser.",
+      "interactions": [
+        "Organic tip diameter",
+        "Interface pattern/spacing",
+        "Overhang regions"
+      ],
+      "caution": "This is not the same control as internal tree-body fill density.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportTopInterfaceLayerCount": {
+      "meaning": "Number of top support-interface macrolayers, not a simple on/off switch.",
+      "when_to_change": "Change when the top contact region needs a different thickness or removal behavior.",
+      "effect": "More selected layers create a thicker contact region; zero requests none. ",
+      "interactions": [
+        "Macrolayer height",
+        "Interface spacing",
+        "Top/bottom Z clearances"
+      ],
+      "caution": "Some installed help uses old 'flag' wording, but this schema is a layer-count selector. Verify the actual layer count in Preview.",
+      "options": [
+        {
+          "label": "0",
+          "meaning": "Requests no interface macrolayers for this side.",
+          "source_value": 0,
+          "source_label_key": "0"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests 1 interface macrolayer for this side; verify the actual sliced contact thickness.",
+          "source_value": 1,
+          "source_label_key": "1"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests 2 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 2,
+          "source_label_key": "2"
+        },
+        {
+          "label": "3",
+          "meaning": "Requests 3 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 3,
+          "source_label_key": "3"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportTopInterfaceSpacing": {
+      "meaning": "Organic variant: Gap between neighboring lines at the top support interface.",
+      "when_to_change": "Use to balance supported-surface quality against removal effort.",
+      "effect": "Larger spacing makes the interface more open; smaller spacing adds contact coverage.",
+      "interactions": [
+        "Top-interface layers",
+        "Top Z distance",
+        "Interface line width/flow"
+      ],
+      "caution": "This is millimeter line spacing, not vertical separation or percent fill.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportTopZDistance": {
+      "meaning": "Organic variant: Vertical clearance between the support top and the model above it.",
+      "when_to_change": "Use when overhang undersides are too rough or supports bond too strongly.",
+      "effect": "Increasing usually aids removal but gives less support; decreasing moves the support closer.",
+      "interactions": [
+        "Top-interface spacing/layers",
+        "Model/support layer schedule"
+      ],
+      "caution": "The achievable gap is affected by layers; verify the actual sliced contact rather than just the input number.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportWallCount": {
+      "meaning": "Organic variant: Number of wall loops around each tree-support cross-section.",
+      "when_to_change": "Change when support branches need a different shell strength/material tradeoff.",
+      "effect": "Auto chooses from the supported wall counts; 1 or 2 requests that many loops where the cross-section has space.",
+      "interactions": [
+        "Branch diameter",
+        "Body fill pattern",
+        "Line width"
+      ],
+      "caution": "This is not a vertical layer count. A second loop only appears where the geometry can fit it.",
+      "options": [
+        {
+          "label": "Auto",
+          "meaning": "Rocket chooses one or two wall loops from the cross-section geometry.",
+          "source_value": 0,
+          "source_label_key": "profile-settings.tree-support-wall-count-auto"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests one wall loop around each suitable support cross-section.",
+          "source_value": 1,
+          "source_label_key": "profile-settings.tree-support-wall-count-one"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests two wall loops where sufficient cross-section space exists.",
+          "source_value": 2,
+          "source_label_key": "profile-settings.tree-support-wall-count-two"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:organicTreeSupportXYDistance": {
+      "meaning": "Organic variant: Horizontal distance between tree supports and the model.",
+      "when_to_change": "Use to reduce sidewall bonding or recover support near a boundary.",
+      "effect": "Larger clearance reduces side contact and available support area; smaller clearance brings branches closer.",
+      "interactions": [
+        "Tree expansion",
+        "Branch routing",
+        "Top/bottom Z distances"
+      ],
+      "caution": "It does not change vertical contact gaps. Inspect collision avoidance and overhang support together.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:outerContourExpansion": {
+      "meaning": "XY offset applied to the part's outside contour for dimensional correction.",
+      "when_to_change": "Use after flow is calibrated and measured outside dimensions show a repeatable offset.",
+      "effect": "Positive values enlarge the outside contour; negative values shrink it.",
+      "interactions": [
+        "Hole expansion settings",
+        "Material shrinkage",
+        "Flow",
+        "Model dimensions"
+      ],
+      "caution": "This changes contour dimensions, not overall scaling; verify holes and thin walls separately.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangEWMM": {
+      "meaning": "Requested line width for overhang infill.",
+      "when_to_change": "Change to tune the path geometry after the material's base flow is sound.",
+      "effect": "Larger width asks for wider lines and more volume per unit path; smaller width requests narrower lines.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "The requested width is not proof the nozzle can deliver it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangExtrusionMultP": {
+      "meaning": "Additional flow factor for overhang infill.",
+      "when_to_change": "Change only when these paths alone need a measured flow correction.",
+      "effect": "It multiplies the material flow factor; increasing adds commanded plastic to these paths and decreasing reduces it.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Do not compensate for a clog, leak, or incorrect base material flow with a feature multiplier.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangInfillAngle": {
+      "meaning": "Starting direction of fill lines for overhang infill.",
+      "when_to_change": "Change to orient the fill relative to the shape or desired surface appearance.",
+      "effect": "It rotates applicable fill paths; it does not directly alter fill amount.",
+      "interactions": [
+        "Fill pattern",
+        "Angle step where available",
+        "Perimeter contact"
+      ],
+      "caution": "Concentric paths do not use this angle according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangInfillExtendIntoPerimeterRatio": {
+      "meaning": "Fraction of line width by which overhang infill overlaps the surrounding perimeters.",
+      "when_to_change": "Use when the skin-to-wall bond is incomplete or the boundary is excessively crowded.",
+      "effect": "Increasing grows the overlap; decreasing reduces intrusion into the perimeter region.",
+      "interactions": [
+        "Line width",
+        "Perimeter geometry",
+        "Material and feature flow"
+      ],
+      "caution": "This is a ratio, not millimeters or a direct percentage entry. Excess overlap can cause ridges.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangInfillPattern": {
+      "meaning": "Layout used to fill overhang infill.",
+      "when_to_change": "Change to compare surface appearance, path continuity, and print time.",
+      "effect": "Each listed pattern creates a different path shape; it is not an automatic change in validated flow or strength.",
+      "interactions": [
+        "Fill angle",
+        "Layer schedule",
+        "Line width",
+        "Preview"
+      ],
+      "caution": "Choose only options actually offered in the active mode; broader help text is not proof all patterns appear everywhere.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "SolidInfillType.LINE"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "SolidInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "SolidInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overhangSpeed": {
+      "meaning": "Requested print speed for overhang infill.",
+      "when_to_change": "Change after temperature and flow are stable using a controlled feature-speed test.",
+      "effect": "Increasing raises motion and extrusion demand; decreasing reduces it and changes time/heat exposure.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Other limits can reduce actual speed. No safe throughput or pressure limit follows from this setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:overrideCorrectionSegmentSpeed": {
+      "meaning": "Allows a separate speed for composite trajectory-correction travel segments.",
+      "when_to_change": "Use only when investigating the correction motion with a known-good composite path.",
+      "effect": "Enabled uses the separate correction-speed setting; disabled follows the associated print-move speed.",
+      "interactions": [
+        "Correction-segment speed",
+        "Composite path speed",
+        "Contact radii"
+      ],
+      "caution": "It changes correction motion, not a guaranteed overall travel cap. Validate emitted correction segments.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:percent100OverhangSpeed": {
+      "meaning": "Requested print speed for the 100% overhang category.",
+      "when_to_change": "Change when that category of overhang needs a measured speed adjustment.",
+      "effect": "A lower requested speed can improve difficult overhangs; a higher one raises motion/flow demand.",
+      "interactions": [
+        "Overhang classification",
+        "Other overhang speed categories",
+        "Fans",
+        "Line width and height"
+      ],
+      "caution": "Do not assume what the percentage measures without checking Rocket's classification/Preview; these are not fan percentages.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:percent10OverhangSpeed": {
+      "meaning": "Requested print speed for the 10% overhang category.",
+      "when_to_change": "Change when that category of overhang needs a measured speed adjustment.",
+      "effect": "A lower requested speed can improve difficult overhangs; a higher one raises motion/flow demand.",
+      "interactions": [
+        "Overhang classification",
+        "Other overhang speed categories",
+        "Fans",
+        "Line width and height"
+      ],
+      "caution": "Do not assume what the percentage measures without checking Rocket's classification/Preview; these are not fan percentages.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:percent25OverhangSpeed": {
+      "meaning": "Requested print speed for the 25% overhang category.",
+      "when_to_change": "Change when that category of overhang needs a measured speed adjustment.",
+      "effect": "A lower requested speed can improve difficult overhangs; a higher one raises motion/flow demand.",
+      "interactions": [
+        "Overhang classification",
+        "Other overhang speed categories",
+        "Fans",
+        "Line width and height"
+      ],
+      "caution": "Do not assume what the percentage measures without checking Rocket's classification/Preview; these are not fan percentages.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:percent50OverhangSpeed": {
+      "meaning": "Requested print speed for the 50% overhang category.",
+      "when_to_change": "Change when that category of overhang needs a measured speed adjustment.",
+      "effect": "A lower requested speed can improve difficult overhangs; a higher one raises motion/flow demand.",
+      "interactions": [
+        "Overhang classification",
+        "Other overhang speed categories",
+        "Fans",
+        "Line width and height"
+      ],
+      "caution": "Do not assume what the percentage measures without checking Rocket's classification/Preview; these are not fan percentages.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:percent75OverhangSpeed": {
+      "meaning": "Requested print speed for the 75% overhang category.",
+      "when_to_change": "Change when that category of overhang needs a measured speed adjustment.",
+      "effect": "A lower requested speed can improve difficult overhangs; a higher one raises motion/flow demand.",
+      "interactions": [
+        "Overhang classification",
+        "Other overhang speed categories",
+        "Fans",
+        "Line width and height"
+      ],
+      "caution": "Do not assume what the percentage measures without checking Rocket's classification/Preview; these are not fan percentages.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:plasticExtrusionCompensationRatio": {
+      "meaning": "A ratio that multiplies the calculated plastic extrusion in reinforced-entity processing.",
+      "when_to_change": "Use only when specifically validating this additional compensation layer.",
+      "effect": "Increasing adds calculated plastic; decreasing reduces it. It can combine with other flow corrections.",
+      "interactions": [
+        "Material flow",
+        "Feature flow multipliers",
+        "Composite/fiber geometry"
+      ],
+      "caution": "Do not use a feature multiplier to hide a clog, leak, incorrect filament diameter, or bad base flow calibration. Confirm its actual affected paths in the emitted file before applying it globally.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:putFiberSeamOnLongestEdgeEnd": {
+      "meaning": "Requests the fiber seam at an end of the contour's longest straight edge.",
+      "when_to_change": "Use when a deliberate fiber start/end position is preferable to other seam choices.",
+      "effect": "Enabled requests that seam location; disabled leaves seam placement to the remaining seam rules.",
+      "interactions": [
+        "Fiber seam start/distribution",
+        "Contour shape",
+        "Fiber cutting"
+      ],
+      "caution": "A requested seam can be constrained by actual path geometry; inspect both start and cut positions.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:replaceFiberPlasticSolidEWMM": {
+      "meaning": "Requested line width for the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change to tune the path geometry after the material's base flow is sound.",
+      "effect": "Larger width asks for wider lines and more volume per unit path; smaller width requests narrower lines.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "The requested width is not proof the nozzle can deliver it. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidExtrusionMultP": {
+      "meaning": "Additional flow factor for the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change only when these paths alone need a measured flow correction.",
+      "effect": "It multiplies the material flow factor; increasing adds commanded plastic to these paths and decreasing reduces it.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Do not compensate for a clog, leak, or incorrect base material flow with a feature multiplier. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidInfillAngle": {
+      "meaning": "Starting direction of fill lines for the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change to orient the fill relative to the shape or desired surface appearance.",
+      "effect": "It rotates applicable fill paths; it does not directly alter fill amount.",
+      "interactions": [
+        "Fill pattern",
+        "Angle step where available",
+        "Perimeter contact"
+      ],
+      "caution": "Concentric paths do not use this angle according to installed help. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidInfillAngleStep": {
+      "meaning": "Change in fill direction between successive layers of the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change to control how the fill orientation alternates across these layers.",
+      "effect": "A different step changes the layer-to-layer rotation rather than the number of skin layers.",
+      "interactions": [
+        "Initial fill angle",
+        "Fill pattern",
+        "Skin-layer schedule"
+      ],
+      "caution": "Concentric fill does not use this angle step according to installed help. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidInfillExtendIntoPerimeterRatio": {
+      "meaning": "Fraction of line width by which the solid-plastic-infill group (described as bottom solid skin in installed help) overlaps the surrounding perimeters.",
+      "when_to_change": "Use when the skin-to-wall bond is incomplete or the boundary is excessively crowded.",
+      "effect": "Increasing grows the overlap; decreasing reduces intrusion into the perimeter region.",
+      "interactions": [
+        "Line width",
+        "Perimeter geometry",
+        "Material and feature flow"
+      ],
+      "caution": "This is a ratio, not millimeters or a direct percentage entry. Excess overlap can cause ridges. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidInfillPattern": {
+      "meaning": "Layout used to fill the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change to compare surface appearance, path continuity, and print time.",
+      "effect": "Each listed pattern creates a different path shape; it is not an automatic change in validated flow or strength.",
+      "interactions": [
+        "Fill angle",
+        "Layer schedule",
+        "Line width",
+        "Preview"
+      ],
+      "caution": "Choose only options actually offered in the active mode; broader help text is not proof all patterns appear everywhere. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "SolidInfillType.LINE"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "SolidInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "SolidInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        }
+      ],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:replaceFiberPlasticSolidSpeed": {
+      "meaning": "Requested print speed for the solid-plastic-infill group (described as bottom solid skin in installed help).",
+      "when_to_change": "Change after temperature and flow are stable using a controlled feature-speed test.",
+      "effect": "Increasing raises motion and extrusion demand; decreasing reduces it and changes time/heat exposure.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Other limits can reduce actual speed. No safe throughput or pressure limit follows from this setting. The legacy field name refers to fiber replacement while the help calls it bottom skin; verify the active mode's affected paths in Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:seamDistributionPositionOffsetFiber": {
+      "meaning": "Per-layer change of the fiber seam position, expressed as a fraction of the contour perimeter.",
+      "when_to_change": "Use to spread or deliberately move fiber seams between layers.",
+      "effect": "Installed help describes each new layer moving by offset multiplied by perimeter: positive moves forward along the path and negative moves backward.",
+      "interactions": [
+        "Fiber seam distribution type",
+        "Fiber seam start position",
+        "Contour direction and perimeter length"
+      ],
+      "caution": "This is a perimeter-relative offset, not millimeters. Random seam settings may supersede specified placement.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamDistributionPositionOffsetPlastic": {
+      "meaning": "Per-layer change of the plastic seam position, expressed as a fraction of the contour perimeter.",
+      "when_to_change": "Use to spread or deliberately move plastic seams between layers.",
+      "effect": "Installed help describes each new layer moving by offset multiplied by perimeter: positive moves forward along the path and negative moves backward.",
+      "interactions": [
+        "Plastic seam distribution type",
+        "Plastic seam start position",
+        "Contour direction and perimeter length"
+      ],
+      "caution": "This is a perimeter-relative offset, not millimeters. Random seam settings may supersede specified placement.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamDistributionPositionTypeFiber": {
+      "meaning": "Chooses random or specified fiber seam distribution positioning.",
+      "when_to_change": "Use to trade a repeatable seam location against dispersing the fiber seam marks.",
+      "effect": "Random delegates position choice to random placement; Specified uses the related offset. Installed help says making either the start or distribution random can randomize both.",
+      "interactions": [
+        "Fiber seam distribution offset",
+        "Fiber other seam-position type",
+        "Longest-edge fiber seam preference"
+      ],
+      "caution": "Specified does not guarantee one absolute machine coordinate; contour geometry and other seam rules still apply.",
+      "options": [
+        {
+          "label": "Random",
+          "meaning": "Randomizes seam placement; installed help says either random start or random distribution can randomize both.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "SeamPositionType.RANDOM"
+          },
+          "source_label_key": "profile-settings.seam-position-type.random"
+        },
+        {
+          "label": "Specified",
+          "meaning": "Uses the corresponding specified offset rather than requesting random placement.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "SeamPositionType.SPECIFIED"
+          },
+          "source_label_key": "profile-settings.seam-position-type.specified"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamDistributionPositionTypePlastic": {
+      "meaning": "Chooses random or specified plastic seam distribution positioning.",
+      "when_to_change": "Use to trade a repeatable seam location against dispersing the plastic seam marks.",
+      "effect": "Random delegates position choice to random placement; Specified uses the related offset. Installed help says making either the start or distribution random can randomize both.",
+      "interactions": [
+        "Plastic seam distribution offset",
+        "Plastic other seam-position type",
+        "Longest-edge fiber seam preference"
+      ],
+      "caution": "Specified does not guarantee one absolute machine coordinate; contour geometry and other seam rules still apply.",
+      "options": [
+        {
+          "label": "Random",
+          "meaning": "Randomizes seam placement; installed help says either random start or random distribution can randomize both.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "SeamPositionType.RANDOM"
+          },
+          "source_label_key": "profile-settings.seam-position-type.random"
+        },
+        {
+          "label": "Specified",
+          "meaning": "Uses the corresponding specified offset rather than requesting random placement.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "SeamPositionType.SPECIFIED"
+          },
+          "source_label_key": "profile-settings.seam-position-type.specified"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamStartPositionOffsetFiber": {
+      "meaning": "Fixed start-position shift of the fiber seam on all layers, as a fraction of perimeter length.",
+      "when_to_change": "Use when a repeatable fiber start/end location should move away from an unsuitable surface.",
+      "effect": "Installed help describes positive offsets moving forward and negative offsets moving backward along the contour; this is not the per-layer distribution increment.",
+      "interactions": [
+        "Fiber seam start type",
+        "Fiber seam distribution",
+        "Contour direction"
+      ],
+      "caution": "This is not an XY coordinate or a millimeter distance. Inspect actual start/end locations and fiber-cut positions.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamStartPositionOffsetPlastic": {
+      "meaning": "Fixed start-position shift of the plastic seam on all layers, as a fraction of perimeter length.",
+      "when_to_change": "Use when a repeatable plastic start/end location should move away from an unsuitable surface.",
+      "effect": "Installed help describes positive offsets moving forward and negative offsets moving backward along the contour; this is not the per-layer distribution increment.",
+      "interactions": [
+        "Plastic seam start type",
+        "Plastic seam distribution",
+        "Contour direction"
+      ],
+      "caution": "This is not an XY coordinate or a millimeter distance. Inspect actual start/end locations.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamStartPositionTypeFiber": {
+      "meaning": "Chooses random or specified fiber seam start positioning.",
+      "when_to_change": "Use to trade a repeatable seam location against dispersing the fiber seam marks.",
+      "effect": "Random delegates position choice to random placement; Specified uses the related offset. Installed help says making either the start or distribution random can randomize both.",
+      "interactions": [
+        "Fiber seam start offset",
+        "Fiber other seam-position type",
+        "Longest-edge fiber seam preference"
+      ],
+      "caution": "Specified does not guarantee one absolute machine coordinate; contour geometry and other seam rules still apply.",
+      "options": [
+        {
+          "label": "Random",
+          "meaning": "Randomizes seam placement; installed help says either random start or random distribution can randomize both.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "SeamPositionType.RANDOM"
+          },
+          "source_label_key": "profile-settings.seam-position-type.random"
+        },
+        {
+          "label": "Specified",
+          "meaning": "Uses the corresponding specified offset rather than requesting random placement.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "SeamPositionType.SPECIFIED"
+          },
+          "source_label_key": "profile-settings.seam-position-type.specified"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:seamStartPositionTypePlastic": {
+      "meaning": "Chooses random or specified plastic seam start positioning.",
+      "when_to_change": "Use to trade a repeatable seam location against dispersing the plastic seam marks.",
+      "effect": "Random delegates position choice to random placement; Specified uses the related offset. Installed help says making either the start or distribution random can randomize both.",
+      "interactions": [
+        "Plastic seam start offset",
+        "Plastic other seam-position type",
+        "Longest-edge fiber seam preference"
+      ],
+      "caution": "Specified does not guarantee one absolute machine coordinate; contour geometry and other seam rules still apply.",
+      "options": [
+        {
+          "label": "Random",
+          "meaning": "Randomizes seam placement; installed help says either random start or random distribution can randomize both.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "SeamPositionType.RANDOM"
+          },
+          "source_label_key": "profile-settings.seam-position-type.random"
+        },
+        {
+          "label": "Specified",
+          "meaning": "Uses the corresponding specified offset rather than requesting random placement.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "SeamPositionType.SPECIFIED"
+          },
+          "source_label_key": "profile-settings.seam-position-type.specified"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:selfSupportDistanceCoeff": {
+      "meaning": "Overlap with the preceding layer used for automatic support detection.",
+      "when_to_change": "Adjust when automatic supports miss weakly supported areas or support too much geometry.",
+      "effect": "It changes the overlap test; interpretation as percentage or distance is controlled by the related switch where exposed.",
+      "interactions": [
+        "Threshold overlap uses percent",
+        "Threshold angle",
+        "Support generation"
+      ],
+      "caution": "Do not treat the saved 'Coeff' name as a universal unit. Check the active mode, displayed unit, and Preview.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:skirtDistance": {
+      "meaning": "Separation between the skirt loops and the model.",
+      "when_to_change": "Change to make priming loops clear of the part and other bed objects.",
+      "effect": "Increasing moves the skirt farther away; decreasing brings it nearer.",
+      "interactions": [
+        "Skirt loops",
+        "Brim",
+        "Plate layout",
+        "Tool priming"
+      ],
+      "caution": "A skirt normally does not attach to the model like a brim; verify bed clearance.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:skirtExtrusionMultP": {
+      "meaning": "Additional plastic-flow factor for skirt paths.",
+      "when_to_change": "Use only if the skirt needs a separate priming-flow adjustment after base material flow is sound.",
+      "effect": "It multiplies material flow for the skirt; increasing adds plastic and decreasing reduces it.",
+      "interactions": [
+        "Material flow",
+        "Skirt loops",
+        "First-layer settings"
+      ],
+      "caution": "Do not use a feature multiplier to hide a clog, leak, incorrect filament diameter, or bad base flow calibration. A good skirt does not certify model flow or adhesion.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:skirtLoops": {
+      "meaning": "Number of loops printed around the model as a skirt.",
+      "when_to_change": "Change when more or less priming path is needed before the part begins.",
+      "effect": "More loops provide a longer priming path and use more material; fewer reduce both.",
+      "interactions": [
+        "Skirt distance",
+        "Priming/start sequence",
+        "First layer"
+      ],
+      "caution": "Skirt loops are not a substitute for a clear, loaded nozzle or a verified start sequence.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:slowdownEndHeight": {
+      "meaning": "Z height where the height-dependent speed ceiling reaches its final speed.",
+      "when_to_change": "Use to control how long the speed-ceiling transition lasts.",
+      "effect": "A greater separation from start height spreads the transition over more height; a smaller separation compresses it.",
+      "interactions": [
+        "Start height",
+        "Start/end speeds",
+        "Feature speeds"
+      ],
+      "caution": "Keep the height ordering coherent and verify how Rocket handles out-of-order entries.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:slowdownEndSpeed": {
+      "meaning": "Maximum applicable extrusion speed at and above the end height.",
+      "when_to_change": "Use to set the final speed ceiling after the height transition.",
+      "effect": "Lowering restricts later applicable moves; raising relaxes that restriction.",
+      "interactions": [
+        "End height",
+        "Start speed",
+        "Material throughput"
+      ],
+      "caution": "Other speed rules may remain lower. Check emitted speeds rather than relying on this label alone.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:slowdownStartHeight": {
+      "meaning": "Z height at which the height-dependent speed ceiling starts.",
+      "when_to_change": "Use when intentionally limiting speed over a chosen height range.",
+      "effect": "Changing it moves the start of the speed-limiting region up or down.",
+      "interactions": [
+        "Speed at start height",
+        "End height",
+        "Speed at end height",
+        "Feature speeds"
+      ],
+      "caution": "Inspect the resulting speed graph; a ceiling does not make the machine print faster than other limits.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:slowdownStartSpeed": {
+      "meaning": "Maximum applicable extrusion speed at the start of the height-limited range.",
+      "when_to_change": "Change to set the initial ceiling for that range.",
+      "effect": "A lower value restricts the initial printing speed more; a higher value relaxes this ceiling.",
+      "interactions": [
+        "Start height",
+        "End speed",
+        "Feature speeds",
+        "Flow demand"
+      ],
+      "caution": "This is a ceiling for applicable extrusion moves, not a universal motion limit or a guaranteed commanded speed.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:startGcode": {
+      "meaning": "Custom commands inserted in the process start sequence.",
+      "when_to_change": "Change only when the exact printer firmware and Rocket's complete heating/start order have been reviewed.",
+      "effect": "Commands can change printer state, temperatures, motion, tools, and extrusion. The installed wording about before/after heating is ambiguous.",
+      "interactions": [
+        "Machine start G-code",
+        "Material start code",
+        "Firmware macros",
+        "Selected tools"
+      ],
+      "caution": "Do not paste generic commands or assume insertion order. Audit the complete emitted start sequence before any print.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:supportAirGapBottom": {
+      "meaning": "Spacing between adjacent bottom support-interface lines, according to the current UI/help.",
+      "when_to_change": "Adjust bottom-interface density/removability using the displayed millimeter setting.",
+      "effect": "Larger spacing leaves a more open interface; smaller spacing packs its lines more closely.",
+      "interactions": [
+        "Bottom-interface layers",
+        "Support interface width/flow",
+        "Bottom Z distance"
+      ],
+      "caution": "Despite the legacy 'AirGap' ID, this is described as in-plane line spacing, not vertical clearance.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportAirGapTop": {
+      "meaning": "Automatic overhang threshold angle, according to the current visible label and help.",
+      "when_to_change": "Use only while comparing automatic support candidates in Preview.",
+      "effect": "It changes which overhangs become support candidates; the exact relation to the other threshold-angle fields needs mode-specific verification.",
+      "interactions": [
+        "Support threshold angle",
+        "Overlap threshold",
+        "Automatic support mode"
+      ],
+      "caution": "The legacy ID says top air gap; do not use it to tune vertical support separation.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:supportBottomInterfaceLayerCount": {
+      "meaning": "Number of bottom support-interface macrolayers, not a simple on/off switch.",
+      "when_to_change": "Change when the bottom contact region needs a different thickness or removal behavior.",
+      "effect": "More selected layers create a thicker contact region; zero requests none. Follow top inherits the top-interface layer count.",
+      "interactions": [
+        "Macrolayer height",
+        "Interface spacing",
+        "Top/bottom Z clearances"
+      ],
+      "caution": "Some installed help uses old 'flag' wording, but this schema is a layer-count selector. Verify the actual layer count in Preview.",
+      "options": [
+        {
+          "label": "Follow top",
+          "meaning": "Uses the top-interface layer count for the bottom interface.",
+          "source_value": -1,
+          "source_label_key": "profile-settings.support-interface-layer-count-follow-top"
+        },
+        {
+          "label": "0",
+          "meaning": "Requests no interface macrolayers for this side.",
+          "source_value": 0,
+          "source_label_key": "0"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests 1 interface macrolayer for this side; verify the actual sliced contact thickness.",
+          "source_value": 1,
+          "source_label_key": "1"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests 2 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 2,
+          "source_label_key": "2"
+        },
+        {
+          "label": "3",
+          "meaning": "Requests 3 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 3,
+          "source_label_key": "3"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportDoAirgaps": {
+      "meaning": "Chooses percentage versus absolute-distance interpretation for the support-overlap threshold.",
+      "when_to_change": "Change only when you intentionally change how the neighboring overlap value is interpreted.",
+      "effect": "Enabled means percentage according to installed help; disabled means absolute distance.",
+      "interactions": [
+        "Threshold overlap",
+        "Automatic support detection",
+        "Displayed units"
+      ],
+      "caution": "The legacy name does not mean 'enable air gaps.' Re-evaluate the overlap number when switching units.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportEWMM": {
+      "meaning": "Requested line width of the ordinary support body, in millimeters.",
+      "when_to_change": "Change to adjust support-body path geometry.",
+      "effect": "Larger width requests wider support-body lines; smaller width requests narrower lines.",
+      "interactions": [
+        "Support-body flow",
+        "Support speed",
+        "Nozzle diameter",
+        "Interface line width"
+      ],
+      "caution": "A width entry is a requested geometry, not proof that the nozzle/material can produce it reliably. Interfaces have a separate width.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportExpansion": {
+      "meaning": "Horizontal offset of conventional support regions.",
+      "when_to_change": "Use to adjust the supported footprint after checking model avoidance and clearances.",
+      "effect": "Positive expands regions; negative shrinks them; the installed help describes zero as no added offset.",
+      "interactions": [
+        "Support/model XY distance",
+        "Z clearances",
+        "Overhang detection"
+      ],
+      "caution": "Expansion is not permission for supports to intersect the model; inspect Preview.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportExtrusionMultP": {
+      "meaning": "Additional flow multiplier for the conventional support body.",
+      "when_to_change": "Change only when support-body extrusion needs its own measured correction.",
+      "effect": "It multiplies the support material's flow setting, without being the interface-flow setting.",
+      "interactions": [
+        "Support material flow",
+        "Support width/speed",
+        "Interface flow",
+        "First-layer flow"
+      ],
+      "caution": "Do not use a feature multiplier to hide a clog, leak, incorrect filament diameter, or bad base flow calibration. First-layer paths can use separate rules.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportFillAngle": {
+      "meaning": "Direction of the conventional support fill pattern.",
+      "when_to_change": "Change to orient support lines relative to the model or other pattern layers.",
+      "effect": "Rotates the support pattern; it does not directly increase support density.",
+      "interactions": [
+        "Support pattern",
+        "Base-pattern spacing",
+        "Interface direction"
+      ],
+      "caution": "The effect depends on the active pattern; inspect actual lines.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportFillDensity": {
+      "meaning": "Gap between neighboring conventional support base-pattern lines, in millimeters.",
+      "when_to_change": "Use to trade support coverage against material, time, and removability.",
+      "effect": "Increasing this spacing makes the base more open; decreasing packs lines more closely.",
+      "interactions": [
+        "Support pattern/angle",
+        "Support line width",
+        "Interface settings"
+      ],
+      "caution": "Despite the saved 'Density' name, the current label and help specify spacing. Do not enter a percent.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportInterfaceEWMM": {
+      "meaning": "Requested line width of top and bottom support interfaces, in millimeters.",
+      "when_to_change": "Change when the contact-layer geometry needs a separate adjustment from the support body.",
+      "effect": "Increasing width requests wider contact lines; decreasing requests narrower ones.",
+      "interactions": [
+        "Interface spacing",
+        "Interface flow/speed",
+        "Nozzle diameter"
+      ],
+      "caution": "A width entry is a requested geometry, not proof that the nozzle/material can produce it reliably. This does not change the support-body width.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportInterfaceExtrusionMultrP": {
+      "meaning": "Additional flow multiplier for support-interface paths.",
+      "when_to_change": "Use when interface extrusion alone needs correction after material flow is tuned.",
+      "effect": "It multiplies the interface material's flow factor, separately from support-body flow.",
+      "interactions": [
+        "Interface width/spacing",
+        "Interface material",
+        "First-layer flow"
+      ],
+      "caution": "Do not use a feature multiplier to hide a clog, leak, incorrect filament diameter, or bad base flow calibration. It does not directly change model extrusion.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportInterfaceFillDensity": {
+      "meaning": "Legacy support-interface fill percentage.",
+      "when_to_change": "Leave it unchanged unless investigating an older profile/backend path.",
+      "effect": "The installed help identifies it as legacy; modern interfaces use independent spacing controls instead.",
+      "interactions": [
+        "Top/bottom interface spacing",
+        "Imported older profiles",
+        "Interface pattern"
+      ],
+      "caution": "Do not assume it still controls current interface density merely because the field is selectable.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:supportInterfaceFillType": {
+      "meaning": "Pattern selector for the conventional support interface.",
+      "when_to_change": "Use to change the contact-path layout after spacing and clearances are established.",
+      "effect": "The inspected schema variant exposes only Zigzag; a more general help paragraph lists additional patterns not proven selectable here.",
+      "interactions": [
+        "Interface spacing",
+        "Interface angle",
+        "Top/bottom layers"
+      ],
+      "caution": "Do not promise other pattern choices from help text alone; choose only options actually shown in the current mode.",
+      "options": [
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": 0,
+          "source_label_key": "infill-p-cellular-fill-type.zigzag"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportInterfaceSpeed": {
+      "meaning": "Requested speed for top and bottom support-interface paths.",
+      "when_to_change": "Change to improve contact-layer quality or reduce time after reliable extrusion is established.",
+      "effect": "Faster raises interface flow demand; slower reduces it and changes heat/cooling time.",
+      "interactions": [
+        "Interface width/flow",
+        "Support-body speed",
+        "First-layer speed"
+      ],
+      "caution": "This is separate from support-body speed; first-layer and other limits may override it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportSpeed": {
+      "meaning": "Requested printing speed for conventional support-body paths.",
+      "when_to_change": "Change after support geometry and extrusion are stable.",
+      "effect": "Increasing requests faster support printing; decreasing reduces motion and flow demand.",
+      "interactions": [
+        "Support line width/height",
+        "Support flow",
+        "Interface speed",
+        "First-layer speed"
+      ],
+      "caution": "A fast support-body setting is not a proven material-throughput limit.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportThresholdAngleDegree": {
+      "meaning": "Automatic support threshold measured from horizontal, according to installed help.",
+      "when_to_change": "Adjust when automatic support coverage is too broad or too sparse.",
+      "effect": "The help says larger positive angles generally create more automatic support; zero has mode-specific behavior rather than one universal meaning.",
+      "interactions": [
+        "Support type",
+        "Automatic/manual regions",
+        "Overlap threshold"
+      ],
+      "caution": "This does not filter manually enforced support regions. Inspect Preview instead of transferring another slicer's angle convention.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportTopInterfaceLayerCount": {
+      "meaning": "Number of top support-interface macrolayers, not a simple on/off switch.",
+      "when_to_change": "Change when the top contact region needs a different thickness or removal behavior.",
+      "effect": "More selected layers create a thicker contact region; zero requests none. ",
+      "interactions": [
+        "Macrolayer height",
+        "Interface spacing",
+        "Top/bottom Z clearances"
+      ],
+      "caution": "Some installed help uses old 'flag' wording, but this schema is a layer-count selector. Verify the actual layer count in Preview.",
+      "options": [
+        {
+          "label": "0",
+          "meaning": "Requests no interface macrolayers for this side.",
+          "source_value": 0,
+          "source_label_key": "0"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests 1 interface macrolayer for this side; verify the actual sliced contact thickness.",
+          "source_value": 1,
+          "source_label_key": "1"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests 2 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 2,
+          "source_label_key": "2"
+        },
+        {
+          "label": "3",
+          "meaning": "Requests 3 interface macrolayers for this side; verify the actual sliced contact thickness.",
+          "source_value": 3,
+          "source_label_key": "3"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:supportXYDistance": {
+      "meaning": "Horizontal clearance between conventional supports and the model.",
+      "when_to_change": "Use when supports fuse to sidewalls or sit too far from the area they should support.",
+      "effect": "Increasing reduces side contact but can reduce support coverage; decreasing brings supports closer.",
+      "interactions": [
+        "Support expansion",
+        "Top/bottom Z distance",
+        "Line width"
+      ],
+      "caution": "XY distance is not vertical separation; check both independently.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinEWMM": {
+      "meaning": "Requested line width for intermediate solid layers below the final top surface.",
+      "when_to_change": "Change to tune the path geometry after the material's base flow is sound.",
+      "effect": "Larger width asks for wider lines and more volume per unit path; smaller width requests narrower lines.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "The requested width is not proof the nozzle can deliver it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinExtrusionMultP": {
+      "meaning": "Additional flow factor for intermediate solid layers below the final top surface.",
+      "when_to_change": "Change only when these paths alone need a measured flow correction.",
+      "effect": "It multiplies the material flow factor; increasing adds commanded plastic to these paths and decreasing reduces it.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Do not compensate for a clog, leak, or incorrect base material flow with a feature multiplier.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinInfillAngle": {
+      "meaning": "Starting direction of fill lines for intermediate solid layers below the final top surface.",
+      "when_to_change": "Change to orient the fill relative to the shape or desired surface appearance.",
+      "effect": "It rotates applicable fill paths; it does not directly alter fill amount.",
+      "interactions": [
+        "Fill pattern",
+        "Angle step where available",
+        "Perimeter contact"
+      ],
+      "caution": "Concentric paths do not use this angle according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinInfillAngleStep": {
+      "meaning": "Change in fill direction between successive layers of intermediate solid layers below the final top surface.",
+      "when_to_change": "Change to control how the fill orientation alternates across these layers.",
+      "effect": "A different step changes the layer-to-layer rotation rather than the number of skin layers.",
+      "interactions": [
+        "Initial fill angle",
+        "Fill pattern",
+        "Skin-layer schedule"
+      ],
+      "caution": "Concentric fill does not use this angle step according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinInfillExtendIntoPerimeterRatio": {
+      "meaning": "Fraction of line width by which intermediate solid layers below the final top surface overlaps the surrounding perimeters.",
+      "when_to_change": "Use when the skin-to-wall bond is incomplete or the boundary is excessively crowded.",
+      "effect": "Increasing grows the overlap; decreasing reduces intrusion into the perimeter region.",
+      "interactions": [
+        "Line width",
+        "Perimeter geometry",
+        "Material and feature flow"
+      ],
+      "caution": "This is a ratio, not millimeters or a direct percentage entry. Excess overlap can cause ridges.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinInfillPattern": {
+      "meaning": "Layout used to fill intermediate solid layers below the final top surface.",
+      "when_to_change": "Change to compare surface appearance, path continuity, and print time.",
+      "effect": "Each listed pattern creates a different path shape; it is not an automatic change in validated flow or strength.",
+      "interactions": [
+        "Fill angle",
+        "Layer schedule",
+        "Line width",
+        "Preview"
+      ],
+      "caution": "Choose only options actually offered in the active mode; broader help text is not proof all patterns appear everywhere.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "SolidInfillType.LINE"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "SolidInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "SolidInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topIntermediateSkinSpeed": {
+      "meaning": "Requested print speed for intermediate solid layers below the final top surface.",
+      "when_to_change": "Change after temperature and flow are stable using a controlled feature-speed test.",
+      "effect": "Increasing raises motion and extrusion demand; decreasing reduces it and changes time/heat exposure.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Other limits can reduce actual speed. No safe throughput or pressure limit follows from this setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinEWMM": {
+      "meaning": "Requested line width for the final top-surface skin.",
+      "when_to_change": "Change to tune the path geometry after the material's base flow is sound.",
+      "effect": "Larger width asks for wider lines and more volume per unit path; smaller width requests narrower lines.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "The requested width is not proof the nozzle can deliver it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinExtrusionMultP": {
+      "meaning": "Additional flow factor for the final top-surface skin.",
+      "when_to_change": "Change only when these paths alone need a measured flow correction.",
+      "effect": "It multiplies the material flow factor; increasing adds commanded plastic to these paths and decreasing reduces it.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Do not compensate for a clog, leak, or incorrect base material flow with a feature multiplier.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinInfillAngle": {
+      "meaning": "Starting direction of fill lines for the final top-surface skin.",
+      "when_to_change": "Change to orient the fill relative to the shape or desired surface appearance.",
+      "effect": "It rotates applicable fill paths; it does not directly alter fill amount.",
+      "interactions": [
+        "Fill pattern",
+        "Angle step where available",
+        "Perimeter contact"
+      ],
+      "caution": "Concentric paths do not use this angle according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinInfillExtendIntoPerimeterRatio": {
+      "meaning": "Fraction of line width by which the final top-surface skin overlaps the surrounding perimeters.",
+      "when_to_change": "Use when the skin-to-wall bond is incomplete or the boundary is excessively crowded.",
+      "effect": "Increasing grows the overlap; decreasing reduces intrusion into the perimeter region.",
+      "interactions": [
+        "Line width",
+        "Perimeter geometry",
+        "Material and feature flow"
+      ],
+      "caution": "This is a ratio, not millimeters or a direct percentage entry. Excess overlap can cause ridges.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinInfillPattern": {
+      "meaning": "Layout used to fill the final top-surface skin.",
+      "when_to_change": "Change to compare surface appearance, path continuity, and print time.",
+      "effect": "Each listed pattern creates a different path shape; it is not an automatic change in validated flow or strength.",
+      "interactions": [
+        "Fill angle",
+        "Layer schedule",
+        "Line width",
+        "Preview"
+      ],
+      "caution": "Choose only options actually offered in the active mode; broader help text is not proof all patterns appear everywhere.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "SolidInfillType.LINE"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "SolidInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "SolidInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        },
+        {
+          "label": "Hilbert Curve",
+          "meaning": "A space-filling Hilbert-curve path layout; inspect local turns and small-feature coverage.",
+          "source_value": {
+            "source_expression": "SolidInfillType.HILBERTCURVE"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.hilbertcurve"
+        },
+        {
+          "label": "Archimedean Chords",
+          "meaning": "A curved/concentric-style fill layout named Archimedean Chords; verify the actual geometry in Preview rather than assuming it is equivalent to another slicer's implementation.",
+          "source_value": {
+            "source_expression": "SolidInfillType.ARCHIMEDEANCHORDS"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.archimedeanchords"
+        },
+        {
+          "label": "Octagram Spiral",
+          "meaning": "A star/spiral-style fill option named Octagram Spiral; inspect the generated path and sharp direction changes.",
+          "source_value": {
+            "source_expression": "SolidInfillType.OCTAGRAMSPIRAL"
+          },
+          "source_label_key": "infill-p-top-most-skin-fill-type.octagramspiral"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topMostSkinSpeed": {
+      "meaning": "Requested print speed for the final top-surface skin.",
+      "when_to_change": "Change after temperature and flow are stable using a controlled feature-speed test.",
+      "effect": "Increasing raises motion and extrusion demand; decreasing reduces it and changes time/heat exposure.",
+      "interactions": [
+        "Material flow multiplier",
+        "Line width and layer height",
+        "Feature speed",
+        "Pattern and overlap"
+      ],
+      "caution": "Other limits can reduce actual speed. No safe throughput or pressure limit follows from this setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:topUseMicroInfill": {
+      "meaning": "Beta feature for filling top surfaces when the remaining height is less than a normal layer.",
+      "when_to_change": "Use only for an explicitly experimental top-surface case after normal skins work.",
+      "effect": "Enabled permits the special micro-infill treatment; disabled avoids this beta path.",
+      "interactions": [
+        "Macrolayer/layer schedule",
+        "Top skins",
+        "Remaining surface height"
+      ],
+      "caution": "Installed help explicitly warns the beta behavior may not work as expected. Inspect Preview and emitted Z/extrusion.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeInterfaceSupportInfillType": {
+      "meaning": "Pattern used in tree-support contact-interface layers.",
+      "when_to_change": "Change to compare interface coverage, path continuity, and removal.",
+      "effect": "The schema offers Zigzag, Grid, Line, and Concentric patterns; pattern choice changes the contact paths, not their validated flow.",
+      "interactions": [
+        "Interface spacing",
+        "Interface angles",
+        "Top/bottom layer count"
+      ],
+      "caution": "Angles do not apply to every pattern. Choose from the active mode's actual list, not broader help text.",
+      "options": [
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.ZIGZAG"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.zigzag"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Intersecting line families forming a grid; crossings change local path overlap.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.GRID"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.grid"
+        },
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.LINE"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.line"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested loops following the region boundary; ordinary fill-angle settings generally do not apply.",
+          "source_value": {
+            "source_expression": "TreeInterfaceSupportInfillType.CONCENTRIC"
+          },
+          "source_label_key": "infill-p-cellular-fill-type.concentric"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportAutoBrim": {
+      "meaning": "Conventional tree variant: Automatically determines a tree-support brim from the root geometry and support height.",
+      "when_to_change": "Use automatic brim sizing unless a measured adhesion case calls for explicit manual width.",
+      "effect": "Enabled calculates brim size; disabled makes the separate manual brim width relevant.",
+      "interactions": [
+        "Tree roots",
+        "Support height",
+        "Manual tree brim width"
+      ],
+      "caution": "Automatic sizing does not prove adhesion or plate fit; inspect the full footprint.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBodyFillAngle": {
+      "meaning": "Conventional tree variant: Starting angle of the internal tree-body fill.",
+      "when_to_change": "Change to orient non-hollow body fill.",
+      "effect": "It rotates internal fill; hollow bodies do not use it.",
+      "interactions": [
+        "Tree body pattern",
+        "Body angle step",
+        "Body fill density"
+      ],
+      "caution": "This does not rotate the whole support tree.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBodyFillAngleStep": {
+      "meaning": "Conventional tree variant: Layer-to-layer change in the tree-body fill angle.",
+      "when_to_change": "Use when changing the alternating orientation of the tree's internal fill.",
+      "effect": "A different step changes orientation between layers rather than fill amount.",
+      "interactions": [
+        "Tree body pattern",
+        "Starting body angle"
+      ],
+      "caution": "Installed help says hollow and honeycomb bodies do not use this setting.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBodyFillDensity": {
+      "meaning": "Conventional tree variant: Density of internal fill in a non-hollow tree-support body.",
+      "when_to_change": "Use when tree bodies need a different material/stability tradeoff.",
+      "effect": "Higher density requests more internal structure and material; lower density leaves a more open body.",
+      "interactions": [
+        "Tree body pattern",
+        "Branch diameter",
+        "Wall count"
+      ],
+      "caution": "Hollow bodies do not use internal fill. More material does not guarantee a stable tall support.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBodyInfillType": {
+      "meaning": "Conventional tree variant: Internal construction pattern of the tree-support body.",
+      "when_to_change": "Change to compare hollow walls with filled support bodies.",
+      "effect": "Hollow uses only the shell; the other listed choices add patterned internal fill.",
+      "interactions": [
+        "Body fill density",
+        "Body angles",
+        "Wall count",
+        "Branch geometry"
+      ],
+      "caution": "Inspect small branches; the requested pattern may not fit in every cross-section.",
+      "options": [
+        {
+          "label": "Hollow",
+          "meaning": "No internal tree-body infill; the body's walls form the support shell.",
+          "source_value": {
+            "value": 0,
+            "source_enum": "TreeSupportBodyInfillType.HOLLOW"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-hollow"
+        },
+        {
+          "label": "Line",
+          "meaning": "Parallel line paths; compare line direction and boundary connections in Preview.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "TreeSupportBodyInfillType.LINE"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-line"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Intersecting line families forming a grid; crossings change local path overlap.",
+          "source_value": {
+            "value": 2,
+            "source_enum": "TreeSupportBodyInfillType.GRID"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-grid"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill with a zigzag layout; check how its turns and connections are generated.",
+          "source_value": {
+            "value": 3,
+            "source_enum": "TreeSupportBodyInfillType.ZIGZAG"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-zigzag"
+        },
+        {
+          "label": "Honeycomb",
+          "meaning": "A repeating honeycomb-style internal structure; inspect how much of it fits inside the tree.",
+          "source_value": {
+            "value": 4,
+            "source_enum": "TreeSupportBodyInfillType.HONEYCOMB"
+          },
+          "source_label_key": "profile-settings.tree-support-body-fill-honeycomb"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBottomInterfaceSpacing": {
+      "meaning": "Conventional tree variant: Gap between adjacent lines in the bottom support interface.",
+      "when_to_change": "Change to balance contact coverage against separation at the support's underside.",
+      "effect": "Larger spacing leaves more open contact paths; smaller spacing makes them denser.",
+      "interactions": [
+        "Bottom-interface layer count",
+        "Bottom Z distance",
+        "Interface line width/flow"
+      ],
+      "caution": "This is in-plane line spacing, not vertical clearance or a fill percentage.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBottomZDistance": {
+      "meaning": "Conventional tree variant: Vertical gap between the support's underside and the model surface below it.",
+      "when_to_change": "Use when supports begin on model surfaces and adhere too firmly or too weakly.",
+      "effect": "Increasing generally eases separation but weakens the support start; decreasing increases proximity/contact.",
+      "interactions": [
+        "Bottom interface",
+        "Support/model XY gap",
+        "Model layer schedule"
+      ],
+      "caution": "This is not the gap under the supported overhang; that is the top Z distance.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBranchAngle": {
+      "meaning": "Conventional tree variant: Limit on how much the support branches may tilt while growing sideways.",
+      "when_to_change": "Use when branches cannot reach an overhang or take an unsuitable route.",
+      "effect": "Larger values permit more lateral reach over a given height; smaller values keep branches more upright.",
+      "interactions": [
+        "Branch spacing",
+        "Branch diameter",
+        "Model collision avoidance"
+      ],
+      "caution": "Permitted tilt is not proof a branch can print unsupported; inspect the whole route.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBranchDiameter": {
+      "meaning": "Conventional tree variant: Reference diameter of tree-support branches.",
+      "when_to_change": "Change when supports are too fragile or consume excessive material.",
+      "effect": "Larger branches generally improve stability at a material/time cost; smaller branches reduce material but can be fragile.",
+      "interactions": [
+        "Branch spacing",
+        "Diameter growth angle",
+        "Wall/fill structure"
+      ],
+      "caution": "A diameter request cannot cure poor first-layer adhesion or a collision.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBranchDiameterAngle": {
+      "meaning": "Conventional tree variant: Controls how rapidly branches thicken toward their roots.",
+      "when_to_change": "Use when trunks need a different growth/stability profile.",
+      "effect": "Changing it alters rootward thickening and material use; judge the resulting shape rather than treating it as a printing speed.",
+      "interactions": [
+        "Branch diameter",
+        "Tree height",
+        "Branch tilt"
+      ],
+      "caution": "The UI/help identifies the purpose, not a universal safe angle for every tree.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBranchDistance": {
+      "meaning": "Conventional tree variant: Target spacing between neighboring support branches.",
+      "when_to_change": "Change when support contacts are too sparse or trees are unnecessarily dense.",
+      "effect": "Smaller spacing requests more densely placed branches; larger spacing requests fewer.",
+      "interactions": [
+        "Top contact regions",
+        "Tip diameter",
+        "Branch diameter"
+      ],
+      "caution": "Spacing is a target constrained by model clearance and the planner.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportBrimWidth": {
+      "meaning": "Conventional tree variant: Manual width of the tree-support brim when automatic brim sizing is off.",
+      "when_to_change": "Use for a specific support-root adhesion/plate-space adjustment.",
+      "effect": "Wider gives a larger bed attachment; narrower uses less plate area. Installed help describes zero as no brim.",
+      "interactions": [
+        "Automatic tree brim",
+        "Root geometry",
+        "Plate layout"
+      ],
+      "caution": "This is the tree-support brim, not the model brim; keep both within the plate.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportCriticalRegionsOnly": {
+      "meaning": "Restricts automatically detected tree supports to critical overhang regions.",
+      "when_to_change": "Use when automatic trees cover too much of the model.",
+      "effect": "Enabled filters routine automatic regions but retains critical shapes; disabled permits the broader automatic set.",
+      "interactions": [
+        "Tree Auto/Hybrid mode",
+        "Manual support regions",
+        "Overhang detection"
+      ],
+      "caution": "Installed help says manually enforced regions are not filtered; verify unsupported spans.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportExpansion": {
+      "meaning": "Conventional tree variant: Horizontal expansion of the tree-support overhang contact region.",
+      "when_to_change": "Use to change the footprint of regions that tree supports must reach.",
+      "effect": "Increasing the nonnegative expansion grows contact regions subject to model-collision limits; it does not increase branch diameter.",
+      "interactions": [
+        "Top contact density",
+        "Model collision avoidance",
+        "Support/model clearance"
+      ],
+      "caution": "Current help describes nonnegative values for this tree expansion; do not transfer signed conventional-support offset behavior.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportInterfaceFillAngle": {
+      "meaning": "Conventional tree variant: Direction of the first support-interface fill layer.",
+      "when_to_change": "Change to orient the interface contact paths.",
+      "effect": "It rotates applicable interface lines without directly changing their spacing.",
+      "interactions": [
+        "Interface pattern",
+        "Interface angle step",
+        "Top/bottom interfaces"
+      ],
+      "caution": "Concentric interface paths do not use the angle according to installed help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportInterfaceFillAngleStep": {
+      "meaning": "Conventional tree variant: Change of support-interface fill angle between adjacent interface layers.",
+      "when_to_change": "Use to control layer-to-layer rotation within contact layers.",
+      "effect": "Different steps change line orientation rather than interface thickness.",
+      "interactions": [
+        "Initial interface angle",
+        "Interface pattern",
+        "Interface layer count"
+      ],
+      "caution": "Concentric fill does not use this angle step.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportMaxLayerHeight": {
+      "meaning": "Upper support-layer-height bound when independent support layers are enabled.",
+      "when_to_change": "Change only with compatible support line geometry and a coherent minimum.",
+      "effect": "Increasing allows thicker support layers; decreasing caps them more tightly.",
+      "interactions": [
+        "Minimum support layer height",
+        "Independent support layers",
+        "Nozzle/line width"
+      ],
+      "caution": "It must not be below the minimum. This is not a certified machine/nozzle limit.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportMinLayerHeight": {
+      "meaning": "Lower support-layer-height bound when independent support layers are enabled.",
+      "when_to_change": "Change to control the finest support layers allowed.",
+      "effect": "Increasing disallows thinner support layers; decreasing permits them.",
+      "interactions": [
+        "Maximum support layer height",
+        "Independent support layers",
+        "Support type"
+      ],
+      "caution": "Only applies to the supported layer-schedule mode, not Organic trees according to help.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportMode": {
+      "meaning": "Conventional tree variant: Selects the source of regions that generate tree supports.",
+      "when_to_change": "Choose based on whether you want automatic detection, manual regions, or both.",
+      "effect": "Auto uses detected overhangs; Manual uses manually specified regions; Hybrid combines the two.",
+      "interactions": [
+        "Manual support painting/regions",
+        "Automatic threshold",
+        "Support filtering"
+      ],
+      "caution": "Manual mode does not automatically rescue unmarked overhangs; inspect every unsupported area.",
+      "options": [
+        {
+          "label": "Auto",
+          "meaning": "Uses automatically detected overhang regions.",
+          "source_value": {
+            "value": 1,
+            "source_enum": "TreeSupportGenerationMode.AUTO"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-auto"
+        },
+        {
+          "label": "Manual",
+          "meaning": "Uses manually specified support regions only.",
+          "source_value": {
+            "value": 2,
+            "source_enum": "TreeSupportGenerationMode.MANUAL"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-manual"
+        },
+        {
+          "label": "Hybrid",
+          "meaning": "Combines automatic overhang regions and manually specified regions.",
+          "source_value": {
+            "value": 3,
+            "source_enum": "TreeSupportGenerationMode.HYBRID"
+          },
+          "source_label_key": "profile-settings.tree-support-mode-hybrid"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportRemoveSmallOverhangs": {
+      "meaning": "Filters small clusters from automatic support detection.",
+      "when_to_change": "Use to reduce unnecessary support for tiny overhang islands.",
+      "effect": "Enabled removes qualifying small automatic regions; disabled retains them.",
+      "interactions": [
+        "Tree support mode",
+        "Critical regions",
+        "Manual enforcement"
+      ],
+      "caution": "The help says sharp tails, cantilevers, and manually enforced supports are preserved; confirm the actual result.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportThresholdAngle": {
+      "meaning": "Threshold-angle field used when tree supports are selected.",
+      "when_to_change": "Change only while checking tree-support candidates in Preview.",
+      "effect": "The label and degree unit are confirmed, but this field has no linked explanatory tip; exact zero behavior and direction are not independently established here.",
+      "interactions": [
+        "Tree support type/mode",
+        "Other threshold-angle field",
+        "Manual regions"
+      ],
+      "caution": "Do not assume it has identical conventions to another threshold field or another slicer.",
+      "options": [],
+      "status": "Exact Rocket behavior remains unverified; preview and emitted-file checks required."
+    },
+    "profile-settings:treeSupportTopInterfaceSpacing": {
+      "meaning": "Conventional tree variant: Gap between neighboring lines at the top support interface.",
+      "when_to_change": "Use to balance supported-surface quality against removal effort.",
+      "effect": "Larger spacing makes the interface more open; smaller spacing adds contact coverage.",
+      "interactions": [
+        "Top-interface layers",
+        "Top Z distance",
+        "Interface line width/flow"
+      ],
+      "caution": "This is millimeter line spacing, not vertical separation or percent fill.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportTopZDistance": {
+      "meaning": "Conventional tree variant: Vertical clearance between the support top and the model above it.",
+      "when_to_change": "Use when overhang undersides are too rough or supports bond too strongly.",
+      "effect": "Increasing usually aids removal but gives less support; decreasing moves the support closer.",
+      "interactions": [
+        "Top-interface spacing/layers",
+        "Model/support layer schedule"
+      ],
+      "caution": "The achievable gap is affected by layers; verify the actual sliced contact rather than just the input number.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportUseIndependentLayerHeight": {
+      "meaning": "Allows conventional and non-Organic tree supports to use a layer schedule separate from the model.",
+      "when_to_change": "Use to tune support efficiency while preserving the model's layer schedule.",
+      "effect": "Enabled uses the support minimum/maximum height range; disabled follows the ordinary coupled schedule.",
+      "interactions": [
+        "Minimum/maximum support layer height",
+        "Support type",
+        "Model layer schedule"
+      ],
+      "caution": "Installed help excludes Organic trees from this option. Verify contact interfaces still line up.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportWallCount": {
+      "meaning": "Conventional tree variant: Number of wall loops around each tree-support cross-section.",
+      "when_to_change": "Change when support branches need a different shell strength/material tradeoff.",
+      "effect": "Auto chooses from the supported wall counts; 1 or 2 requests that many loops where the cross-section has space.",
+      "interactions": [
+        "Branch diameter",
+        "Body fill pattern",
+        "Line width"
+      ],
+      "caution": "This is not a vertical layer count. A second loop only appears where the geometry can fit it.",
+      "options": [
+        {
+          "label": "Auto",
+          "meaning": "Rocket chooses one or two wall loops from the cross-section geometry.",
+          "source_value": 0,
+          "source_label_key": "profile-settings.tree-support-wall-count-auto"
+        },
+        {
+          "label": "1",
+          "meaning": "Requests one wall loop around each suitable support cross-section.",
+          "source_value": 1,
+          "source_label_key": "profile-settings.tree-support-wall-count-one"
+        },
+        {
+          "label": "2",
+          "meaning": "Requests two wall loops where sufficient cross-section space exists.",
+          "source_value": 2,
+          "source_label_key": "profile-settings.tree-support-wall-count-two"
+        }
+      ],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:treeSupportXYDistance": {
+      "meaning": "Conventional tree variant: Horizontal distance between tree supports and the model.",
+      "when_to_change": "Use to reduce sidewall bonding or recover support near a boundary.",
+      "effect": "Larger clearance reduces side contact and available support area; smaller clearance brings branches closer.",
+      "interactions": [
+        "Tree expansion",
+        "Branch routing",
+        "Top/bottom Z distances"
+      ],
+      "caution": "It does not change vertical contact gaps. Inspect collision avoidance and overhang support together.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:trimGapRatio": {
+      "meaning": "Controls the seam-end gap relative to a plastic perimeter's extrusion width.",
+      "when_to_change": "Use for a controlled seam-overfill investigation after material flow is correct.",
+      "effect": "The installed help describes zero as closed and one as a gap equal to one line width; increasing creates a larger trim gap.",
+      "interactions": [
+        "Perimeter width",
+        "Material/feature flow",
+        "Seam position"
+      ],
+      "caution": "These are documented reference meanings, not recommended values. Too much trimming can leave a weak or visible gap.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:useClassicWallGenerator": {
+      "meaning": "Chooses the classic wall generator instead of the variable-width generator.",
+      "when_to_change": "Use to compare wall-generation approaches on geometry that slices poorly.",
+      "effect": "Enabled selects classic generation; disabled uses the alternative variable-width path described by the help.",
+      "interactions": [
+        "Minimum feature size",
+        "Minimum wall width",
+        "Wall transitions"
+      ],
+      "caution": "Changing generator can alter thin-wall coverage and dimensions. Reinspect the entire wall layout.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:version": {
+      "meaning": "Version metadata for the process/template.",
+      "when_to_change": "Change only to follow the template's revisioning convention.",
+      "effect": "It identifies a revision; the schema alone does not prove a direct effect on print paths.",
+      "interactions": [
+        "Profile name",
+        "Saved template history"
+      ],
+      "caution": "A larger version number is not evidence that the profile is tuned or compatible.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wallDistributionCount": {
+      "meaning": "Number of neighboring walls over which variable-width adjustments are distributed.",
+      "when_to_change": "Use only when variable-width walls show uneven changes near narrow features.",
+      "effect": "More walls share the width adjustment across a larger wall group; fewer concentrate it.",
+      "interactions": [
+        "Variable-width generator",
+        "Wall counts",
+        "Minimum wall width",
+        "Transitions"
+      ],
+      "caution": "The requested distribution may be constrained by how many walls fit.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wallSpeedSmoothingCoefficient": {
+      "meaning": "Coefficient controlling the length of speed-smoothing transitions.",
+      "when_to_change": "Use when speed changes around wall/overhang features are abrupt.",
+      "effect": "Installed help says smaller positive values give longer, smoother transitions; larger values shorten them; zero disables smoothing.",
+      "interactions": [
+        "Overhang speeds",
+        "Wall geometry",
+        "Acceleration",
+        "Travel/speed limits"
+      ],
+      "caution": "Do not infer 'higher means smoother.' The locale's suggested numeric range is not a machine capability limit.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wallTransitionLength": {
+      "meaning": "Length over which variable-width walls change width or wall count.",
+      "when_to_change": "Use when width/count changes look too abrupt or extend too far.",
+      "effect": "Increasing spreads the geometric transition over a longer path; decreasing makes it more localized.",
+      "interactions": [
+        "Variable-width generator",
+        "Wall distribution",
+        "Transition filtering"
+      ],
+      "caution": "Check narrow regions and endpoints in Preview; geometric smoothing does not guarantee extrusion accuracy.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wallTransitioningFilterMargin": {
+      "meaning": "Margin used to suppress wall transitions that are too close together.",
+      "when_to_change": "Use only to investigate repeated small transitions or missing wall changes.",
+      "effect": "It alters the transition-filtering distance; increasing generally filters transitions over a wider neighborhood.",
+      "interactions": [
+        "Wall transition length",
+        "Variable-width generator",
+        "Small features"
+      ],
+      "caution": "The exact filtering algorithm is not established by the label; validate the generated geometry rather than relying on a presumed formula.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wallTransitioningThresholdAngle": {
+      "meaning": "Contour-angle threshold for switching between different variable-width wall counts.",
+      "when_to_change": "Use when wall-count changes appear at unsuitable corners.",
+      "effect": "Changing the angle changes which contour turns qualify for a count transition.",
+      "interactions": [
+        "Variable-width generator",
+        "Transition length",
+        "Feature size"
+      ],
+      "caution": "The installed help identifies a minimum qualifying angle; inspect actual corners rather than importing another slicer's convention.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wipeTowerBrimLoopsCount": {
+      "meaning": "Number of brim loops anchoring the wipe tower to the plate.",
+      "when_to_change": "Use when a required wipe tower needs more or less bed attachment.",
+      "effect": "More loops enlarge its attached footprint; fewer reduce it.",
+      "interactions": [
+        "Wipe tower placement",
+        "Bed adhesion",
+        "Tower wall count",
+        "Material changes"
+      ],
+      "caution": "This concerns the tower, not the model brim. Verify the tower fits the plate and does not collide.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    },
+    "profile-settings:wipeTowerLoopsCount": {
+      "meaning": "Wall-loop setting controlling wipe-tower wall thickness.",
+      "when_to_change": "Use when a required tower's shell is too weak or unnecessarily heavy.",
+      "effect": "More wall loops thicken the tower shell and use more material; fewer thin it.",
+      "interactions": [
+        "Wipe tower brim",
+        "Tool/material-change sequence",
+        "Tower geometry"
+      ],
+      "caution": "Do not assume a tower is optional when a composite/tool workflow requires it.",
+      "options": [],
+      "status": "Installed schema/help supports this explanation; not physically print-validated."
+    }
+  }
+}

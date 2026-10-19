@@ -1,0 +1,17 @@
+/research/
+/tmp/
+/.deps/
+__pycache__/
+*.pyc
+.DS_Store
+*.db
+*.db-wal
+*.db-shm
+*private*
+*credential*
+*authorized_keys*
+*.pem
+*.key
+*.fibrepack
+*.gcode
+*.bgcode

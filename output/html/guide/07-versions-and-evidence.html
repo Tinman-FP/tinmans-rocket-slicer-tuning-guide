@@ -1,0 +1,99 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>07-versions-and-evidence</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../index.html">Search settings</a><a href="../guide/01-baseline-and-identity.html">Start here</a><a href="../tests/README.html">Test catalog</a><a href="../SOURCES.html">Sources</a></nav></header><main><h1 id="versions-and-evidence">Versions and evidence</h1>
+<h2 id="use-the-instructions-for-the-version-you-have">Use the instructions for the version you have</h2>
+<p>This edition targets <strong>Rocket 1.4.0.705</strong>. Its field reference separates controls
+found in that installed build from features mentioned only in newer documentation.
+If your screen differs, check the version and selected print mode before searching
+for a renamed control. A bundled field definition can exist without appearing in
+your current mode. [ROCKET-LOCAL]</p>
+<p>The public <strong>1.4.1</strong> notes describe a new Pro switch controlling Fortified access,
+additional infill controls and other changes. They also list fixes affecting
+extrusion-area mapping and temperature changes between fibre and plastic layers.
+Those notes are a reason to check versions, not permission to describe the new
+behavior as present in 1.4.0.705. [OEM-141]</p>
+<p>The <strong>1.4.0</strong> notes do not identify build 705, and some preview work is described
+as pending merge or validation. For a disputed feature, prefer a recorded
+observation in the installed build over an assumption based on a release heading.
+[OEM-140]</p>
+<p>After an update, reopen a copy of a known project, inspect its resolved settings
+and preview, and compare the exported result before printing. Keep the previous
+project and settings so you can identify what changed. Successful import alone
+does not prove that an old setting retained its meaning. [TG-CORE]</p>
+<h2 id="calibration-can-mean-different-things">“Calibration” can mean different things</h2>
+<p>Machine calibration establishes a hardware relationship, such as bed alignment
+or fibre feed length. Material tuning establishes how a particular filament
+behaves with a particular nozzle and set of conditions. One does not replace the
+other.</p>
+<p>For example, FibreSeek documents <strong>Fibre Extrusion Calibration on the printer
+touchscreen</strong>. That is not evidence of a Rocket temperature-tower, pressure-advance
+or plastic-flow generator. Follow the applicable OEM procedure for hardware
+calibration, then use a separately identified material test. [OEM-FIBRE-CAL]</p>
+<p>Pressure advance is useful material theory, but this edition has not established
+a selectable Rocket 1.4.0.705 pressure-advance control, its supported range or a
+native generator. Do not paste another slicer's commands or values into Rocket
+to fill that gap. The filament vendor's recommendation to tune pressure response
+does not prove that this software exposes the needed control. [3DF-PA]</p>
+<p>The same distinction applies to Max volumetric speed: a translated label and
+stored property were found, but not a selectable editor in the inspected build.
+Use verified feature-speed tests and actual output checks; a backend property or
+translated input-range hint is not a user-facing workflow or a hardware rating.</p>
+<p>Likewise, a <strong>3MF file is not proof of a working parameter sweep</strong>. It may contain
+geometry without the intended per-object or per-layer changes. A test must be
+opened in the stated Rocket version and checked after slicing before it is called
+a validated native project.</p>
+<p>Use Rocket's verified mode and tool assignments. Do not reuse a numerical T0/T1,
+slot or extrusion-axis mapping from the earlier experimental TinMan beta merely
+because the physical printer has similar nozzle names. Public nozzle specifications
+do not establish those software mappings. [OEM-SPEC]</p>
+<h2 id="read-a-test-files-status-before-using-it">Read a test file's status before using it</h2>
+<p>The public test catalog uses these distinctions. Each status belongs to one
+specific file revision and software version, not to every file with the same name.</p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>What it establishes</th>
+<th>What it does not establish</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prepared</td>
+<td>A test file and its intended settings have been created.</td>
+<td>Correct Rocket import, a working sweep or a successful print.</td>
+</tr>
+<tr>
+<td>Native project validated</td>
+<td>The file has been reopened in the named Rocket build; intended settings and sliced output have been checked and recorded.</td>
+<td>Safe physical operation or a measured material result.</td>
+</tr>
+<tr>
+<td>Printed — physical validation pending</td>
+<td>A print attempt is recorded with its conditions.</td>
+<td>That the specimen passes the test or that a value is tuned.</td>
+</tr>
+<tr>
+<td>Physically validated</td>
+<td>The specified specimen was examined or measured against stated acceptance criteria, with conditions and evidence recorded.</td>
+<td>Validity for another material, nozzle, machine or operating range.</td>
+</tr>
+</tbody>
+</table>
+<p>A future GitHub download must carry its actual status. A public link, a thumbnail
+or a successful slice does not promote it to a physically validated test. If a
+file is only prepared, say so beside its download—not only in a general disclaimer.</p>
+<h2 id="keep-conclusions-attached-to-their-evidence">Keep conclusions attached to their evidence</h2>
+<p>Record the Rocket version, project revision, machine and nozzle context,
+material, conditioning, settings and result. Change one causal variable at a time
+after an initial search. Retain a control specimen and test the chosen value on a
+representative part before releasing a profile. These are experimental-method
+principles adapted from the original guide; they do not require Rocket to share
+Orca's menus. [TG-CORE]</p>
+<p>Private current-unit records may support a local observation, but they are not
+universal printer specifications. Public examples omit unit identifiers,
+connection details, raw firmware/configuration exports and account data.
+[NEW-UNIT-RECORD]</p>
+<p>Where this guide says <strong>not established</strong>, it means the available evidence does
+not settle the point. It does not mean the feature is impossible or permanently
+unsupported. A later verified observation can close that gap without rewriting
+an assumption as an earlier fact.</p>
+<p>For source editions and direct links, see <a href="../SOURCES.html">Sources</a>.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

@@ -1,0 +1,80 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>README</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../../index.html">Search settings</a><a href="../../guide/01-baseline-and-identity.html">Start here</a><a href="../../tests/README.html">Test catalog</a><a href="../../SOURCES.html">Sources</a></nav></header><main><h1 id="tinman-flow-tiles-for-rocket">Tinman flow tiles for Rocket</h1>
+<p>Use the original Tinman and Orca Flow Pass 1 and Pass 2 geometry, sliced by Rocket.
+This pack contains 19 independent 40 × 30 × 2 mm meshes, their original editable
+sources, conversion script and separate <a href="NOTICE.html">AGPL notices</a>. There is no
+G-code, machine target, material preset or automatic flow schedule.</p>
+<p><strong>Do not import all tiles and assume their labels change flow.</strong> In this recipe,
+slice one tile per job with one explicitly entered material Flow multiplier.
+Rocket does not execute Tinman's calibration generator when it imports an STL.</p>
+<h2 id="before-using-this-test">Before using this test</h2>
+<p>Establish temperature and a usable throughput region first. Keep any unsupported
+PA stage marked unperformed; preserve supported OEM pressure behavior. A nozzle
+leak, feed problem, damp filament or incorrect first-layer gap invalidates the
+comparison. This first pack addresses ordinary FFF, not CFC/matrix qualification.</p>
+<p>Use the actual machine, ordinary FFF nozzle, spool and plate. Start with a copied,
+appropriately named candidate process/material pair rather than editing a stock
+template. No setting in this pack is an accepted PCTG or replacement-unit value.</p>
+<h2 id="choose-and-calculate-the-candidate">Choose and calculate the candidate</h2>
+<p>Let <code>B</code> be your current candidate material Flow multiplier. A tile marked <code>d</code>
+means the intended relative percentage change for this comparison:</p>
+<pre><code class="language-text">candidate material Flow multiplier = B × (1 + d / 100)
+</code></pre>
+<p>Pass 1 labels are −20, −15, −10, −5, 0, +5, +10, +15 and +20. These are the
+original coarse-test labels, not a requirement to print every extreme. Start near
+your baseline and use only justified changes. For example, if <code>B = 0.98</code>, the
+tile labelled <code>+5</code> is tested at <code>0.98 × 1.05 = 1.029</code>. This is arithmetic, not a
+recommended setting for your machine.</p>
+<p>Pass 2 labels are 0 through −9. Rebase <code>B</code> to the selected coarse candidate;
+the same formula applies. Do not subtract the label directly from the multiplier
+or compound each new test on the previous tile. A finer intermediate comparison
+can reuse the zero-labelled mesh, with the actual value recorded externally.</p>
+<h2 id="slice-in-rocket">Slice in Rocket</h2>
+<ol>
+<li>In <strong>Prepare</strong>, select the intended printer template, ordinary <strong>Plastic</strong>
+   material and <strong>Speedy</strong> mode. Identify the actual physical nozzle and material;
+   a mode name or template label does not prove the output tool.</li>
+<li>Use <strong>Add models</strong> and open one STL from <code>models/</code>. Import in millimeters,
+   flat on the plate, at 100% scale. Verify 40 × 30 × 2 mm.</li>
+<li>Use <strong>More Options → Plastics → Basic information → Flow multiplier</strong> on
+   your copied material, then <strong>Apply</strong>. Copy the relevant OEM process group under
+   <strong>Profiles</strong>, select its <strong>Speedy</strong> process, and select that custom group with
+   the copied Plastic in Prepare. See <a href="../../guide/08-material-and-process-selection.html">matching selections</a>.
+   Enter the calculated value; do not change composite/fiber feed or a
+   feature-only flow setting instead. Record the entered value and saved selection.</li>
+<li>Keep temperature, layer height, line width, walls, top/bottom thickness, infill,
+   speeds and cooling identical between candidates. At a 2 mm specimen height,
+   make sure the selected layer height and shell settings leave a broad, supported
+   top with several solid layers. Do not assume Tinman's ten-layer scaling or
+   shell overrides were imported. Do not stretch the model silently for a larger
+   nozzle; document any deliberate geometry change as a new variant.</li>
+<li>Select <strong>Preview</strong> and let Rocket slice. Check every layer for a supported top,
+   the intended ordinary-plastic paths, no fiber paths and a rate inside your
+   established working region. Cooling and feature-speed limits can change timing.</li>
+<li>Check the selected material and actual output again before any send. Keep
+   printer-specific starting, sensing and preparation behavior from the applicable
+   OEM template. Do not run another slicer's G-code or paste firmware commands.</li>
+</ol>
+<p>The exact material-editor click path and its emitted effect must be checked for
+your installed Rocket version. This working recipe does not claim that a hidden
+field or an imported label supplies the intended multiplier. Stop if you cannot
+identify the ordinary-plastic Flow multiplier or verify the output.</p>
+<h2 id="read-and-confirm-the-result">Read and confirm the result</h2>
+<p>After cooling, inspect the whole top under glancing light and with a light touch.
+Low flow leaves open channels and poor line joining. Excess flow creates raised
+ridges, nozzle plowing and piled-up line ends. Seek an even, closed surface without
+broad ridges; do not compensate for bad support below the top by increasing flow.</p>
+<p>Record every tile's actual value, conditions and photographs. Confirm the chosen
+candidate in a fresh Rocket slice and a representative part. Cosmetic quality
+alone does not qualify strength or the complete material profile. See the guide's
+<a href="../../guide/02-controlled-tuning.html">controlled tuning chapter</a>.</p>
+<h2 id="validation-status">Validation status</h2>
+<p>Mesh dimensions, source identity and triangle preservation are checked by the
+included tests for all 19 tiles. The zero-labelled sample was imported and sliced
+in Rocket 1.4.0.705 at 0.2 mm in ordinary-FFF Speedy mode. Separate native slices
+at material Flow multiplier 1.00 and 0.90 retained identical motion paths; their
+XY-deposition ratio was 0.89999921. E-only retraction recovery remained unchanged.
+This verifies that comparison, not every tile or all possible settings. Other
+tiles have not been individually sliced in this check.</p>
+<p>Native observations and limitations are recorded in
+<a href="ROCKET_CHECKS.json">ROCKET_CHECKS.json</a>. No tile has been physically validated by this pack. There
+is no production TUNED preset or ready-to-print job here.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

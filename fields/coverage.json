@@ -1,0 +1,13 @@
+{
+  "build": "1.4.0.705",
+  "schema_fields": 470,
+  "schema_occurrences": 1058,
+  "explained_schema_fields": 470,
+  "missing_explanations": [],
+  "missing_option_explanations": [],
+  "unmapped_renderer_controls": 184,
+  "keyed_dialog_fields": 3,
+  "complete_runtime_ui_coverage": false,
+  "runtime_ui_observed": false,
+  "physical_test_validation": false
+}

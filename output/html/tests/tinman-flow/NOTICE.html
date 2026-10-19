@@ -1,0 +1,33 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOTICE</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../../index.html">Search settings</a><a href="../../guide/01-baseline-and-identity.html">Start here</a><a href="../../tests/README.html">Test catalog</a><a href="../../SOURCES.html">Sources</a></nav></header><main><h1 id="original-tinman-and-orca-flow-tile-notices">Original Tinman and Orca flow tile notices</h1>
+<p>These are the existing flow calibration meshes used by Tinman, not newly designed
+test coupons. Credit SoftFever and the OrcaSlicer contributors. The upstream
+calibration method also acknowledges inspiration from SuperSlicer.</p>
+<p>The two original source models are distributed on the upstream repository's
+<strong>GNU Affero General Public License version 3 (AGPL-3.0)</strong> basis. See
+<a href="LICENSE-AGPL-3.0.txt">the full license</a>. They and the derived STL meshes are
+<strong>not covered by the guide's CC BY 4.0 license</strong>. This notice does not replace
+the license or imply OEM endorsement or a physically validated profile.</p>
+<h2 id="exact-sources">Exact sources</h2>
+<p>The installed Tinman files match these pinned public originals byte-for-byte:</p>
+<ul>
+<li><a href="https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf">Flow Pass 1</a>:
+  SHA-256 <code>6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f</code>.</li>
+<li><a href="https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf">Flow Pass 2</a>:
+  SHA-256 <code>b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af</code>.</li>
+<li><a href="https://github.com/OrcaSlicer/OrcaSlicer/tree/c6065d54fc37abec1992e7366d600251785f6517">Upstream source and license at the same revision</a>.</li>
+</ul>
+<p>Unmodified editable originals are in <a href="source/">source/</a>. The source contains only
+the original generic model assets, not a user's saved machine/account project.</p>
+<h2 id="changes-on-october-19-2026">Changes on October 19 2026</h2>
+<p>William Tinney's Rocket guide project, with Codex by OpenAI, extracted each of the
+19 source objects as a separate binary STL. Every source triangle is retained.
+Each tile is translated to the origin; there is no resizing, remeshing, smoothing,
+decimation or relabeling. Binary STL stores float32 coordinates. The conversion
+source is <a href="../../scripts/extract_tinman_flow_models.py">extract_tinman_flow_models.py</a>,
+licensed under AGPL-3.0 for this conversion and its generated derivatives. The
+manifest records each original object, dimensions, triangle count and hash.</p>
+<p>To rebuild from the included sources, use Python 3.10 or newer from the repository
+root: <code>python3 scripts/extract_tinman_flow_models.py</code>. No slicer or network is needed.</p>
+<p>STL does not carry units, material settings or calibration modifiers. Import as
+millimeters and verify 40 × 30 × 2 mm before slicing. Numbers on the tiles are
+geometry, not instructions executed by Rocket. Use the accompanying recipe.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

@@ -1,0 +1,40 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>08-material-and-process-selection</title><style>body{margin:0;background:#f4f6f6;color:#17242a;font:17px/1.6 system-ui,sans-serif}header{background:#15383b;color:white;padding:2rem max(5vw,1rem)}header p{max-width:70ch}main{max-width:1000px;margin:auto;padding:1.5rem}h1,h2,h3{line-height:1.2}h2{margin-top:2.2rem}a{color:#076365}header a{color:#c7ece4}nav{display:flex;gap:1rem;flex-wrap:wrap}article{background:white;border:1px solid #d3dddd;border-radius:10px;padding:1.2rem 1.6rem;margin:1rem 0}article h2{margin:0 0 .7rem;font-size:1.3rem}.meta{font-size:.85rem;color:#4a6066}.badge{display:inline-block;background:#e8f2ef;border-radius:5px;padding:.1rem .5rem;margin:.2rem}input,select{font:inherit;padding:.7rem;border:1px solid #79949a;border-radius:6px;max-width:100%}input{width:65%}.tools{position:sticky;top:0;background:#f4f6f6;padding:1rem 0;z-index:1}table{border-collapse:collapse;width:100%;font-size:.93rem}td,th{border:1px solid #ccd9d9;padding:.5rem;text-align:left;vertical-align:top}pre{overflow:auto;background:#e6eeee;padding:1rem}code{overflow-wrap:anywhere}li{margin:.3rem 0}.warn{border-left:4px solid #a66a13;padding:.7rem 1rem;background:#fff5df}footer{margin:3rem 0;color:#49616a;font-size:.9rem}[hidden]{display:none!important}@media(max-width:600px){main{padding:.7rem}article{padding:1rem}input{width:93%}}</style><header><h1>Tinmans Rocket slicer tuning guide</h1><p>Rocket 1.4.0.705 working edition · plain-language controls and controlled material tests</p><nav><a href="../index.html">Search settings</a><a href="../guide/01-baseline-and-identity.html">Start here</a><a href="../tests/README.html">Test catalog</a><a href="../SOURCES.html">Sources</a></nav></header><main><h1 id="select-a-matching-material-and-process-in-rocket">Select a matching material and process in Rocket</h1>
+<p>Rocket's material selector and process selector are linked. Copying a plastic
+material gives it a new identity. A process that accepts the original material
+does not automatically accept the copy. If <strong>Profile</strong> becomes empty and Preview
+is disabled after you select a copied material, check compatibility before changing
+printing parameters.</p>
+<h2 id="copy-the-material">Copy the material</h2>
+<p>In Rocket 1.4.0.705, open <strong>Prepare → Template Settings → More Options → Plastics</strong>.
+Choose the applicable OEM material and use its copy icon. Select the new entry
+under <strong>Customized</strong>, give it a clear candidate name, and edit the intended value.
+For ordinary-plastic flow testing, <strong>Basic information → Flow multiplier</strong> is the
+material-wide multiplier. <strong>Apply</strong> saves the edits. The stock material remains
+unchanged.</p>
+<p>For example, a development-only comparison may use a clearly marked name such as
+<code>CANDIDATE | GUIDE OFFLINE DO NOT PRINT | 0.4mm | OEM PETG | r01</code>. That is not a
+production profile or a starting prescription for PCTG. Real tuning names should
+identify your physical machine, nozzle, product and revision.</p>
+<h2 id="give-the-copied-material-a-compatible-process">Give the copied material a compatible process</h2>
+<p>Open <strong>Profiles</strong> in the same options panel. Use the copy icon on the applicable
+OEM <strong>profile-group header</strong>. This copies the group's processes; it does not make
+every copied process appropriate to every mode or nozzle.</p>
+<p>Expand the custom group and select the ordinary <strong>Speedy</strong> process for an FFF
+comparison. In this SK3 build, custom groups are broadly selectable with copied
+materials. There is no reachable Compatible materials page in this workflow.
+Do not mistake the custom group's availability for an enforced match to your
+machine, nozzle or material; you must check that match yourself.</p>
+<p>Use the custom group's rename/pencil action to give it a recognizable candidate
+name. Return to Prepare
+and explicitly select the copied <strong>Plastic</strong> material, the intended print mode
+and the matching <strong>Profile</strong>. Confirm that layer height and other settings have
+not reverted or disappeared. Recheck selections after import, reset or mode change.</p>
+<h2 id="check-the-slice-before-sending">Check the slice before sending</h2>
+<p>Select <strong>Preview</strong> once and wait for slicing to finish. Review the ordinary-plastic
+paths, top support and layer count. Print Details should agree with the intended
+nozzle/material usage, but its labels alone do not prove the executable tool path.
+Save a local G-code copy and verify the applicable emitted settings and routing.</p>
+<p>For the flow pack, tile labels do not change the material multiplier. Use one tile
+and one explicitly calculated value per slice. Do not confuse the <strong>Composite</strong>
+matrix/fiber fields with the ordinary <strong>Plastic</strong> material. Native projects and
+G-code can carry account metadata; do not upload raw exports as public test files.</p><footer>Independent CC BY 4.0 guide; flow models have separate AGPL notices. No printer connection, telemetry, account or Rocket runtime code is included.</footer></main></html>

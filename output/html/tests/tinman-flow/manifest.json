@@ -1,0 +1,372 @@
+{
+  "schema": "tinman-rocket-flow-geometry.v1",
+  "source_revision": "c6065d54fc37abec1992e7366d600251785f6517",
+  "license": "AGPL-3.0 (upstream repository basis; see NOTICE.md)",
+  "conversion": "Original triangles, origin translation only; no resizing or decimation",
+  "contains_gcode": false,
+  "contains_parameter_schedules": false,
+  "physical_validation": false,
+  "models": [
+    {
+      "file": "models/pass1-flow-+00pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "1",
+      "source_object_name": "flowrate_0",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": 0,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 704,
+      "welded_non_two_face_edges": 0,
+      "sha256": "f633b469b0b9b5ebb78d7050cc705b83611b062889f089405068fc2fa0ffcc28",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow-+10pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "3",
+      "source_object_name": "flowrate_10",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": 10,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 788,
+      "welded_non_two_face_edges": 0,
+      "sha256": "e7be288b4d5cdb6b6253ba892f76cedb8d530428987c84688c47bfbf9543e81c",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow-+15pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "5",
+      "source_object_name": "flowrate_15",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": 15,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 720,
+      "welded_non_two_face_edges": 0,
+      "sha256": "0b63ff47b485e7d51992e1d6f2fa2975c59f91d6fb5874453c953e7d7df974d9",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow-+20pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "7",
+      "source_object_name": "flowrate_20",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": 20,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 1040,
+      "welded_non_two_face_edges": 0,
+      "sha256": "443848b8cd5a219e50ec1e7b6f87bb34ae9e592ec9a786b8bedbf850d7e0e44b",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow-+05pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "9",
+      "source_object_name": "flowrate_5",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": 5,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 636,
+      "welded_non_two_face_edges": 0,
+      "sha256": "d4258becb0a6a1b85a11fdafe72f9c98645893e1f25bd3d351516df3b9323976",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow--10pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "11",
+      "source_object_name": "flowrate_m10",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": -10,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 804,
+      "welded_non_two_face_edges": 0,
+      "sha256": "b7342f697091faa71218534937c270ab506edc00e8351b57a3848eb11f2b14d8",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow--15pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "13",
+      "source_object_name": "flowrate_m15",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": -15,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 736,
+      "welded_non_two_face_edges": 0,
+      "sha256": "19114dcef0f6b4367469865a61d0d43ea950c059b8a4c186f273e1a6cf404a32",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow--20pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "15",
+      "source_object_name": "flowrate_m20",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": -20,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 1056,
+      "welded_non_two_face_edges": 0,
+      "sha256": "ac6eef47c3fbcd428a7b95659b27ce878a55efbc72626f728d097f6068367960",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass1-flow--05pct.stl",
+      "source_file": "source/flowrate-test-pass1.3mf",
+      "source_sha256": "6e86280ef6dd912dc4bf8c5eb00d0b21d218f74774602eb10c73c36e5cc2aa5f",
+      "source_object_id": "17",
+      "source_object_name": "flowrate_m5",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass1.3mf",
+      "label_percent": -5,
+      "pass": 1,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 652,
+      "welded_non_two_face_edges": 0,
+      "sha256": "29af4f211e306d622aa36a0438044f815d1e2bfefbc12d9d5143ffc1db769fd9",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow-+00pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "1",
+      "source_object_name": "flowrate_0",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": 0,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 704,
+      "welded_non_two_face_edges": 0,
+      "sha256": "450b756b1fb22c8f6c50f508da97d6409fc8b0c788ffd15bf1bb3f55b2c451b5",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--01pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "3",
+      "source_object_name": "flowrate_m1",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -1,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 416,
+      "welded_non_two_face_edges": 0,
+      "sha256": "19d7ddcf92960a138e0dbebb8d2f8ac383751fe4c65d522cf880d166c0a5665a",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--02pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "5",
+      "source_object_name": "flowrate_m2",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -2,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 668,
+      "welded_non_two_face_edges": 0,
+      "sha256": "a1690e65ae00502a5b49a8c5d10a8302bd8fc772202338340982f88784b48f9c",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--03pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "7",
+      "source_object_name": "flowrate_m3",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -3,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 824,
+      "welded_non_two_face_edges": 0,
+      "sha256": "682cec58f6fe41ef6995631958c71b6c6a62390b594b79ecfc09033a27bdb4ce",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--04pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "9",
+      "source_object_name": "flowrate_m4",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -4,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 388,
+      "welded_non_two_face_edges": 0,
+      "sha256": "277c6767d2daa8fc5743acd0758cdd215d10b2b8af3e3c1dfb3172b258495048",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--05pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "11",
+      "source_object_name": "flowrate_m5",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -5,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 652,
+      "welded_non_two_face_edges": 0,
+      "sha256": "6e68aba6b0d6b12ab804ccd0b92f26de77b45448159109ba095e7939f4704255",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--06pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "13",
+      "source_object_name": "flowrate_m6",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -6,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 824,
+      "welded_non_two_face_edges": 0,
+      "sha256": "1979045f3729562adbb89e19ce8769a18da1adf4db4078b2e54aca85aec6329a",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--07pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "15",
+      "source_object_name": "flowrate_m7",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -7,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 448,
+      "welded_non_two_face_edges": 0,
+      "sha256": "ee881e0a0f3f5ec577d2e0326242276ab53db282dbf6dff115576fbf497baf6a",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--08pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "17",
+      "source_object_name": "flowrate_m8",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -8,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 924,
+      "welded_non_two_face_edges": 0,
+      "sha256": "b8ad9c8e20a5226de0b82e14b3b9fa1d68b31640559b53dd6a8287f99ebe5b9b",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    },
+    {
+      "file": "models/pass2-flow--09pct.stl",
+      "source_file": "source/flowrate-test-pass2.3mf",
+      "source_sha256": "b2ac0302c36a810f9a178e1856c2989f05d283b8b98ee8f8b3b869e2829614af",
+      "source_object_id": "19",
+      "source_object_name": "flowrate_m9",
+      "source_url": "https://github.com/OrcaSlicer/OrcaSlicer/blob/c6065d54fc37abec1992e7366d600251785f6517/resources/calib/filament_flow/flowrate-test-pass2.3mf",
+      "label_percent": -9,
+      "pass": 2,
+      "dimensions_mm": [
+        40.0,
+        30.0,
+        2.0
+      ],
+      "triangles": 840,
+      "welded_non_two_face_edges": 0,
+      "sha256": "70ac965377518d33bbf731c9c891ea985276ba5dba6aea5ea85ff777349451ff",
+      "status": "prepared; native Rocket checks tracked in ROCKET_CHECKS.json; not physically validated"
+    }
+  ]
+}

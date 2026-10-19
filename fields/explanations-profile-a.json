@@ -1,0 +1,2380 @@
+{
+  "schema": "rocket-field-explanations.v1",
+  "fields": {
+    "profile-settings:avoidCrossingInnerOffsetCoeff": {
+      "meaning": "Scales the clearance used by travel paths routed inside a boundary when avoiding crossings.",
+      "when_to_change": "Review if an avoidance route runs too close to a wall or takes an excessive detour.",
+      "effect": "A larger clearance coefficient generally moves the route farther from the boundary; smaller keeps it closer.",
+      "interactions": [
+        "Avoid crossing borders",
+        "Travel routing",
+        "Retraction"
+      ],
+      "caution": "The reference distance and exact routing calculation are not established by the label. Inspect travel preview before relying on a change.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:avoidCrossingOuterOffsetCoeff": {
+      "meaning": "Scales the clearance used by travel paths routed outside a boundary when avoiding crossings.",
+      "when_to_change": "Review if an avoidance route runs too close to a wall or takes an excessive detour.",
+      "effect": "A larger clearance coefficient generally moves the route farther from the boundary; smaller keeps it closer.",
+      "interactions": [
+        "Avoid crossing borders",
+        "Travel routing",
+        "Retraction"
+      ],
+      "caution": "The reference distance and exact routing calculation are not established by the label. Inspect travel preview before relying on a change.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinEWMM": {
+      "meaning": "Planned bead width for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinExtrusionMultP": {
+      "meaning": "Scales plastic deposition for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinInfillAngle": {
+      "meaning": "Initial direction of fill lines for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Change when line direction should suit a bridge span, surface appearance or load direction.",
+      "effect": "Rotates the pattern rather than making it denser; a different angle changes where lines meet walls.",
+      "interactions": [
+        "fill pattern",
+        "model orientation",
+        "angle increment"
+      ],
+      "caution": "Patterns that are rotationally symmetric may respond differently. Confirm the selected region in Preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinInfillAngleStep": {
+      "meaning": "Rotation added between successive fill layers for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Change when consecutive layers should alternate directions rather than follow one orientation.",
+      "effect": "A larger step changes direction more per layer; zero requests no additional rotation.",
+      "interactions": [
+        "initial fill angle",
+        "fill pattern",
+        "layer schedule"
+      ],
+      "caution": "This is an angular increment, not extra material or a pressure-advance setting.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinInfillExtendIntoPerimeterRatio": {
+      "meaning": "Overlap where intermediate bottom skin—the solid material above the lowest bottom surface meets surrounding walls.",
+      "when_to_change": "Adjust when the fill-to-wall joint has gaps or causes visible wall bulges.",
+      "effect": "More overlap improves contact but can overpack the boundary; less overlap eases packing but may weaken the joint.",
+      "interactions": [
+        "wall width",
+        "fill width",
+        "flow"
+      ],
+      "caution": "Overlap is not a substitute for correct extrusion. Evaluate both the interior joint and the outside surface.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinInfillPattern": {
+      "meaning": "Shape of the paths used for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Choose for support, directionality, appearance and practical print time.",
+      "effect": "Different patterns redirect material and change intersections and travel; they do not guarantee equal strength at equal nominal density.",
+      "interactions": [
+        "fill angle",
+        "density or spacing",
+        "wall overlap"
+      ],
+      "caution": "An available pattern is not necessarily appropriate for unsupported bridging or continuous fibre. Inspect its actual paths.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill joined where the geometry permits. It reduces separate line starts compared with disconnected lines.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomIntermediateSkinSpeed": {
+      "meaning": "Requested printing speed for intermediate bottom skin—the solid material above the lowest bottom surface.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinEWMM": {
+      "meaning": "Planned bead width for lowest bottom skin—the exposed underside region, not necessarily every first-layer feature.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinExtrusionMultP": {
+      "meaning": "Scales plastic deposition for lowest bottom skin—the exposed underside region, not necessarily every first-layer feature.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinInfillAngle": {
+      "meaning": "Initial direction of fill lines for lowest bottom skin—the exposed underside region, not necessarily every first-layer feature.",
+      "when_to_change": "Change when line direction should suit a bridge span, surface appearance or load direction.",
+      "effect": "Rotates the pattern rather than making it denser; a different angle changes where lines meet walls.",
+      "interactions": [
+        "fill pattern",
+        "model orientation",
+        "angle increment"
+      ],
+      "caution": "Patterns that are rotationally symmetric may respond differently. Confirm the selected region in Preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinInfillExtendIntoPerimeterRatio": {
+      "meaning": "Overlap where lowest bottom skin—the exposed underside region, not necessarily every first-layer feature meets surrounding walls.",
+      "when_to_change": "Adjust when the fill-to-wall joint has gaps or causes visible wall bulges.",
+      "effect": "More overlap improves contact but can overpack the boundary; less overlap eases packing but may weaken the joint.",
+      "interactions": [
+        "wall width",
+        "fill width",
+        "flow"
+      ],
+      "caution": "Overlap is not a substitute for correct extrusion. Evaluate both the interior joint and the outside surface.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinInfillPattern": {
+      "meaning": "Shape of the paths used for lowest bottom skin—the exposed underside region, not necessarily every first-layer feature.",
+      "when_to_change": "Choose for support, directionality, appearance and practical print time.",
+      "effect": "Different patterns redirect material and change intersections and travel; they do not guarantee equal strength at equal nominal density.",
+      "interactions": [
+        "fill angle",
+        "density or spacing",
+        "wall overlap"
+      ],
+      "caution": "An available pattern is not necessarily appropriate for unsupported bridging or continuous fibre. Inspect its actual paths.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill joined where the geometry permits. It reduces separate line starts compared with disconnected lines.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        },
+        {
+          "label": "Hilbert Curve",
+          "meaning": "A winding, space-filling path with many right-angle turns. It produces a distinctive surface texture rather than a simple straight-line finish.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.hilbertcurve"
+        },
+        {
+          "label": "Archimedean Chords",
+          "meaning": "A curved, spiral-derived fill layout. It changes the direction and visual texture of the fill; inspect the actual clipped paths.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.archimedeanchords"
+        },
+        {
+          "label": "Octagram Spiral",
+          "meaning": "A star-like spiral fill layout. Its repeated turns give a distinctive path and surface pattern, not a guaranteed strength advantage.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.octagramspiral"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bottomMostSkinSpeed": {
+      "meaning": "Requested printing speed for lowest bottom skin—the exposed underside region, not necessarily every first-layer feature.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeEWMM": {
+      "meaning": "Planned bead width for bridging plastic laid across an unsupported gap.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeExtrusionMultP": {
+      "meaning": "Scales plastic deposition for bridging plastic laid across an unsupported gap.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeInfillAngle": {
+      "meaning": "Initial direction of fill lines for bridging plastic laid across an unsupported gap.",
+      "when_to_change": "Change when line direction should suit a bridge span, surface appearance or load direction.",
+      "effect": "Rotates the pattern rather than making it denser; a different angle changes where lines meet walls.",
+      "interactions": [
+        "fill pattern",
+        "model orientation",
+        "angle increment"
+      ],
+      "caution": "Patterns that are rotationally symmetric may respond differently. Confirm the selected region in Preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeInfillExtendIntoPerimeterRatio": {
+      "meaning": "Overlap where bridging plastic laid across an unsupported gap meets surrounding walls.",
+      "when_to_change": "Adjust when the fill-to-wall joint has gaps or causes visible wall bulges.",
+      "effect": "More overlap improves contact but can overpack the boundary; less overlap eases packing but may weaken the joint.",
+      "interactions": [
+        "wall width",
+        "fill width",
+        "flow"
+      ],
+      "caution": "Overlap is not a substitute for correct extrusion. Evaluate both the interior joint and the outside surface.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeInfillPattern": {
+      "meaning": "Shape of the paths used for bridging plastic laid across an unsupported gap.",
+      "when_to_change": "Choose for support, directionality, appearance and practical print time.",
+      "effect": "Different patterns redirect material and change intersections and travel; they do not guarantee equal strength at equal nominal density.",
+      "interactions": [
+        "fill angle",
+        "density or spacing",
+        "wall overlap"
+      ],
+      "caution": "An available pattern is not necessarily appropriate for unsupported bridging or continuous fibre. Inspect its actual paths.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage. For a bridge, verify that generated lines anchor to supported edges; a selectable pattern is not proof of a printable span.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.line"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill joined where the geometry permits. It reduces separate line starts compared with disconnected lines. For a bridge, verify that generated lines anchor to supported edges; a selectable pattern is not proof of a printable span.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners. For a bridge, verify that generated lines anchor to supported edges; a selectable pattern is not proof of a printable span.",
+          "source_label_key": "infill-p-top-most-skin-fill-type.concentric"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:bridgeSpeed": {
+      "meaning": "Requested printing speed for bridging plastic laid across an unsupported gap.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:brimDistanceToPart": {
+      "meaning": "The separation between the brim and the part it surrounds.",
+      "when_to_change": "Change when the brim is too difficult to remove or does not hold the part adequately.",
+      "effect": "A larger gap usually eases removal but weakens attachment; a smaller gap improves attachment but may scar the edge.",
+      "interactions": [
+        "Generate brim",
+        "Brim loops",
+        "First-layer width"
+      ],
+      "caution": "A brim cannot compensate for an incorrect bed/nozzle setup.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:brimEWMM": {
+      "meaning": "The planned width of each plastic line in the brim.",
+      "when_to_change": "Change only when brim lines do not join or the brim needs different coverage.",
+      "effect": "Wider lines cover more area per loop and need more plastic; narrower lines reduce coverage.",
+      "interactions": [
+        "Brim loops",
+        "Brim flow multiplier",
+        "First-layer height"
+      ],
+      "caution": "Use a width appropriate to the selected nozzle and material; this is not a nozzle-diameter setting.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:brimExtrusionMultP": {
+      "meaning": "Scales the plastic delivered while printing the brim.",
+      "when_to_change": "Adjust after verifying first-layer height when the brim is consistently overfilled or underfilled.",
+      "effect": "Higher delivers more plastic per planned brim path; lower delivers less.",
+      "interactions": [
+        "Brim extrusion width",
+        "First-layer height",
+        "Material flow settings"
+      ],
+      "caution": "Do not use a brim-only multiplier to hide a general extrusion or bed-level problem.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:brimLoops": {
+      "meaning": "The number of brim lines added around the part.",
+      "when_to_change": "Increase for additional edge anchoring, or reduce when adhesion is sufficient and cleanup matters.",
+      "effect": "More loops widen the anchoring area and use more material; fewer make a smaller brim.",
+      "interactions": [
+        "Generate brim",
+        "Brim width per line",
+        "Distance from part"
+      ],
+      "caution": "Check preview around narrow gaps and nearby parts; more loops do not guarantee adhesion.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicInterfaceSupportInfillType": {
+      "meaning": "The pattern used in the dense support contact region.",
+      "when_to_change": "Choose a pattern when comparing supported surface finish and removal effort.",
+      "effect": "Different patterns change line direction, contact distribution and continuity rather than simply adding strength.",
+      "interactions": [
+        "Top and bottom interface spacing",
+        "Interface generation",
+        "Z contact distances"
+      ],
+      "caution": "A pattern alone does not set the clearance between support and part.",
+      "options": [
+        {
+          "label": "Rectilinear Interlaced",
+          "meaning": "Straight-line interface filling with interlaced directions. It spreads contact across directions; inspect how layers alternate in Rocket.",
+          "source_label_key": "infill-p-cellular-fill-type.rectilinear-interlaced"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Crossing line families forming a grid. This gives connections in more than one direction but creates intersections.",
+          "source_label_key": "infill-p-cellular-fill-type.grid"
+        },
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage.",
+          "source_label_key": "infill-p-cellular-fill-type.line"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners.",
+          "source_label_key": "infill-p-cellular-fill-type.concentric"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportAutoBrim": {
+      "meaning": "Lets Rocket determine the brim used for normal support automatically.",
+      "when_to_change": "Use when the support needs bed anchoring without a manually chosen support brim width.",
+      "effect": "Enabled delegates support-brim sizing to the slicer; disabled leaves the manual setting relevant where supported.",
+      "interactions": [
+        "Support brim width",
+        "Normal support",
+        "Build plate only"
+      ],
+      "caution": "The sizing formula is not documented in the inspected declaration; verify the generated brim.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBaseFillAngle": {
+      "meaning": "The orientation of the lines in normal support's base pattern.",
+      "when_to_change": "Rotate it to compare support stability or how support lines meet the supported area.",
+      "effect": "Changing the angle rotates the support pattern; it does not change support density by itself.",
+      "interactions": [
+        "Base pattern",
+        "Base pattern spacing",
+        "Supported geometry"
+      ],
+      "caution": "Orientation effects depend on the selected pattern; confirm in layer preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBasePatternSpacing": {
+      "meaning": "The spacing between lines of the normal support base pattern.",
+      "when_to_change": "Change when support is unnecessarily bulky or too sparse to remain stable.",
+      "effect": "Larger spacing generally gives a lighter, more open support; smaller spacing gives denser support and uses more material.",
+      "interactions": [
+        "Base pattern",
+        "Support wall",
+        "Interface spacing"
+      ],
+      "caution": "Sparse support may fail before it supports the model. Interface density is a separate setting.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBodyInfillType": {
+      "meaning": "The internal pattern of normal support beneath its contact interface.",
+      "when_to_change": "Choose based on support stability, material use and removal behavior.",
+      "effect": "Patterns change the structure of the support body; spacing remains a separate control.",
+      "interactions": [
+        "Base pattern spacing",
+        "Support wall",
+        "Support interface pattern"
+      ],
+      "caution": "Do not confuse the support-body pattern with the model's own infill.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage.",
+          "source_label_key": "infill-p-cellular-fill-type.line"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Crossing line families forming a grid. This gives connections in more than one direction but creates intersections.",
+          "source_label_key": "infill-p-cellular-fill-type.grid"
+        },
+        {
+          "label": "Honeycomb",
+          "meaning": "A cellular pattern based on hexagonal cells. It creates repeated cell walls rather than long parallel fill lines.",
+          "source_label_key": "infill-p-cellular-fill-type.honeycomb"
+        },
+        {
+          "label": "Rectilinear",
+          "meaning": "Straight-line support filling. In the installed schema this is another displayed label for the Line support-body value.",
+          "source_label_key": "profile-settings.support-pattern-rectilinear"
+        },
+        {
+          "label": "Rectilinear grid",
+          "meaning": "Crossing straight-line support filling. In the installed schema this is another displayed label for the Grid support-body value.",
+          "source_label_key": "profile-settings.support-pattern-rectilinear-grid"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBottomInterfaceSpacing": {
+      "meaning": "Line spacing in the bottom contact interface of normal support.",
+      "when_to_change": "Change when the bottom supported contact is too rough or the interface is unnecessarily dense.",
+      "effect": "Smaller spacing generally produces a denser contact surface; larger spacing uses less material but supports less continuously.",
+      "interactions": [
+        "Bottom interface generation",
+        "Support interface pattern",
+        "Bottom Z distance"
+      ],
+      "caution": "Denser contact can increase bonding and removal effort; spacing is not the vertical separation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBottomZDistance": {
+      "meaning": "The vertical separation at the bottom side of normal support where it meets model material.",
+      "when_to_change": "Change to balance support removal against the quality of that contact surface.",
+      "effect": "A larger gap usually separates more easily but leaves a less supported surface; a smaller gap improves contact but can fuse.",
+      "interactions": [
+        "Bottom interface spacing",
+        "Layer height",
+        "Support material"
+      ],
+      "caution": "Check the sliced result: layer quantization can make the effective gap differ from the requested value.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportBrimWidth": {
+      "meaning": "The width of the anchoring brim for normal support.",
+      "when_to_change": "Change when support bases lift or when their brim obstructs nearby features.",
+      "effect": "A wider brim anchors a larger area but uses more bed space and needs more removal.",
+      "interactions": [
+        "Automatically calculate conventional support brim",
+        "Support base geometry"
+      ],
+      "caution": "Automatic brim calculation may govern the result instead; inspect which control is active.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportExpansion": {
+      "meaning": "Expands or contracts the footprint of normal support around the areas being supported.",
+      "when_to_change": "Review when support coverage misses an edge or spreads farther than needed.",
+      "effect": "More expansion generally broadens support coverage and material use; less keeps it closer to the original support region.",
+      "interactions": [
+        "Support/model XY distance",
+        "Overhang generation",
+        "Support base pattern"
+      ],
+      "caution": "The accepted sign and exact offset behavior are not established here; preview rather than assuming a negative value is valid.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportMaxLayerHeight": {
+      "meaning": "The upper layer-height bound used when normal support has independent layers.",
+      "when_to_change": "Adjust only when using independent support layers and reviewing their printed quality or time.",
+      "effect": "Changing the bound changes which support-layer heights can be chosen; coarser layers can save time but reduce vertical detail.",
+      "interactions": [
+        "Independent support layer height",
+        "Other support-height bound",
+        "Nozzle and support material"
+      ],
+      "caution": "Keep the two bounds consistent. A UI-accepted height is not proof that the nozzle can print it.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportMinLayerHeight": {
+      "meaning": "The lower layer-height bound used when normal support has independent layers.",
+      "when_to_change": "Adjust only when using independent support layers and reviewing their printed quality or time.",
+      "effect": "Changing the bound changes which support-layer heights can be chosen; coarser layers can save time but reduce vertical detail.",
+      "interactions": [
+        "Independent support layer height",
+        "Other support-height bound",
+        "Nozzle and support material"
+      ],
+      "caution": "Keep the two bounds consistent. A UI-accepted height is not proof that the nozzle can print it.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportMode": {
+      "meaning": "Selects how normal support locations are chosen.",
+      "when_to_change": "Choose automatic coverage, deliberate manual placement, or a combination when support planning needs control.",
+      "effect": "The mode changes the source of support regions, not their contact gap or material.",
+      "interactions": [
+        "Enable support",
+        "Support placement tools",
+        "Normal support style"
+      ],
+      "caution": "Manual and hybrid placement must be checked in preview; a selected mode does not prove every overhang is supported.",
+      "options": [
+        {
+          "label": "Auto",
+          "meaning": "Lets Rocket identify regions needing support automatically. Still inspect the result for missed or unwanted supports.",
+          "source_label_key": "profile-settings.classic-support-mode-auto"
+        },
+        {
+          "label": "Manual",
+          "meaning": "Uses deliberate user support placement rather than relying on automatic coverage. Every needed region must be checked.",
+          "source_label_key": "profile-settings.classic-support-mode-manual"
+        },
+        {
+          "label": "Hybrid",
+          "meaning": "Combines automatic support generation with user-directed placement. Confirm how your additions and exclusions affect the final supports.",
+          "source_label_key": "profile-settings.classic-support-mode-hybrid"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportRemoveSmallOverhang": {
+      "meaning": "Omits support for small overhanging areas that Rocket considers negligible.",
+      "when_to_change": "Use when many tiny support islands add effort without improving the part.",
+      "effect": "Enabled may reduce small supports and cleanup; disabled retains more candidate support regions.",
+      "interactions": [
+        "Normal support generation",
+        "Overhang shape",
+        "Support placement"
+      ],
+      "caution": "The threshold is not established by this label. It removes support candidates, not geometry from your model.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportTopInterfaceSpacing": {
+      "meaning": "Line spacing in the top contact interface of normal support.",
+      "when_to_change": "Change when the top supported contact is too rough or the interface is unnecessarily dense.",
+      "effect": "Smaller spacing generally produces a denser contact surface; larger spacing uses less material but supports less continuously.",
+      "interactions": [
+        "Top interface generation",
+        "Support interface pattern",
+        "Top Z distance"
+      ],
+      "caution": "Denser contact can increase bonding and removal effort; spacing is not the vertical separation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportTopZDistance": {
+      "meaning": "The vertical separation at the top side of normal support where it meets model material.",
+      "when_to_change": "Change to balance support removal against the quality of that contact surface.",
+      "effect": "A larger gap usually separates more easily but leaves a less supported surface; a smaller gap improves contact but can fuse.",
+      "interactions": [
+        "Top interface spacing",
+        "Layer height",
+        "Support material"
+      ],
+      "caution": "Check the sliced result: layer quantization can make the effective gap differ from the requested value.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportUseIndependentLayerHeight": {
+      "meaning": "Allows normal support to use a layer schedule distinct from the model's.",
+      "when_to_change": "Use when comparing support efficiency against contact quality.",
+      "effect": "Enabled permits support-specific layer heights; disabled ties support more closely to the model schedule.",
+      "interactions": [
+        "Minimum classic-support layer height",
+        "Maximum classic-support layer height",
+        "Model layer height"
+      ],
+      "caution": "Independent support layers still need compatible contact geometry and a printable extrusion height.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportWallCount": {
+      "meaning": "The number of perimeter walls around normal support.",
+      "when_to_change": "Change when support needs more stability or easier breakup.",
+      "effect": "More walls reinforce the support boundary but use material and can make removal harder.",
+      "interactions": [
+        "Base pattern",
+        "Base spacing",
+        "Support geometry"
+      ],
+      "caution": "More walls cannot repair a disconnected or poorly anchored support.",
+      "options": [
+        {
+          "label": "0",
+          "meaning": "No perimeter wall around the support body; the internal support pattern provides the structure.",
+          "source_label_key": "0"
+        },
+        {
+          "label": "1",
+          "meaning": "One perimeter wall around the support body, adding a boundary shell.",
+          "source_label_key": "1"
+        },
+        {
+          "label": "2",
+          "meaning": "Two perimeter walls around the support body, adding more shell material and usually more removal effort.",
+          "source_label_key": "2"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:classicSupportXYDistance": {
+      "meaning": "The horizontal clearance between normal support and the model.",
+      "when_to_change": "Change when support fuses to side walls or fails to reach near an overhang edge.",
+      "effect": "Larger clearance reduces side contact but leaves more unsupported edge; smaller clearance improves reach but can fuse.",
+      "interactions": [
+        "Normal support expansion",
+        "Z distances",
+        "Nozzle width"
+      ],
+      "caution": "This is a side gap, not the top or bottom contact gap.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:correctionMoveFiberFeedrate": {
+      "meaning": "The fibre feedrate used during a correction move.",
+      "when_to_change": "Change only when an OEM correction procedure identifies a feed mismatch.",
+      "effect": "It changes fibre delivery during that special movement rather than setting normal model-printing speed.",
+      "interactions": [
+        "Correction move speed",
+        "Fibre tension",
+        "Strand feed calibration"
+      ],
+      "caution": "The correction move's purpose and direction must be established before changing the feed. Preserve the OEM baseline.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:correctionMoveSpeed": {
+      "meaning": "The movement speed of the special fibre correction move.",
+      "when_to_change": "Leave unchanged unless the OEM procedure calls for a specific correction-motion adjustment.",
+      "effect": "A higher value requests a faster correction movement; lower requests slower motion, changing its relationship to fibre feed.",
+      "interactions": [
+        "Correction move fiber feedrate",
+        "Fibre tension sequence"
+      ],
+      "caution": "Do not independently tune motion and strand feed without knowing how the correction sequence coordinates them.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:currentNormalSupportStyle": {
+      "meaning": "Selects the overall construction style for normal support.",
+      "when_to_change": "Review when choosing the normal-support system; only the installed declared style is described here.",
+      "effect": "Style determines the support framework while base and interface patterns refine it.",
+      "interactions": [
+        "Support type",
+        "Normal support base pattern"
+      ],
+      "caution": "The only known declared option is Grid; do not assume styles from another slicer are available.",
+      "options": [
+        {
+          "label": "Grid",
+          "meaning": "The installed normal-support framework uses the Grid style. Base infill pattern and interface pattern are separate choices.",
+          "source_label_key": "profile-settings.support-style-grid"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:currentSupportType": {
+      "meaning": "Chooses normal or tree-like support construction.",
+      "when_to_change": "Use normal support for conventional columns/regions or compare tree support for branching reach around a model.",
+      "effect": "The selection changes support geometry and which related controls apply.",
+      "interactions": [
+        "Normal support style",
+        "Tree support styles",
+        "Enable support"
+      ],
+      "caution": "Neither type is universally better. Inspect every contact, branch and bed attachment.",
+      "options": [
+        {
+          "label": "Tree",
+          "meaning": "Branching support that reaches toward contact regions. Its branches and base need enough stability and clearance.",
+          "source_label_key": "infill-p-cellular-fill-type.tree"
+        },
+        {
+          "label": "Normal",
+          "meaning": "Conventional support bodies beneath selected overhang regions, controlled by normal-support base and interface settings.",
+          "source_label_key": "profile-settings.normal-support"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:currentTreeSupportStyle": {
+      "meaning": "Chooses the emphasis of tree support's branch structure.",
+      "when_to_change": "Compare a lighter branch structure with a more substantial one when tree support is selected.",
+      "effect": "Slim favors a less bulky tree; Strong favors a more substantial tree, with corresponding material/removal tradeoffs.",
+      "interactions": [
+        "Support type",
+        "Tree branch settings",
+        "Contact geometry"
+      ],
+      "caution": "These names do not specify mechanical load ratings or guarantee successful support.",
+      "options": [
+        {
+          "label": "Slim",
+          "meaning": "The less bulky tree style. Compare its material use and clearance against the stability needed by your model.",
+          "source_label_key": "profile-settings.slim"
+        },
+        {
+          "label": "Strong",
+          "meaning": "The more substantial tree style. It favors support robustness but can use more material and be harder to remove.",
+          "source_label_key": "profile-settings.strong"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:description": {
+      "meaning": "A human-readable note describing the process template.",
+      "when_to_change": "Use it to record purpose, material/nozzle context, experimental status and what changed.",
+      "effect": "Editing the description should improve identification rather than change slicing parameters.",
+      "interactions": [
+        "Template name",
+        "Saved version notes"
+      ],
+      "caution": "A note claiming validation is not evidence of a print result; do not put private machine or account identifiers in public templates.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doAvoidCrossingPerimeters": {
+      "meaning": "Asks travel moves to avoid crossing printed boundaries where possible.",
+      "when_to_change": "Enable when travel scars or strings appear across visible surfaces; compare time and route complexity.",
+      "effect": "Avoiding crossings can hide travel and reduce exposed strings but may lengthen the route.",
+      "interactions": [
+        "Inner and outer avoid coefficients",
+        "Retraction only when crossing borders",
+        "Travel speed"
+      ],
+      "caution": "It is a routing preference, not a guarantee that every boundary can be avoided.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doCoastAtEnd": {
+      "meaning": "Ends plastic extrusion before the very end of a path so remaining pressure can finish the line before retraction.",
+      "when_to_change": "Consider only after basic flow and retraction are understood and path ends consistently bulge.",
+      "effect": "Enabled can reduce end blobs but can also leave thin or incomplete line ends.",
+      "interactions": [
+        "Retraction",
+        "Coasting amount or distance",
+        "Material flow"
+      ],
+      "caution": "This is not pressure advance. Do not use it to compensate for an unverified material flow setting.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doRetractOnLayerChange": {
+      "meaning": "Requests retraction when moving to a new layer.",
+      "when_to_change": "Compare when layer changes leave strings or blobs.",
+      "effect": "Enabled adds layer-change pressure relief but also more retract cycles and possible restart marks.",
+      "interactions": [
+        "Retraction distance and speed",
+        "Z-hop policy",
+        "Layer-change travel"
+      ],
+      "caution": "Check whether other retraction rules override or combine with it; do not transfer plastic settings to continuous fibre.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doRetractOnlyWhenCrossingPerimeters": {
+      "meaning": "Limits retraction to travels that cross printed boundaries.",
+      "when_to_change": "Use to reduce unnecessary retract cycles during internal travel.",
+      "effect": "Enabled can reduce retract frequency and time, but internal oozing may increase.",
+      "interactions": [
+        "Avoid crossing borders",
+        "Retraction on layer change",
+        "Retraction length"
+      ],
+      "caution": "It does not itself create an avoidance route or guarantee no visible strings.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doWipeNozzle": {
+      "meaning": "Adds a nozzle wiping movement associated with ending an extrusion path.",
+      "when_to_change": "Consider when path endings leave blobs or excess material.",
+      "effect": "Enabled spreads or relieves residual material along a wipe path, but can mark a surface or delay travel.",
+      "interactions": [
+        "Retraction",
+        "Wipe distance and speed",
+        "Coasting"
+      ],
+      "caution": "This is a toolpath action, not a guarantee that the physical nozzle is clean or a bed-cleaning operation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:doZHop": {
+      "meaning": "Restricts Z-hop to moves associated with retraction, as the displayed 'when retract only' label indicates.",
+      "when_to_change": "Change when deciding which travel moves should receive an already-configured hop.",
+      "effect": "Enabled ties lifting to retracting travels; it is not the numerical lift height.",
+      "interactions": [
+        "Z-hop height",
+        "Retraction conditions",
+        "Travel clearance"
+      ],
+      "caution": "The raw field name sounds like a general enable switch, but the installed label is conditional. Confirm actual travel preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableAdjustSeamDistributionPositionFiber": {
+      "meaning": "Enables adjustment of where continuous-fibre seams are distributed across paths or layers.",
+      "when_to_change": "Use when a visible seam pattern or repeated starts need deliberate positioning.",
+      "effect": "Enabled allows the related distribution adjustment to affect seam placement; it does not remove starts and stops.",
+      "interactions": [
+        "Seam distribution controls",
+        "Seam start-position adjustment",
+        "Path geometry"
+      ],
+      "caution": "Fibre starts and cuts affect strand continuity and anchoring. Preserve the OEM baseline unless a controlled fibre test justifies change.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableAdjustSeamDistributionPositionPlastic": {
+      "meaning": "Enables adjustment of where plastic seams are distributed across paths or layers.",
+      "when_to_change": "Use when a visible seam pattern or repeated starts need deliberate positioning.",
+      "effect": "Enabled allows the related distribution adjustment to affect seam placement; it does not remove starts and stops.",
+      "interactions": [
+        "Seam distribution controls",
+        "Seam start-position adjustment",
+        "Path geometry"
+      ],
+      "caution": "Moving a seam relocates the surface mark; it does not correct over-extrusion or retraction.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableAdjustSeamStartPositionFiber": {
+      "meaning": "Enables adjustment of the starting location of continuous-fibre seams.",
+      "when_to_change": "Use when the first seam location needs to move away from a visible or critical face.",
+      "effect": "Enabled allows the related start-position setting to influence the seam; disabled leaves the normal placement rule.",
+      "interactions": [
+        "Seam start-position control",
+        "Seam distribution",
+        "Print order"
+      ],
+      "caution": "Continuous-fibre start placement can change anchoring and uninterrupted reinforcement; it is not merely a cosmetic plastic seam.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableAdjustSeamStartPositionPlastic": {
+      "meaning": "Enables adjustment of the starting location of plastic seams.",
+      "when_to_change": "Use when the first seam location needs to move away from a visible or critical face.",
+      "effect": "Enabled allows the related start-position setting to influence the seam; disabled leaves the normal placement rule.",
+      "interactions": [
+        "Seam start-position control",
+        "Seam distribution",
+        "Print order"
+      ],
+      "caution": "Inspect the resulting seam in preview. The switch alone does not identify a particular coordinate or angle.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableArcFitting": {
+      "meaning": "Allows suitable segmented curves to be represented as arcs in the generated toolpath.",
+      "when_to_change": "Consider when the selected machine/export path explicitly supports the emitted arc commands.",
+      "effect": "It can reduce command count and alter curve representation; it does not increase the resolution of the original model.",
+      "interactions": [
+        "Arc tolerance or segment controls",
+        "Machine G-code support",
+        "Curve geometry"
+      ],
+      "caution": "Do not enable solely because another slicer uses it. Confirm Rocket's exported commands and the target's support.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableHeightSlowdown": {
+      "meaning": "Enables a speed limit that depends on print height.",
+      "when_to_change": "Use when tall or flexible parts become less stable higher above the bed.",
+      "effect": "Enabled allows the height-dependent rule to slow relevant printing; lower speed can reduce shaking but lengthens the job.",
+      "interactions": [
+        "Height slowdown thresholds",
+        "Feature speeds",
+        "Part stability"
+      ],
+      "caution": "The switch does not define the height or amount of slowdown. Check the associated controls and preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableSlowDownAtOverhang": {
+      "meaning": "Allows slower printing on overhanging areas.",
+      "when_to_change": "Use when unsupported edges sag or lose detail.",
+      "effect": "Slowing can improve placement and cooling, but increases local heating time and total print time.",
+      "interactions": [
+        "Overhang speed settings",
+        "Cooling",
+        "Layer height"
+      ],
+      "caution": "Slowdown does not turn an unprintable overhang into a supported surface.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableSlowDownAtPredictedWallCurl": {
+      "meaning": "Slows printing where the slicer predicts a wall may curl upward.",
+      "when_to_change": "Use when curling walls or nozzle catches are a recurring feature-specific problem.",
+      "effect": "Enabled permits extra slowdown in predicted curl regions, potentially reducing collisions at the cost of time.",
+      "interactions": [
+        "Cooling",
+        "Overhang slowdown",
+        "Wall speeds"
+      ],
+      "caution": "This is a prediction, not a sensor measurement or a guarantee against collisions.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableSlowDownAtShortPrintTimeLayer": {
+      "meaning": "Allows layers to slow down when their estimated printing time is too short.",
+      "when_to_change": "Use for small features that remain soft before the next layer arrives.",
+      "effect": "Enabled spreads the same layer over more time to allow cooling; excessive slowing can also keep heat near a small area.",
+      "interactions": [
+        "Minimum layer time",
+        "Minimum printing speed",
+        "Cooling"
+      ],
+      "caution": "The time target and minimum speed can limit the result; this is not a pause or temperature calibration.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:enableWallSpeedSmoothing": {
+      "meaning": "Softens abrupt changes between different wall printing speeds.",
+      "when_to_change": "Use when speed transitions leave visible bands or inconsistent wall finish.",
+      "effect": "Enabled can make transitions more gradual rather than switching speed sharply, potentially changing time and local finish.",
+      "interactions": [
+        "Wall speeds",
+        "Overhang slowdown",
+        "Smoothing parameters"
+      ],
+      "caution": "It is not a replacement for machine acceleration tuning or pressure advance.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:endGCode": {
+      "meaning": "Custom commands inserted at the end of the generated job.",
+      "when_to_change": "Change only for a documented machine-specific shutdown or finishing requirement.",
+      "effect": "Commands can alter heaters, motion, extrusion and machine state after the model finishes.",
+      "interactions": [
+        "Machine command dialect",
+        "Tool selection",
+        "End-of-job safety"
+      ],
+      "caution": "High risk: preserve the OEM sequence. Do not paste commands from TinMan, another printer or an unverified example.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberAfterCutExtrusionMultP": {
+      "meaning": "Scales plastic flow in the continuous-fibre path after the strand has been cut.",
+      "when_to_change": "Change only under a documented fibre-tail or termination calibration procedure.",
+      "effect": "Higher requests more matrix plastic in that after-cut phase; lower requests less.",
+      "interactions": [
+        "Fibre cut timing",
+        "Finish length and speed",
+        "Matrix material flow"
+      ],
+      "caution": "This concerns matrix plastic around a cut strand, not ordinary filament retraction. Preserve the OEM baseline.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberDoZHopAfterCut": {
+      "meaning": "Requests a Z lift after a continuous-fibre cut.",
+      "when_to_change": "Review only when the OEM procedure calls for clearance after cutting.",
+      "effect": "Enabled changes the post-cut motion sequence and may improve clearance, but can affect strand handling and timing.",
+      "interactions": [
+        "Fibre cut sequence",
+        "Z-hop height",
+        "Travel clearance"
+      ],
+      "caution": "Do not change this as a general anti-stringing switch; the cutting and strand-release sequence matters.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberExtrusionCompensationRatio": {
+      "meaning": "A compensation factor for the continuous-fibre extrusion calculation.",
+      "when_to_change": "Change only with an OEM-supported fibre-feed calibration and a measured reason.",
+      "effect": "It changes compensation applied to fibre delivery; the exact formula and direction are not established by the installed label.",
+      "interactions": [
+        "Fibre feed calibration",
+        "Matrix flow",
+        "Strand path and tension"
+      ],
+      "caution": "High risk: do not treat this as the ordinary plastic flow multiplier or guess a corrected value.",
+      "options": [],
+      "status": "Installed label confirmed; compensation formula unresolved; retain OEM value pending documented procedure"
+    },
+    "profile-settings:fiberFLEWMM": {
+      "meaning": "The planned line width for the first continuous-fibre layer.",
+      "when_to_change": "Change only when a documented first-fibre-layer procedure calls for a different bead geometry.",
+      "effect": "A wider planned bead occupies more space and changes matrix demand and path placement; a narrower bead does the reverse.",
+      "interactions": [
+        "First fibre-layer height",
+        "First fibre-layer flow",
+        "Fibre path spacing"
+      ],
+      "caution": "A continuous strand must fit and anchor in the matrix. Do not copy a plastic-nozzle width rule without OEM confirmation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberFLExtrusionMultP": {
+      "meaning": "Scales matrix-plastic delivery for the first continuous-fibre layer.",
+      "when_to_change": "Review after the physical fibre-feed setup and first-layer geometry are verified.",
+      "effect": "Higher supplies more matrix plastic; lower supplies less, changing coverage around the strand.",
+      "interactions": [
+        "First fibre-layer width and height",
+        "Material flow",
+        "Fibre feed"
+      ],
+      "caution": "This is not a strand-length calibration. Preserve the OEM starting value until a controlled fibre test supports change.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberFLSpeedCoeff": {
+      "meaning": "Scales printing speed for the first continuous-fibre layer.",
+      "when_to_change": "Change only to address verified first-fibre-layer placement or anchoring behavior.",
+      "effect": "A higher coefficient requests faster placement relative to its base speed; lower requests slower placement.",
+      "interactions": [
+        "Fibre base speed limits",
+        "First fibre-layer geometry",
+        "Cooling and adhesion"
+      ],
+      "caution": "The effective speed may be limited elsewhere. Continuous-fibre anchoring is not equivalent to ordinary plastic first-layer tuning.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberFLThicknessMM": {
+      "meaning": "The layer height used for the first continuous-fibre layer.",
+      "when_to_change": "Review when setting up the OEM fibre/matrix layer stack, not as a generic first-plastic-layer adjustment.",
+      "effect": "Changing the height alters strand accommodation and the volume/shape of matrix around it.",
+      "interactions": [
+        "First fibre-layer width",
+        "Matrix flow",
+        "Overall fibre layer schedule"
+      ],
+      "caution": "Do not infer a physically safe height from UI acceptance. Keep strand size and OEM layer requirements together.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberFinishMaxSpeed": {
+      "meaning": "The upper speed setting for ending a fibre path.",
+      "when_to_change": "Change only within an OEM-supported continuous-fibre process after reviewing placement quality.",
+      "effect": "A higher ceiling may permit faster deposition; a lower ceiling limits it. It does not guarantee that speed will be reached.",
+      "interactions": [
+        "Related minimum speed and minimum-limit speed",
+        "Fibre feed and tension",
+        "Path curvature"
+      ],
+      "caution": "Keep the phase settings consistent. Strand handling and matrix delivery can limit speed independently.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberFinishMinLimitSpeed": {
+      "meaning": "An additional minimum-speed limit for ending a fibre path, separate from the ordinary minimum-speed field.",
+      "when_to_change": "Leave unchanged unless OEM documentation explains which limiting stage it controls.",
+      "effect": "Changing it may alter the lowest speed accepted by the fibre planner. The label alone does not establish when it takes precedence.",
+      "interactions": [
+        "Phase minimum and maximum speeds",
+        "Fibre speed coefficients"
+      ],
+      "caution": "High risk: do not guess the meaning of two similarly named minimum controls or bypass slowdown constraints.",
+      "options": [],
+      "status": "Installed expert field confirmed; precedence and limiting-stage semantics unresolved"
+    },
+    "profile-settings:fiberFinishMinSpeed": {
+      "meaning": "The minimum-speed setting for ending a fibre path.",
+      "when_to_change": "Review only as part of the corresponding fibre phase calibration.",
+      "effect": "Raising a minimum generally reduces how far that phase may slow; lowering permits slower operation. Exact interaction with the separate minimum-limit field is unresolved.",
+      "interactions": [
+        "Related maximum speed",
+        "Minimum-limit speed",
+        "Fibre geometry"
+      ],
+      "caution": "Do not make it equal to or above another limit merely to force speed. Preserve the OEM relationship.",
+      "options": [],
+      "status": "Installed field and phase confirmed; exact combined speed-limit calculation unresolved"
+    },
+    "profile-settings:fiberMaxArcSegmentLength": {
+      "meaning": "Limits the segment length used when representing continuous-fibre curves.",
+      "when_to_change": "Review under an OEM fibre-path procedure when curved paths are too coarse or unnecessarily segmented.",
+      "effect": "Shorter segments generally represent curves more finely but increase path complexity; longer segments simplify them.",
+      "interactions": [
+        "Minimum arc radius",
+        "Arc fitting",
+        "Fibre feed and placement"
+      ],
+      "caution": "The label does not prove whether this is output G-code segmentation or an internal planning stage. Validate the resulting path.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberMinRadius": {
+      "meaning": "The minimum arc-radius setting used in continuous-fibre path planning.",
+      "when_to_change": "Change only with documented strand-bending constraints.",
+      "effect": "A larger minimum discourages tighter fibre turns; a smaller minimum permits tighter planned curves.",
+      "interactions": [
+        "Fibre curve segmentation",
+        "Path geometry",
+        "Strand material"
+      ],
+      "caution": "A permitted radius is not proof the strand can bend, adhere or remain undamaged at that radius.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberNormalMaxSpeed": {
+      "meaning": "The upper speed setting for the main part of a fibre path.",
+      "when_to_change": "Change only within an OEM-supported continuous-fibre process after reviewing placement quality.",
+      "effect": "A higher ceiling may permit faster deposition; a lower ceiling limits it. It does not guarantee that speed will be reached.",
+      "interactions": [
+        "Related minimum speed and minimum-limit speed",
+        "Fibre feed and tension",
+        "Path curvature"
+      ],
+      "caution": "Keep the phase settings consistent. Strand handling and matrix delivery can limit speed independently.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberNormalMinLimitSpeed": {
+      "meaning": "An additional minimum-speed limit for the main part of a fibre path, separate from the ordinary minimum-speed field.",
+      "when_to_change": "Leave unchanged unless OEM documentation explains which limiting stage it controls.",
+      "effect": "Changing it may alter the lowest speed accepted by the fibre planner. The label alone does not establish when it takes precedence.",
+      "interactions": [
+        "Phase minimum and maximum speeds",
+        "Fibre speed coefficients"
+      ],
+      "caution": "High risk: do not guess the meaning of two similarly named minimum controls or bypass slowdown constraints.",
+      "options": [],
+      "status": "Installed expert field confirmed; precedence and limiting-stage semantics unresolved"
+    },
+    "profile-settings:fiberNormalMinSpeed": {
+      "meaning": "The minimum-speed setting for the main part of a fibre path.",
+      "when_to_change": "Review only as part of the corresponding fibre phase calibration.",
+      "effect": "Raising a minimum generally reduces how far that phase may slow; lowering permits slower operation. Exact interaction with the separate minimum-limit field is unresolved.",
+      "interactions": [
+        "Related maximum speed",
+        "Minimum-limit speed",
+        "Fibre geometry"
+      ],
+      "caution": "Do not make it equal to or above another limit merely to force speed. Preserve the OEM relationship.",
+      "options": [],
+      "status": "Installed field and phase confirmed; exact combined speed-limit calculation unresolved"
+    },
+    "profile-settings:fiberPrintOrder": {
+      "meaning": "Chooses when continuous-fibre paths are printed relative to other path families.",
+      "when_to_change": "Review when the validated reinforcement strategy requires a particular sequence.",
+      "effect": "Order changes which material is already present to support or surround the fibre and can change travel.",
+      "interactions": [
+        "Plastic outer-wall order",
+        "Layer structure",
+        "Fibre anchoring"
+      ],
+      "caution": "Do not treat order as a cosmetic preference; reinforcement and matrix bonding depend on it.",
+      "options": [
+        {
+          "label": "First in layer",
+          "meaning": "Places fibre paths before the other relevant paths in the layer. Verify that the required supporting matrix already exists.",
+          "source_label_key": "fiber-print-order.first"
+        },
+        {
+          "label": "Last in layer",
+          "meaning": "Places fibre paths after the other relevant paths in the layer, changing the surrounding material present during placement.",
+          "source_label_key": "fiber-print-order.last"
+        },
+        {
+          "label": "Before outer wall",
+          "meaning": "Places fibre before the outer plastic wall in the layer sequence; it is not necessarily the first operation.",
+          "source_label_key": "fiber-print-order.before-inset0"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberSlowLength": {
+      "meaning": "The length of the fibre path over which its ending slowdown is applied.",
+      "when_to_change": "Change only when evaluating the OEM termination sequence.",
+      "effect": "A longer slowing region starts the transition earlier; a shorter region concentrates it nearer the end.",
+      "interactions": [
+        "Fibre ending speeds",
+        "Cut timing",
+        "After-cut plastic flow"
+      ],
+      "caution": "Keep slowing, cutting and remaining strand length coordinated; do not use an ordinary retraction recipe.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberStartLength": {
+      "meaning": "The length assigned to the starting phase of a continuous-fibre path.",
+      "when_to_change": "Change only as part of a documented start/anchoring test.",
+      "effect": "A longer starting phase applies start behavior over more path; a shorter phase transitions sooner to normal deposition.",
+      "interactions": [
+        "Fibre starting speeds",
+        "Fibre anchoring",
+        "Normal fibre speed"
+      ],
+      "caution": "This is a path-phase length, not evidence of a filament loading distance. Preserve OEM settings.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberStartMaxSpeed": {
+      "meaning": "The upper speed setting for starting a fibre path.",
+      "when_to_change": "Change only within an OEM-supported continuous-fibre process after reviewing placement quality.",
+      "effect": "A higher ceiling may permit faster deposition; a lower ceiling limits it. It does not guarantee that speed will be reached.",
+      "interactions": [
+        "Related minimum speed and minimum-limit speed",
+        "Fibre feed and tension",
+        "Path curvature"
+      ],
+      "caution": "Keep the phase settings consistent. Strand handling and matrix delivery can limit speed independently.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberStartMinLimitSpeed": {
+      "meaning": "An additional minimum-speed limit for starting a fibre path, separate from the ordinary minimum-speed field.",
+      "when_to_change": "Leave unchanged unless OEM documentation explains which limiting stage it controls.",
+      "effect": "Changing it may alter the lowest speed accepted by the fibre planner. The label alone does not establish when it takes precedence.",
+      "interactions": [
+        "Phase minimum and maximum speeds",
+        "Fibre speed coefficients"
+      ],
+      "caution": "High risk: do not guess the meaning of two similarly named minimum controls or bypass slowdown constraints.",
+      "options": [],
+      "status": "Installed expert field confirmed; precedence and limiting-stage semantics unresolved"
+    },
+    "profile-settings:fiberStartMinSpeed": {
+      "meaning": "The minimum-speed setting for starting a fibre path.",
+      "when_to_change": "Review only as part of the corresponding fibre phase calibration.",
+      "effect": "Raising a minimum generally reduces how far that phase may slow; lowering permits slower operation. Exact interaction with the separate minimum-limit field is unresolved.",
+      "interactions": [
+        "Related maximum speed",
+        "Minimum-limit speed",
+        "Fibre geometry"
+      ],
+      "caution": "Do not make it equal to or above another limit merely to force speed. Preserve the OEM relationship.",
+      "options": [],
+      "status": "Installed field and phase confirmed; exact combined speed-limit calculation unresolved"
+    },
+    "profile-settings:fiberTensionFeedrate": {
+      "meaning": "The feedrate used during a continuous-fibre tensioning operation.",
+      "when_to_change": "Leave at the OEM value unless a specific tension calibration procedure directs otherwise.",
+      "effect": "It changes how quickly fibre is fed during tension handling; this is not normal plastic extrusion speed.",
+      "interactions": [
+        "Tension length",
+        "Tension release fraction",
+        "Correction move"
+      ],
+      "caution": "Too much or too little tension can disrupt the strand. The UI label does not establish a safe range.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:fiberTensionLength": {
+      "meaning": "The length parameter used by the fibre tensioning sequence.",
+      "when_to_change": "Change only under an OEM procedure with the strand path correctly assembled.",
+      "effect": "Changing it alters the amount of fibre movement associated with tension handling; exact direction depends on the sequence.",
+      "interactions": [
+        "Tension feedrate",
+        "Tension release fraction",
+        "Fibre loading and cutting"
+      ],
+      "caution": "Do not substitute an ordinary filament retract length or assume positive means pulling back.",
+      "options": [],
+      "status": "Installed field confirmed; precise motion direction and sequence require OEM procedure"
+    },
+    "profile-settings:fiberTensionReleaseFraction": {
+      "meaning": "The fraction used to release tension in the continuous-fibre sequence.",
+      "when_to_change": "Leave unchanged until the OEM procedure establishes the reference amount and intended adjustment.",
+      "effect": "A larger fraction ordinarily releases a larger share of the referenced tensioning movement; the exact reference is not established here.",
+      "interactions": [
+        "Tension length",
+        "Tension feedrate",
+        "Strand anchoring"
+      ],
+      "caution": "This is not a generic flow percentage. The mechanical sequence must be understood before tuning.",
+      "options": [],
+      "status": "Installed label confirmed; reference quantity and exact formula unresolved"
+    },
+    "profile-settings:flThickness": {
+      "meaning": "The height of the first model-printing layer.",
+      "when_to_change": "Choose it for the selected nozzle, material and bed setup when establishing first-layer quality.",
+      "effect": "A thicker first layer changes bead shape and plastic volume; a thinner layer gives less vertical clearance and is more sensitive to bed/nozzle setup.",
+      "interactions": [
+        "First-layer width and flow",
+        "Bed/nozzle calibration",
+        "Later layer heights"
+      ],
+      "caution": "This is not a Z-offset correction. Do not use it to hide a physically incorrect nozzle-to-bed distance.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:gapFillEnabled": {
+      "meaning": "Adds extrusion paths in narrow spaces left between other planned lines.",
+      "when_to_change": "Enable when the preview shows small unfilled spaces that should be solid.",
+      "effect": "Enabled can fill otherwise missed gaps but adds short, sometimes slow paths.",
+      "interactions": [
+        "Gap fill flow ratio",
+        "Minimum gap fill length",
+        "Wall widths"
+      ],
+      "caution": "Gap fill cannot reproduce geometry smaller than the process can print reliably.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:gapFillFlowRatio": {
+      "meaning": "Scales plastic delivery on gap-filling paths.",
+      "when_to_change": "Change when gap-fill lines are visibly overfilled or incomplete after general flow is correct.",
+      "effect": "Higher adds more plastic per gap-fill path; lower adds less.",
+      "interactions": [
+        "Gap fill width",
+        "Material flow",
+        "Gap fill speed"
+      ],
+      "caution": "Do not use a local ratio to compensate for a general extrusion problem.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:gapFillMinLength": {
+      "meaning": "The shortest gap-fill path retained by the slicer.",
+      "when_to_change": "Increase when tiny gap-fill fragments create marks or needless starts; reduce when small gaps need filling.",
+      "effect": "A larger threshold removes more short segments; a smaller threshold preserves more detail and adds small paths.",
+      "interactions": [
+        "Gap fill enabled",
+        "Model details",
+        "Gap fill speed"
+      ],
+      "caution": "Removing short paths can leave real voids. Check the sliced layer, not only the model surface.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:gapFillSpeed": {
+      "meaning": "The requested printing speed for narrow gap-fill paths.",
+      "when_to_change": "Change when gap filling is unstable, poorly formed or unnecessarily slow.",
+      "effect": "Higher can save time but raises extrusion demand; lower gives more deposition time but can dwell on small features.",
+      "interactions": [
+        "Gap fill flow and width",
+        "Acceleration",
+        "Material capacity"
+      ],
+      "caution": "Short paths may never reach the requested speed.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:gapFillWidthTransitionTolerance": {
+      "meaning": "Controls the tolerance used when changing the width of gap-fill paths.",
+      "when_to_change": "Review when variable-width gap fill changes too abruptly or creates excessive tiny transitions.",
+      "effect": "Changing the tolerance alters how width transitions are accepted or simplified; the exact direction is not established by this label.",
+      "interactions": [
+        "Gap fill line geometry",
+        "Minimum gap fill length",
+        "Wall widths"
+      ],
+      "caution": "Do not assume this is a dimensional-accuracy tolerance for the whole model.",
+      "options": [],
+      "status": "Installed label confirmed; exact transition algorithm and numerical direction unresolved"
+    },
+    "profile-settings:generateBrim": {
+      "meaning": "Creates attached or closely spaced anchoring lines around the part's first layer.",
+      "when_to_change": "Enable when edge lifting or a small contact footprint calls for extra bed attachment.",
+      "effect": "Enabled uses more bed area and material but can improve anchoring; disabled avoids brim cleanup.",
+      "interactions": [
+        "Brim loops",
+        "Distance from part",
+        "Brim in holes"
+      ],
+      "caution": "A brim does not replace correct bed preparation or a suitable first layer.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateBrimInHoles": {
+      "meaning": "Allows brim lines inside openings in the first-layer footprint.",
+      "when_to_change": "Enable when inner edges need anchoring; disable when clearing internal openings is difficult.",
+      "effect": "Enabled anchors eligible interior boundaries but adds material that must be removed from holes.",
+      "interactions": [
+        "Generate brim",
+        "Brim loops",
+        "Distance from part"
+      ],
+      "caution": "Inspect small holes before printing; internal brim can obstruct or become hard to remove.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateFiberInfill": {
+      "meaning": "Enables continuous-fibre paths inside the part.",
+      "when_to_change": "Use only for a reinforcement strategy with verified fibre material, tooling and layer placement.",
+      "effect": "Enabled adds the selected reinforcement pattern and its strand-handling operations.",
+      "interactions": [
+        "Fibre infill pattern",
+        "Fibre perimeter generation",
+        "Matrix structure and layer layup"
+      ],
+      "caution": "Not a substitute for ordinary plastic infill. Fibre paths must be supported and compatible with the OEM process.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateFiberPerimeters": {
+      "meaning": "Enables continuous-fibre reinforcement around part boundaries.",
+      "when_to_change": "Use when the reinforcement design calls for fibre loops along contours.",
+      "effect": "Enabled adds fibre contour paths, changing strand continuity, material use and available interior space.",
+      "interactions": [
+        "Inner fibre loop count",
+        "Fibre infill",
+        "Matrix walls"
+      ],
+      "caution": "A fibre perimeter is not simply an extra plastic wall; tight curves, cuts and anchoring must remain valid.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateInternalSupport": {
+      "meaning": "The displayed 'Build plate only' switch restricts support to support that originates on the build plate.",
+      "when_to_change": "Enable to avoid supports starting on the model; disable when support must also start on model surfaces.",
+      "effect": "Enabled can simplify removal but leaves some upper or enclosed overhangs without support.",
+      "interactions": [
+        "Enable support",
+        "Normal or tree support",
+        "Support placement"
+      ],
+      "caution": "The UI inverts the raw generateInternalSupport value. Follow the displayed switch meaning, not the internal field name.",
+      "options": [],
+      "status": "Installed label and invertBoolean declaration confirmed; resulting support geometry requires preview"
+    },
+    "profile-settings:generateSkirt": {
+      "meaning": "Adds a separate outline around the first-layer area without attaching it to the part.",
+      "when_to_change": "Enable for an early extrusion/first-layer check or priming path where the OEM workflow permits it.",
+      "effect": "Enabled consumes some bed area and material; it does not anchor the part like a brim.",
+      "interactions": [
+        "Skirt distance and loops",
+        "Brim",
+        "First-layer setup"
+      ],
+      "caution": "Do not confuse the skirt with a wipe tower or assume it replaces the machine's required start sequence.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateSupport": {
+      "meaning": "Enables generated structures beneath model areas that need support.",
+      "when_to_change": "Enable when the chosen orientation has overhangs that cannot print reliably without it.",
+      "effect": "Enabled adds material and removal work; disabled leaves those areas to bridge or overhang unaided.",
+      "interactions": [
+        "Support type",
+        "Support generation mode",
+        "Build plate only"
+      ],
+      "caution": "Inspect support placement and clearances; this switch does not guarantee every difficult feature will print.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateSupportBottomInterface": {
+      "meaning": "Adds a dedicated contact-interface region at the bottom side of support.",
+      "when_to_change": "Enable when that contact needs a more controlled surface than the support body alone.",
+      "effect": "Enabled adds interface paths and can improve contact quality but may increase material use and bonding.",
+      "interactions": [
+        "Bottom interface spacing",
+        "Bottom Z distance",
+        "Support interface pattern"
+      ],
+      "caution": "An interface does not eliminate the need for a suitable separation gap and compatible material.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateSupportTopInterface": {
+      "meaning": "Adds a dedicated contact-interface region at the top side of support.",
+      "when_to_change": "Enable when that contact needs a more controlled surface than the support body alone.",
+      "effect": "Enabled adds interface paths and can improve contact quality but may increase material use and bonding.",
+      "interactions": [
+        "Top interface spacing",
+        "Top Z distance",
+        "Support interface pattern"
+      ],
+      "caution": "An interface does not eliminate the need for a suitable separation gap and compatible material.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:generateWipeTower": {
+      "meaning": "Adds a separate structure used for wiping or material transition operations.",
+      "when_to_change": "Use only when the selected multi-material/tool workflow requires it.",
+      "effect": "Enabled reserves space and consumes material to manage transitions away from the part.",
+      "interactions": [
+        "Tool/material sequence",
+        "Tower geometry",
+        "OEM start and transition routines"
+      ],
+      "caution": "A tower is not proof that routing or purge amounts are correct. It does not make an unqualified tool combination safe.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:holesExpansion": {
+      "meaning": "A dimensional compensation applied to holes rather than a change to the CAD model.",
+      "when_to_change": "Consider after measuring a repeatable hole-size error with calibrated flow and machine setup.",
+      "effect": "It changes the sliced opening size; the sign convention must be confirmed in preview before choosing an amount.",
+      "interactions": [
+        "XY dimensional compensation",
+        "Wall widths",
+        "Flow calibration"
+      ],
+      "caution": "Do not assume positive enlarges the hole solely from the name. It cannot correct every orientation-dependent error.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillExtendIntoPerimeterRatioPlasticCellular": {
+      "meaning": "How far sparse plastic infill overlaps the neighboring wall region.",
+      "when_to_change": "Adjust when infill separates from walls or creates ridges/bulges where it meets them.",
+      "effect": "More overlap can improve attachment but crowd the wall; less reduces crowding but may leave weak gaps.",
+      "interactions": [
+        "Plastic infill width",
+        "Wall width",
+        "Plastic flow"
+      ],
+      "caution": "Excess overlap is not a substitute for correct flow or printable line widths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFAnisogridFillAngle": {
+      "meaning": "The guide orientation for the anisogrid continuous-fibre infill pattern.",
+      "when_to_change": "Change when deliberately aligning reinforcement with the part's intended load directions.",
+      "effect": "Rotating the guide changes pattern orientation, not the material's intrinsic strength.",
+      "interactions": [
+        "Fibre infill pattern",
+        "Rib angles",
+        "Fibre density"
+      ],
+      "caution": "Do not infer a tested structural rating from a direction setting; inspect the actual fibre paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFAnisogridFillDensity": {
+      "meaning": "The requested density of the anisogrid continuous-fibre infill.",
+      "when_to_change": "Change as part of a defined reinforcement design balancing material use and load paths.",
+      "effect": "Higher density generally places more fibre paths or closer ribs; lower leaves larger spaces.",
+      "interactions": [
+        "Fibre pattern angles",
+        "Path width",
+        "Matrix infill and available space"
+      ],
+      "caution": "Strength does not scale automatically with the entered density; corners, anchoring and layer layup still matter.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFAnisogridRibPlacement": {
+      "meaning": "Chooses where anisogrid fibre ribs cross in the pattern geometry.",
+      "when_to_change": "Change only when comparing a deliberate anisogrid layout.",
+      "effect": "The choice relocates crossings and changes local reinforcement geometry rather than simply changing density.",
+      "interactions": [
+        "Anisogrid guide angle",
+        "Angle between main ribs",
+        "Fill density"
+      ],
+      "caution": "Confirm the resulting crossings in preview; the names do not establish structural performance.",
+      "options": [
+        {
+          "label": "Near apex",
+          "meaning": "Places the anisogrid crossing nearer an apex of the pattern. It changes local rib junction placement; inspect the generated network.",
+          "source_label_key": "anisogrid-rib-placement.near-apex"
+        },
+        {
+          "label": "Middle",
+          "meaning": "Places the anisogrid crossing toward the middle of the pattern region defined by its ribs. Inspect the resulting junctions.",
+          "source_label_key": "anisogrid-rib-placement.middle"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFAnisogridRibsAngle": {
+      "meaning": "The angle between the main rib directions of anisogrid fibre infill.",
+      "when_to_change": "Change when choosing the directions that should carry reinforcement.",
+      "effect": "A different angle changes the shape and directional balance of the rib network.",
+      "interactions": [
+        "Guide angle",
+        "Fibre fill density",
+        "Part load directions"
+      ],
+      "caution": "Do not treat larger angles as universally stronger; the intended loads and printable turns govern the choice.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFCellularEWMM": {
+      "meaning": "The planned line width for cellular fibre infill.",
+      "when_to_change": "Review only when the strand/matrix process calls for different line geometry.",
+      "effect": "Wider lines occupy more space and change neighboring path placement; narrower lines leave more space.",
+      "interactions": [
+        "Fibre feedrate",
+        "Matrix delivery",
+        "Fibre density or guide directions"
+      ],
+      "caution": "This is not the strand diameter. Do not apply ordinary plastic line-width advice without checking the OEM fibre process.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFCellularExtendIntoPerimeters": {
+      "meaning": "The extension of cellular fibre infill into the surrounding perimeter region.",
+      "when_to_change": "Change only to address a verified reinforcement-to-boundary connection issue.",
+      "effect": "More extension increases overlap at the boundary; less reduces crowding but can reduce connection.",
+      "interactions": [
+        "Fibre perimeters",
+        "Fibre line width",
+        "Matrix walls"
+      ],
+      "caution": "Fibre cannot be treated as freely flowing plastic; overlap must not produce invalid strand intersections or bends.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFCellularExtrusionFPercent": {
+      "meaning": "The fibre-feed percentage for cellular fibre infill, controlling strand delivery rather than ordinary matrix flow.",
+      "when_to_change": "Use only with a documented fibre-feed calibration and correct strand path.",
+      "effect": "A higher percentage requests more fibre feed relative to its reference; lower requests less.",
+      "interactions": [
+        "Fibre compensation",
+        "Matrix extrusion",
+        "Path speed and tension"
+      ],
+      "caution": "Do not use this to tune plastic bead fullness. The reference/feed calculation and safe range need OEM confirmation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFCellularMinSegmentLength": {
+      "meaning": "The minimum line length retained for cellular fibre infill.",
+      "when_to_change": "Review when the pattern creates short fibre fragments that are difficult to place or anchor.",
+      "effect": "A larger threshold suppresses more short paths; a smaller threshold permits more detail and more starts/cuts.",
+      "interactions": [
+        "Fibre pattern geometry",
+        "Start and finish lengths",
+        "Cut sequence"
+      ],
+      "caution": "Dropping paths can remove intended reinforcement. Check the actual strand layout, not just material totals.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFCellularSpeedCoeff": {
+      "meaning": "A multiplier for the printing speed of cellular fibre infill.",
+      "when_to_change": "Change only after establishing the corresponding fibre-placement process.",
+      "effect": "Higher requests faster placement relative to the base speed; lower requests slower placement, subject to other limits.",
+      "interactions": [
+        "Fibre phase speed limits",
+        "Strand feed",
+        "Matrix flow"
+      ],
+      "caution": "It is not a volumetric-flow limit. Speed, strand handling and matrix supply must remain coordinated.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFIsogridFillAngle": {
+      "meaning": "The guide orientation for the isogrid continuous-fibre infill pattern.",
+      "when_to_change": "Change when deliberately aligning reinforcement with the part's intended load directions.",
+      "effect": "Rotating the guide changes pattern orientation, not the material's intrinsic strength.",
+      "interactions": [
+        "Fibre infill pattern",
+        "Rib angles",
+        "Fibre density"
+      ],
+      "caution": "Do not infer a tested structural rating from a direction setting; inspect the actual fibre paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFIsogridFillDensity": {
+      "meaning": "The requested density of the isogrid continuous-fibre infill.",
+      "when_to_change": "Change as part of a defined reinforcement design balancing material use and load paths.",
+      "effect": "Higher density generally places more fibre paths or closer ribs; lower leaves larger spaces.",
+      "interactions": [
+        "Fibre pattern angles",
+        "Path width",
+        "Matrix infill and available space"
+      ],
+      "caution": "Strength does not scale automatically with the entered density; corners, anchoring and layer layup still matter.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFRhombicFillDensity": {
+      "meaning": "The requested density of the rhombic continuous-fibre infill.",
+      "when_to_change": "Change as part of a defined reinforcement design balancing material use and load paths.",
+      "effect": "Higher density generally places more fibre paths or closer ribs; lower leaves larger spaces.",
+      "interactions": [
+        "Fibre pattern angles",
+        "Path width",
+        "Matrix infill and available space"
+      ],
+      "caution": "Strength does not scale automatically with the entered density; corners, anchoring and layer layup still matter.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFRhombicFirstRibAngle": {
+      "meaning": "The angle of the first rib family in rhombic continuous-fibre infill.",
+      "when_to_change": "Change when aligning the two reinforcement directions with the part's intended loads.",
+      "effect": "Changing one angle alters the diamond-shaped network and its directional balance.",
+      "interactions": [
+        "Other rhombic rib angle",
+        "Rhombic density",
+        "Part orientation"
+      ],
+      "caution": "Check both families together; a visually regular grid is not proof of validated reinforcement.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFRhombicSecondRibAngle": {
+      "meaning": "The angle of the second rib family in rhombic continuous-fibre infill.",
+      "when_to_change": "Change when aligning the two reinforcement directions with the part's intended loads.",
+      "effect": "Changing one angle alters the diamond-shaped network and its directional balance.",
+      "interactions": [
+        "Other rhombic rib angle",
+        "Rhombic density",
+        "Part orientation"
+      ],
+      "caution": "Check both families together; a visually regular grid is not proof of validated reinforcement.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFSolidAngleList": {
+      "meaning": "A slash-separated list of guide directions for solid continuous-fibre infill.",
+      "when_to_change": "Use when the reinforcement plan specifies multiple fibre orientations.",
+      "effect": "Changing the angles changes the chosen reinforcement directions; changing their order may change the planned sequence.",
+      "interactions": [
+        "Solid fibre pattern",
+        "Layer layup",
+        "Fibre path geometry"
+      ],
+      "caution": "The label establishes the angle-list format, not precisely how the sequence repeats across layers. Confirm in preview before relying on a layup.",
+      "options": [],
+      "status": "Installed angle-list field confirmed; layer-to-list scheduling not independently validated"
+    },
+    "profile-settings:infillFSolidEW": {
+      "meaning": "The planned line width for solid fibre infill.",
+      "when_to_change": "Review only when the strand/matrix process calls for different line geometry.",
+      "effect": "Wider lines occupy more space and change neighboring path placement; narrower lines leave more space.",
+      "interactions": [
+        "Fibre feedrate",
+        "Matrix delivery",
+        "Fibre density or guide directions"
+      ],
+      "caution": "This is not the strand diameter. Do not apply ordinary plastic line-width advice without checking the OEM fibre process.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFSolidExtendIntoPerimeters": {
+      "meaning": "The extension of solid fibre infill into the surrounding perimeter region.",
+      "when_to_change": "Change only to address a verified reinforcement-to-boundary connection issue.",
+      "effect": "More extension increases overlap at the boundary; less reduces crowding but can reduce connection.",
+      "interactions": [
+        "Fibre perimeters",
+        "Fibre line width",
+        "Matrix walls"
+      ],
+      "caution": "Fibre cannot be treated as freely flowing plastic; overlap must not produce invalid strand intersections or bends.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFSolidExtrusionFPercent": {
+      "meaning": "The fibre-feed percentage for solid fibre infill, controlling strand delivery rather than ordinary matrix flow.",
+      "when_to_change": "Use only with a documented fibre-feed calibration and correct strand path.",
+      "effect": "A higher percentage requests more fibre feed relative to its reference; lower requests less.",
+      "interactions": [
+        "Fibre compensation",
+        "Matrix extrusion",
+        "Path speed and tension"
+      ],
+      "caution": "Do not use this to tune plastic bead fullness. The reference/feed calculation and safe range need OEM confirmation.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFSolidMinSegmentLength": {
+      "meaning": "The minimum line length retained for solid fibre infill.",
+      "when_to_change": "Review when the pattern creates short fibre fragments that are difficult to place or anchor.",
+      "effect": "A larger threshold suppresses more short paths; a smaller threshold permits more detail and more starts/cuts.",
+      "interactions": [
+        "Fibre pattern geometry",
+        "Start and finish lengths",
+        "Cut sequence"
+      ],
+      "caution": "Dropping paths can remove intended reinforcement. Check the actual strand layout, not just material totals.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFSolidSpeedCoeff": {
+      "meaning": "A multiplier for the printing speed of solid fibre infill.",
+      "when_to_change": "Change only after establishing the corresponding fibre-placement process.",
+      "effect": "Higher requests faster placement relative to the base speed; lower requests slower placement, subject to other limits.",
+      "interactions": [
+        "Fibre phase speed limits",
+        "Strand feed",
+        "Matrix flow"
+      ],
+      "caution": "It is not a volumetric-flow limit. Speed, strand handling and matrix supply must remain coordinated.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFTetragridFillAngle": {
+      "meaning": "The guide orientation for the tetragrid continuous-fibre infill pattern.",
+      "when_to_change": "Change when deliberately aligning reinforcement with the part's intended load directions.",
+      "effect": "Rotating the guide changes pattern orientation, not the material's intrinsic strength.",
+      "interactions": [
+        "Fibre infill pattern",
+        "Rib angles",
+        "Fibre density"
+      ],
+      "caution": "Do not infer a tested structural rating from a direction setting; inspect the actual fibre paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFTetragridFillDensity": {
+      "meaning": "The requested density of the tetragrid continuous-fibre infill.",
+      "when_to_change": "Change as part of a defined reinforcement design balancing material use and load paths.",
+      "effect": "Higher density generally places more fibre paths or closer ribs; lower leaves larger spaces.",
+      "interactions": [
+        "Fibre pattern angles",
+        "Path width",
+        "Matrix infill and available space"
+      ],
+      "caution": "Strength does not scale automatically with the entered density; corners, anchoring and layer layup still matter.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFTetragridRibsAngle": {
+      "meaning": "The angle between the main rib directions of tetragrid fibre infill.",
+      "when_to_change": "Change when choosing the directions that should carry reinforcement.",
+      "effect": "A different angle changes the shape and directional balance of the rib network.",
+      "interactions": [
+        "Guide angle",
+        "Fibre fill density",
+        "Part load directions"
+      ],
+      "caution": "Do not treat larger angles as universally stronger; the intended loads and printable turns govern the choice.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFTetragridSideAngle": {
+      "meaning": "The side-rib slope angle in tetragrid fibre infill.",
+      "when_to_change": "Adjust only when intentionally changing the tetragrid reinforcement geometry.",
+      "effect": "Changing the angle changes how the side ribs run relative to the rest of the network.",
+      "interactions": [
+        "Tetragrid guide angle",
+        "Angle between main ribs",
+        "Fill density"
+      ],
+      "caution": "The label does not establish a mechanically validated angle; inspect the generated network.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillFType": {
+      "meaning": "Selects the geometric pattern used for continuous-fibre infill.",
+      "when_to_change": "Choose according to the reinforcement design rather than treating it as decorative plastic infill.",
+      "effect": "Different patterns create different rib directions, crossings, density distributions and continuous paths.",
+      "interactions": [
+        "Pattern-specific angles and density",
+        "Fibre perimeters",
+        "Matrix structure"
+      ],
+      "caution": "No listed pattern implies a load rating. Keep strand bending, anchoring and OEM process limits in scope.",
+      "options": [
+        {
+          "label": "Solid",
+          "meaning": "Uses solid-style fibre filling along the configured guide directions, rather than an open cellular rib pattern. It does not prove a void-free printed composite.",
+          "source_label_key": "fiber-infill-type.solid"
+        },
+        {
+          "label": "Rhombic grid",
+          "meaning": "Uses two configured rib directions to form a diamond-like fibre network. The two angles control its directional layout.",
+          "source_label_key": "fiber-infill-type.rhombic"
+        },
+        {
+          "label": "Isogrid",
+          "meaning": "Uses an isogrid-style triangular rib network. Its guide angle and density set orientation and spacing; no structural rating is implied.",
+          "source_label_key": "fiber-infill-type.isogrid"
+        },
+        {
+          "label": "Anisogrid",
+          "meaning": "Uses a directionally arranged rib network with adjustable main-rib angles and crossing placement. It allows an intentionally unequal directional layout.",
+          "source_label_key": "fiber-infill-type.anisogrid"
+        },
+        {
+          "label": "Tetragrid",
+          "meaning": "Uses the named multi-rib grid with separate main-rib and side-slope angle controls. Preview those ribs together; the label alone does not define a tested layup.",
+          "source_label_key": "fiber-infill-type.tetragrid"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularEWMM": {
+      "meaning": "Planned bead width for sparse plastic infill inside the part.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularExtrusionMultP": {
+      "meaning": "Scales plastic deposition for sparse plastic infill inside the part.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularFillAngle": {
+      "meaning": "Initial direction of fill lines for sparse plastic infill inside the part.",
+      "when_to_change": "Change when line direction should suit a bridge span, surface appearance or load direction.",
+      "effect": "Rotates the pattern rather than making it denser; a different angle changes where lines meet walls.",
+      "interactions": [
+        "fill pattern",
+        "model orientation",
+        "angle increment"
+      ],
+      "caution": "Patterns that are rotationally symmetric may respond differently. Confirm the selected region in Preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularFillAngleStep": {
+      "meaning": "Rotation added between successive fill layers for sparse plastic infill inside the part.",
+      "when_to_change": "Change when consecutive layers should alternate directions rather than follow one orientation.",
+      "effect": "A larger step changes direction more per layer; zero requests no additional rotation.",
+      "interactions": [
+        "initial fill angle",
+        "fill pattern",
+        "layer schedule"
+      ],
+      "caution": "This is an angular increment, not extra material or a pressure-advance setting.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularFillDensity": {
+      "meaning": "The requested density of sparse plastic infill inside the part.",
+      "when_to_change": "Increase when the interior needs more support or stiffness; reduce when material use and time matter more.",
+      "effect": "Higher density generally places lines closer together and uses more material; lower leaves larger voids.",
+      "interactions": [
+        "Plastic infill pattern",
+        "Top solid layers",
+        "Wall count"
+      ],
+      "caution": "Strength is direction- and geometry-dependent; density alone is not a structural qualification.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularFillType": {
+      "meaning": "Shape of the paths used for sparse plastic infill inside the part.",
+      "when_to_change": "Choose for support, directionality, appearance and practical print time.",
+      "effect": "Different patterns redirect material and change intersections and travel; they do not guarantee equal strength at equal nominal density.",
+      "interactions": [
+        "fill angle",
+        "density or spacing",
+        "wall overlap"
+      ],
+      "caution": "An available pattern is not necessarily appropriate for unsupported bridging or continuous fibre. Inspect its actual paths.",
+      "options": [
+        {
+          "label": "Line",
+          "meaning": "Parallel straight fill paths. A simple directional fill; spacing and angle determine coverage.",
+          "source_label_key": "infill-p-cellular-fill-type.line"
+        },
+        {
+          "label": "Grid",
+          "meaning": "Crossing line families forming a grid. This gives connections in more than one direction but creates intersections.",
+          "source_label_key": "infill-p-cellular-fill-type.grid"
+        },
+        {
+          "label": "Triangles",
+          "meaning": "Three-direction line families forming triangular cells. Intersections and orientation affect the resulting structure and print behavior.",
+          "source_label_key": "infill-p-cellular-fill-type.triangles"
+        },
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill joined where the geometry permits. It reduces separate line starts compared with disconnected lines.",
+          "source_label_key": "infill-p-cellular-fill-type.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners.",
+          "source_label_key": "infill-p-cellular-fill-type.concentric"
+        },
+        {
+          "label": "Honeycomb",
+          "meaning": "A cellular pattern based on hexagonal cells. It creates repeated cell walls rather than long parallel fill lines.",
+          "source_label_key": "infill-p-cellular-fill-type.honeycomb"
+        },
+        {
+          "label": "Tri-Hexagon",
+          "meaning": "A pattern combining triangular and hexagonal regions. It changes cell geometry compared with a simple grid or honeycomb.",
+          "source_label_key": "infill-p-cellular-fill-type.trihexagon"
+        },
+        {
+          "label": "Gyroid",
+          "meaning": "A smoothly varying three-dimensional periodic infill pattern. Layer shapes change through the height rather than repeating one flat grid.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmsgyroid"
+        },
+        {
+          "label": "3D Honeycomb",
+          "meaning": "A honeycomb-style cellular structure that changes through the height. Inspect successive layers rather than judging it from one layer.",
+          "source_label_key": "infill-p-cellular-fill-type.threedhoneycomb"
+        },
+        {
+          "label": "Cubic",
+          "meaning": "A three-dimensional, cube-derived lattice. Its cross-section changes with height and distributes paths across several directions.",
+          "source_label_key": "infill-p-cellular-fill-type.cubic"
+        },
+        {
+          "label": "Crosshatch",
+          "meaning": "A crossing-line hatch pattern. It changes the line arrangement and junction layout; compare the actual paths with Grid before choosing.",
+          "source_label_key": "infill-p-cellular-fill-type.crosshatch"
+        },
+        {
+          "label": "Diamond",
+          "meaning": "A diamond-type triply periodic surface pattern: a repeating curved three-dimensional structure, not ordinary diamond-shaped straight ribs.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmsdiamond"
+        },
+        {
+          "label": "TPMS-FK",
+          "meaning": "The installed FK-named triply periodic surface option. It creates a repeating three-dimensional curved pattern; its exact parameterization is not established by the label.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmsfk"
+        },
+        {
+          "label": "Primitive",
+          "meaning": "The Primitive-named triply periodic surface pattern, a repeating three-dimensional cell-and-connection geometry. It is distinct from adding a primitive model object.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmsprimitive"
+        },
+        {
+          "label": "Neovius",
+          "meaning": "The Neovius-named triply periodic surface pattern. It offers a different repeating curved cell geometry; inspect channels and wall paths at the selected density.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmsneovius"
+        },
+        {
+          "label": "Lidinoid",
+          "meaning": "The Lidinoid-named triply periodic surface pattern. It offers another repeating curved three-dimensional geometry; density alone does not establish its strength.",
+          "source_label_key": "infill-p-cellular-fill-type.tpmslidinoid"
+        },
+        {
+          "label": "Hilbert Curve",
+          "meaning": "A winding, space-filling path with many right-angle turns. It produces a distinctive surface texture rather than a simple straight-line finish.",
+          "source_label_key": "infill-p-cellular-fill-type.hilbertcurve"
+        },
+        {
+          "label": "Archimedean Chords",
+          "meaning": "A curved, spiral-derived fill layout. It changes the direction and visual texture of the fill; inspect the actual clipped paths.",
+          "source_label_key": "infill-p-cellular-fill-type.archimedeanchords"
+        },
+        {
+          "label": "Octagram Spiral",
+          "meaning": "A star-like spiral fill layout. Its repeated turns give a distinctive path and surface pattern, not a guaranteed strength advantage.",
+          "source_label_key": "infill-p-cellular-fill-type.octagramspiral"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPCellularSpeed": {
+      "meaning": "Requested printing speed for sparse plastic infill inside the part.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroEWMM": {
+      "meaning": "Planned bead width for Rocket's micro plastic infill.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroExtrusionMultP": {
+      "meaning": "Scales plastic deposition for Rocket's micro plastic infill.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroFillAngle": {
+      "meaning": "Initial direction of fill lines for Rocket's micro plastic infill.",
+      "when_to_change": "Change when line direction should suit a bridge span, surface appearance or load direction.",
+      "effect": "Rotates the pattern rather than making it denser; a different angle changes where lines meet walls.",
+      "interactions": [
+        "fill pattern",
+        "model orientation",
+        "angle increment"
+      ],
+      "caution": "Patterns that are rotationally symmetric may respond differently. Confirm the selected region in Preview. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroFillPattern": {
+      "meaning": "Shape of the paths used for Rocket's micro plastic infill.",
+      "when_to_change": "Choose for support, directionality, appearance and practical print time.",
+      "effect": "Different patterns redirect material and change intersections and travel; they do not guarantee equal strength at equal nominal density.",
+      "interactions": [
+        "fill angle",
+        "density or spacing",
+        "wall overlap"
+      ],
+      "caution": "An available pattern is not necessarily appropriate for unsupported bridging or continuous fibre. Inspect its actual paths. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [
+        {
+          "label": "Zigzag",
+          "meaning": "Back-and-forth fill joined where the geometry permits. It reduces separate line starts compared with disconnected lines.",
+          "source_label_key": "infill-p-micro-fill-pattern.zigzag"
+        },
+        {
+          "label": "Concentric",
+          "meaning": "Nested paths following the region's outline. Useful when following contours matters; inspect narrow centers and corners.",
+          "source_label_key": "infill-p-micro-fill-pattern.concentric"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroInfillExtendIntoPerimeterRatio": {
+      "meaning": "Overlap where Rocket's micro plastic infill meets surrounding walls.",
+      "when_to_change": "Adjust when the fill-to-wall joint has gaps or causes visible wall bulges.",
+      "effect": "More overlap improves contact but can overpack the boundary; less overlap eases packing but may weaken the joint.",
+      "interactions": [
+        "wall width",
+        "fill width",
+        "flow"
+      ],
+      "caution": "Overlap is not a substitute for correct extrusion. Evaluate both the interior joint and the outside surface. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPMicroSpeed": {
+      "meaning": "Requested printing speed for Rocket's micro plastic infill.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule. The exact regions assigned to micro infill are not established by the field label; identify them in preview.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillPSolidBottomTopLayerCount": {
+      "meaning": "The combined top/bottom solid-layer count exposed for a full-mask override.",
+      "when_to_change": "Use when a full mask should change the solid skin around its affected region.",
+      "effect": "More solid layers generally create a thicker solid region at a given layer height; fewer reduce its material and coverage.",
+      "interactions": [
+        "Full mask",
+        "Process top and bottom solid counts",
+        "Layer height"
+      ],
+      "caution": "The installed declaration ties this control to Full mask. Inspect the affected region; do not assume it replaces every process-wide skin count.",
+      "options": [],
+      "status": "Installed full-mask dependency confirmed; override interaction and emitted region require preview"
+    },
+    "profile-settings:infillRatioToMacro": {
+      "meaning": "The displayed infill layer height, derived from the overall layer schedule.",
+      "when_to_change": "Change when intentionally using a different vertical resolution for this path family.",
+      "effect": "A larger displayed height gives coarser layers and may reduce passes; a smaller displayed height gives finer layers and more passes.",
+      "interactions": [
+        "Macro layer height",
+        "Other path-family heights",
+        "Nozzle and material"
+      ],
+      "caution": "The UI formats an internal ratio as millimetres. Tune the displayed height, not the raw ratio, and verify layers remain compatible.",
+      "options": [],
+      "status": "Installed millimetre label and macro-height formatting confirmed; emitted layer scheduling not validated"
+    },
+    "profile-settings:infillSBottomLayerCount": {
+      "meaning": "The number of solid layers used at the bottom of the plastic shell.",
+      "when_to_change": "Change when the bottom surface lacks coverage or uses more material than needed.",
+      "effect": "More layers make a thicker solid region at a given layer height; fewer make it thinner.",
+      "interactions": [
+        "Layer height",
+        "Sparse infill support",
+        "Bottom skin flow and pattern"
+      ],
+      "caution": "A count is not a fixed physical thickness; layer-height changes alter the result.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:infillSTopLayerCount": {
+      "meaning": "The number of solid layers used at the top of the plastic shell.",
+      "when_to_change": "Change when the top surface lacks coverage or uses more material than needed.",
+      "effect": "More layers make a thicker solid region at a given layer height; fewer make it thinner.",
+      "interactions": [
+        "Layer height",
+        "Sparse infill support",
+        "Top skin flow and pattern"
+      ],
+      "caution": "A count is not a fixed physical thickness; layer-height changes alter the result.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:inset0Count": {
+      "meaning": "The number of outer plastic wall loops.",
+      "when_to_change": "Increase for a more substantial wall shell; reduce only when the part can tolerate a thinner shell.",
+      "effect": "More loops use more material and occupy more interior space; fewer leave a thinner shell.",
+      "interactions": [
+        "Outer wall line width",
+        "Inner and fibre walls",
+        "Part geometry"
+      ],
+      "caution": "More loops do not guarantee dimensions or strength; verify that thin features and intended infill still fit.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:inset0EWMM": {
+      "meaning": "Planned bead width for outer plastic walls.",
+      "when_to_change": "Adjust when adjacent lines fail to meet or the region cannot be filled cleanly.",
+      "effect": "Wider lines cover more space and require more plastic per distance; narrower lines fit finer details but may leave weak coverage.",
+      "interactions": [
+        "layer height",
+        "flow multiplier",
+        "nozzle geometry"
+      ],
+      "caution": "This is commanded line width, not physical nozzle diameter. Verify the sliced paths.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:inset0ExtrusionMultP": {
+      "meaning": "Scales plastic deposition for outer plastic walls.",
+      "when_to_change": "Use after the material's overall flow has been tuned, if this region alone remains overfilled or underfilled.",
+      "effect": "Higher values add plastic; lower values remove it without deliberately changing the model's dimensions.",
+      "interactions": [
+        "material flow",
+        "extrusion width",
+        "temperature"
+      ],
+      "caution": "Do not use a local multiplier to hide a blocked nozzle, moisture or wrong layer geometry.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:inset0PrintOrder": {
+      "meaning": "Chooses whether the outer-wall sequence proceeds from the outside inward or from the inside outward.",
+      "when_to_change": "Compare when exterior finish, dimensional consistency or overhang support needs attention.",
+      "effect": "The order changes which neighboring lines exist when a wall is laid down.",
+      "interactions": [
+        "Wall count",
+        "Overhangs",
+        "Fibre printing order"
+      ],
+      "caution": "No order is best for every shape. Inspect supported and unsupported outer contours separately.",
+      "options": [
+        {
+          "label": "Outside in",
+          "meaning": "Prints the outside wall first, then proceeds inward. This changes dimensional control and the support available beneath an overhanging outside line.",
+          "source_label_key": "profile-settings.inset0-print-order.outside-in"
+        },
+        {
+          "label": "Inside out",
+          "meaning": "Prints inner wall paths before the outside wall. Existing inner lines may support the outside line but can also influence its final position.",
+          "source_label_key": "profile-settings.inset0-print-order.inside-out"
+        }
+      ],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:inset0RatioToMacro": {
+      "meaning": "The displayed outer wall layer height, derived from the overall layer schedule.",
+      "when_to_change": "Change when intentionally using a different vertical resolution for this path family.",
+      "effect": "A larger displayed height gives coarser layers and may reduce passes; a smaller displayed height gives finer layers and more passes.",
+      "interactions": [
+        "Macro layer height",
+        "Other path-family heights",
+        "Nozzle and material"
+      ],
+      "caution": "The UI formats an internal ratio as millimetres. Tune the displayed height, not the raw ratio, and verify layers remain compatible.",
+      "options": [],
+      "status": "Installed millimetre label and macro-height formatting confirmed; emitted layer scheduling not validated"
+    },
+    "profile-settings:inset0Speed": {
+      "meaning": "Requested printing speed for outer plastic walls.",
+      "when_to_change": "Change to balance that region's finish, bonding and print time.",
+      "effect": "Higher requests can shorten time but increase flow demand; lower requests can improve control but may increase heat exposure.",
+      "interactions": [
+        "volumetric capacity",
+        "acceleration",
+        "cooling"
+      ],
+      "caution": "Requested speed may be reduced by other limits. Preview and emitted output determine the actual schedule.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    },
+    "profile-settings:insetFInnerCount": {
+      "meaning": "The number of inner continuous-fibre perimeter loops, shown as 'F. Inner'.",
+      "when_to_change": "Change only when the reinforcement design calls for more or fewer inner contour loops.",
+      "effect": "More loops occupy more interior space and add fibre; fewer reduce contour reinforcement and material use.",
+      "interactions": [
+        "Generate fiber perimeters",
+        "Fibre line width",
+        "Matrix walls and fibre infill"
+      ],
+      "caution": "This is a fibre-loop count, not ordinary plastic wall count. Verify curves, anchoring and available space.",
+      "options": [],
+      "status": "Installed field declaration; plain-language functional interpretation; emitted behavior not validated"
+    }
+  }
+}
